@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="trackingFULLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="250" />
+          <Property Name="ubicacion" Type="nchar" MaxLength="10" />
+          <Property Name="envioDomicilio" Type="bit" />
+          <Property Name="idEmpresa" Type="int" />
+          <Property Name="borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="nombreCompleto" Type="varchar" MaxLength="250" />
+          <Property Name="telefono" Type="varchar" MaxLength="250" />
+          <Property Name="numeroDocumento" Type="varchar" MaxLength="250" />
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="10" />
+          <Property Name="borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Paquete">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="250" />
+          <Property Name="IdTrayecto" Type="int" />
+          <Property Name="idRemitente" Type="int" />
+          <Property Name="idDestinatario" Type="int" />
+          <Property Name="fechaIngreso" Type="datetime" />
+          <Property Name="fechaEntrega" Type="datetime" />
+          <Property Name="borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="PaquetePuntoControl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idPaquete" Type="int" />
+          <Property Name="idPuntocontrolviejo" Type="int" />
+          <Property Name="idPuntocontrolnuevo" Type="int" />
+          <Property Name="fechaLlegada" Type="datetime" />
+          <Property Name="idEmpleado" Type="int" />
+          <Property Name="borrado" Type="bit" />
+          <Property Name="retraso" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PuntoControl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idTrayecto" Type="int" />
+          <Property Name="idAgencia" Type="int" />
+          <Property Name="orden" Type="int" />
+          <Property Name="tiempo" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Trayecto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="version" Type="int" />
+          <Property Name="borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="250" />
+          <Property Name="password" Type="varchar" MaxLength="250" />
+          <Property Name="rol" Type="varchar" MaxLength="50" />
+          <Property Name="borrado" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Agencia_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Agencia" Type="Self.Agencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Agencia">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paquete_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paquete">
+              <PropertyRef Name="idRemitente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paquete_Cliente1">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paquete">
+              <PropertyRef Name="idDestinatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paquete_Trayecto">
+          <End Role="Trayecto" Type="Self.Trayecto" Multiplicity="0..1" />
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trayecto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paquete">
+              <PropertyRef Name="IdTrayecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_Paquete">
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paquete">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idPaquete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_PuntoControl">
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoControl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idPuntocontrolviejo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_PuntoControl1">
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoControl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idPuntocontrolnuevo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PuntoControl_Agencia">
+          <End Role="Agencia" Type="Self.Agencia" Multiplicity="0..1" />
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PuntoControl">
+              <PropertyRef Name="idAgencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PuntoControl_Trayecto">
+          <End Role="Trayecto" Type="Self.Trayecto" Multiplicity="0..1" />
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trayecto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PuntoControl">
+              <PropertyRef Name="idTrayecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="trackingFULLModelStoreContainer">
+          <EntitySet Name="Agencia" EntityType="Self.Agencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paquete" EntityType="Self.Paquete" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaquetePuntoControl" EntityType="Self.PaquetePuntoControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PuntoControl" EntityType="Self.PuntoControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trayecto" EntityType="Self.Trayecto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Agencia_Empresa" Association="Self.FK_Agencia_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Agencia" EntitySet="Agencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paquete_Cliente" Association="Self.FK_Paquete_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Paquete" EntitySet="Paquete" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paquete_Cliente1" Association="Self.FK_Paquete_Cliente1">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Paquete" EntitySet="Paquete" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paquete_Trayecto" Association="Self.FK_Paquete_Trayecto">
+            <End Role="Trayecto" EntitySet="Trayecto" />
+            <End Role="Paquete" EntitySet="Paquete" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_Paquete" Association="Self.FK_PaquetePuntoControl_Paquete">
+            <End Role="Paquete" EntitySet="Paquete" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl" Association="Self.FK_PaquetePuntoControl_PuntoControl">
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl1" Association="Self.FK_PaquetePuntoControl_PuntoControl1">
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_Usuario" Association="Self.FK_PaquetePuntoControl_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PuntoControl_Agencia" Association="Self.FK_PuntoControl_Agencia">
+            <End Role="Agencia" EntitySet="Agencia" />
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PuntoControl_Trayecto" Association="Self.FK_PuntoControl_Trayecto">
+            <End Role="Trayecto" EntitySet="Trayecto" />
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="trackingFULLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agencia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ubicacion" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="envioDomicilio" Type="Boolean" />
+          <Property Name="idEmpresa" Type="Int32" />
+          <Property Name="borrado" Type="Boolean" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_Agencia_Empresa" FromRole="Agencia" ToRole="Empresa" />
+          <NavigationProperty Name="PuntoControl" Relationship="Self.FK_PuntoControl_Agencia" FromRole="Agencia" ToRole="PuntoControl" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombreCompleto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="numeroDocumento" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="tipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="borrado" Type="Boolean" />
+          <NavigationProperty Name="Paquete" Relationship="Self.FK_Paquete_Cliente" FromRole="Cliente" ToRole="Paquete" />
+          <NavigationProperty Name="Paquete1" Relationship="Self.FK_Paquete_Cliente1" FromRole="Cliente" ToRole="Paquete" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="borrado" Type="Boolean" />
+          <NavigationProperty Name="Agencia" Relationship="Self.FK_Agencia_Empresa" FromRole="Empresa" ToRole="Agencia" />
+        </EntityType>
+        <EntityType Name="Paquete">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdTrayecto" Type="Int32" />
+          <Property Name="idRemitente" Type="Int32" />
+          <Property Name="idDestinatario" Type="Int32" />
+          <Property Name="fechaIngreso" Type="DateTime" Precision="3" />
+          <Property Name="fechaEntrega" Type="DateTime" Precision="3" />
+          <Property Name="borrado" Type="Boolean" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Paquete_Cliente" FromRole="Paquete" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente1" Relationship="Self.FK_Paquete_Cliente1" FromRole="Paquete" ToRole="Cliente" />
+          <NavigationProperty Name="Trayecto" Relationship="Self.FK_Paquete_Trayecto" FromRole="Paquete" ToRole="Trayecto" />
+          <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_Paquete" FromRole="Paquete" ToRole="PaquetePuntoControl" />
+        </EntityType>
+        <EntityType Name="PaquetePuntoControl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idPaquete" Type="Int32" />
+          <Property Name="idPuntocontrolviejo" Type="Int32" />
+          <Property Name="idPuntocontrolnuevo" Type="Int32" />
+          <Property Name="fechaLlegada" Type="DateTime" Precision="3" />
+          <Property Name="idEmpleado" Type="Int32" />
+          <Property Name="borrado" Type="Boolean" />
+          <Property Name="retraso" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Paquete" Relationship="Self.FK_PaquetePuntoControl_Paquete" FromRole="PaquetePuntoControl" ToRole="Paquete" />
+          <NavigationProperty Name="PuntoControl" Relationship="Self.FK_PaquetePuntoControl_PuntoControl" FromRole="PaquetePuntoControl" ToRole="PuntoControl" />
+          <NavigationProperty Name="PuntoControl1" Relationship="Self.FK_PaquetePuntoControl_PuntoControl1" FromRole="PaquetePuntoControl" ToRole="PuntoControl" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_PaquetePuntoControl_Usuario" FromRole="PaquetePuntoControl" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="PuntoControl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="idTrayecto" Type="Int32" />
+          <Property Name="idAgencia" Type="Int32" />
+          <Property Name="orden" Type="Int32" />
+          <Property Name="tiempo" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="borrado" Type="Boolean" />
+          <NavigationProperty Name="Agencia" Relationship="Self.FK_PuntoControl_Agencia" FromRole="PuntoControl" ToRole="Agencia" />
+          <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_PuntoControl" FromRole="PuntoControl" ToRole="PaquetePuntoControl" />
+          <NavigationProperty Name="PaquetePuntoControl1" Relationship="Self.FK_PaquetePuntoControl_PuntoControl1" FromRole="PuntoControl" ToRole="PaquetePuntoControl" />
+          <NavigationProperty Name="Trayecto" Relationship="Self.FK_PuntoControl_Trayecto" FromRole="PuntoControl" ToRole="Trayecto" />
+        </EntityType>
+        <EntityType Name="Trayecto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="borrado" Type="Boolean" />
+          <NavigationProperty Name="Paquete" Relationship="Self.FK_Paquete_Trayecto" FromRole="Trayecto" ToRole="Paquete" />
+          <NavigationProperty Name="PuntoControl" Relationship="Self.FK_PuntoControl_Trayecto" FromRole="Trayecto" ToRole="PuntoControl" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="borrado" Type="Boolean" />
+          <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_Usuario" FromRole="Usuario" ToRole="PaquetePuntoControl" />
+        </EntityType>
+        <Association Name="FK_Agencia_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Agencia" Type="Self.Agencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Agencia">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PuntoControl_Agencia">
+          <End Role="Agencia" Type="Self.Agencia" Multiplicity="0..1" />
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agencia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PuntoControl">
+              <PropertyRef Name="idAgencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paquete_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paquete">
+              <PropertyRef Name="idRemitente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paquete_Cliente1">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paquete">
+              <PropertyRef Name="idDestinatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paquete_Trayecto">
+          <End Role="Trayecto" Type="Self.Trayecto" Multiplicity="0..1" />
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trayecto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Paquete">
+              <PropertyRef Name="IdTrayecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_Paquete">
+          <End Role="Paquete" Type="Self.Paquete" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paquete">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idPaquete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_PuntoControl">
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoControl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idPuntocontrolviejo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_PuntoControl1">
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PuntoControl">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idPuntocontrolnuevo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaquetePuntoControl_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PaquetePuntoControl">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PuntoControl_Trayecto">
+          <End Role="Trayecto" Type="Self.Trayecto" Multiplicity="0..1" />
+          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trayecto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PuntoControl">
+              <PropertyRef Name="idTrayecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="trackingFULLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agencia" EntityType="Self.Agencia" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+          <EntitySet Name="Paquete" EntityType="Self.Paquete" />
+          <EntitySet Name="PaquetePuntoControl" EntityType="Self.PaquetePuntoControl" />
+          <EntitySet Name="PuntoControl" EntityType="Self.PuntoControl" />
+          <EntitySet Name="Trayecto" EntityType="Self.Trayecto" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Agencia_Empresa" Association="Self.FK_Agencia_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Agencia" EntitySet="Agencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PuntoControl_Agencia" Association="Self.FK_PuntoControl_Agencia">
+            <End Role="Agencia" EntitySet="Agencia" />
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paquete_Cliente" Association="Self.FK_Paquete_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Paquete" EntitySet="Paquete" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paquete_Cliente1" Association="Self.FK_Paquete_Cliente1">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Paquete" EntitySet="Paquete" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paquete_Trayecto" Association="Self.FK_Paquete_Trayecto">
+            <End Role="Trayecto" EntitySet="Trayecto" />
+            <End Role="Paquete" EntitySet="Paquete" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_Paquete" Association="Self.FK_PaquetePuntoControl_Paquete">
+            <End Role="Paquete" EntitySet="Paquete" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl" Association="Self.FK_PaquetePuntoControl_PuntoControl">
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl1" Association="Self.FK_PaquetePuntoControl_PuntoControl1">
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaquetePuntoControl_Usuario" Association="Self.FK_PaquetePuntoControl_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PuntoControl_Trayecto" Association="Self.FK_PuntoControl_Trayecto">
+            <End Role="Trayecto" EntitySet="Trayecto" />
+            <End Role="PuntoControl" EntitySet="PuntoControl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="trackingFULLModelStoreContainer" CdmEntityContainer="trackingFULLEntities">
+          <EntitySetMapping Name="Agencia">
+            <EntityTypeMapping TypeName="trackingFULLModel.Agencia">
+              <MappingFragment StoreEntitySet="Agencia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="envioDomicilio" ColumnName="envioDomicilio" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="trackingFULLModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nombreCompleto" ColumnName="nombreCompleto" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="trackingFULLModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paquete">
+            <EntityTypeMapping TypeName="trackingFULLModel.Paquete">
+              <MappingFragment StoreEntitySet="Paquete">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="IdTrayecto" ColumnName="IdTrayecto" />
+                <ScalarProperty Name="idRemitente" ColumnName="idRemitente" />
+                <ScalarProperty Name="idDestinatario" ColumnName="idDestinatario" />
+                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
+                <ScalarProperty Name="fechaEntrega" ColumnName="fechaEntrega" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaquetePuntoControl">
+            <EntityTypeMapping TypeName="trackingFULLModel.PaquetePuntoControl">
+              <MappingFragment StoreEntitySet="PaquetePuntoControl">
+                <ScalarProperty Name="idPaquete" ColumnName="idPaquete" />
+                <ScalarProperty Name="idPuntocontrolviejo" ColumnName="idPuntocontrolviejo" />
+                <ScalarProperty Name="idPuntocontrolnuevo" ColumnName="idPuntocontrolnuevo" />
+                <ScalarProperty Name="fechaLlegada" ColumnName="fechaLlegada" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+                <ScalarProperty Name="retraso" ColumnName="retraso" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PuntoControl">
+            <EntityTypeMapping TypeName="trackingFULLModel.PuntoControl">
+              <MappingFragment StoreEntitySet="PuntoControl">
+                <ScalarProperty Name="idTrayecto" ColumnName="idTrayecto" />
+                <ScalarProperty Name="idAgencia" ColumnName="idAgencia" />
+                <ScalarProperty Name="orden" ColumnName="orden" />
+                <ScalarProperty Name="tiempo" ColumnName="tiempo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trayecto">
+            <EntityTypeMapping TypeName="trackingFULLModel.Trayecto">
+              <MappingFragment StoreEntitySet="Trayecto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="trackingFULLModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
