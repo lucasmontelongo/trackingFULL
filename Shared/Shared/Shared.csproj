@@ -42,10 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities\Agencia.cs" />
+    <Compile Include="Entities\Cliente.cs" />
+    <Compile Include="Entities\Empresa.cs" />
+    <Compile Include="Entities\Paquete.cs" />
+    <Compile Include="Entities\PaquetePuntoControl.cs" />
+    <Compile Include="Entities\PuntoControl.cs" />
+    <Compile Include="Entities\Trayecto.cs" />
+    <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
