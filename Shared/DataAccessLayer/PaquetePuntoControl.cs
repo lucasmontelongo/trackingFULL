@@ -15,8 +15,7 @@ namespace DataAccessLayer
     public partial class PaquetePuntoControl
     {
         public Nullable<int> idPaquete { get; set; }
-        public Nullable<int> idPuntocontrolviejo { get; set; }
-        public Nullable<int> idPuntocontrolnuevo { get; set; }
+        public Nullable<int> idPuntoControl { get; set; }
         public Nullable<System.DateTime> fechaLlegada { get; set; }
         public Nullable<int> idEmpleado { get; set; }
         public Nullable<bool> borrado { get; set; }
@@ -25,7 +24,6 @@ namespace DataAccessLayer
     
         public virtual Paquete Paquete { get; set; }
         public virtual PuntoControl PuntoControl { get; set; }
-        public virtual PuntoControl PuntoControl1 { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

@@ -56,9 +56,13 @@
     <Compile Include="Cliente.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\DALAgencia.cs" />
+    <Compile Include="DAL\DALEmpresa.cs" />
     <Compile Include="Empresa.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IDALAgencia.cs" />
+    <Compile Include="Interfaces\IDALEmpresa.cs" />
     <Compile Include="Interfaces\IDALUsuario.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -105,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{d5f2ae18-8c09-41d8-8989-81bb8eee8a99}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model.Context.tt">

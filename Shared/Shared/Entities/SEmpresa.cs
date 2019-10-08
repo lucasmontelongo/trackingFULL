@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Shared.Entities
 {
-    public class Usuario
+    public class SEmpresa
     {
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Rol { get; set; }
+        public string Nombre { get; set; }
         public bool Borrado { get; set; }
 
-        public List<PaquetePuntoControl> ListaPaquetePuntoControl { get; set; }
+        //Coleccion de agencias que tiene la empresa
+        public List<SAgencia> ListaAgencias { get; set; }
     }
 }

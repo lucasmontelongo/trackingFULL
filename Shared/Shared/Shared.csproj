@@ -42,14 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Entities\Agencia.cs" />
-    <Compile Include="Entities\Cliente.cs" />
-    <Compile Include="Entities\Empresa.cs" />
-    <Compile Include="Entities\Paquete.cs" />
-    <Compile Include="Entities\PaquetePuntoControl.cs" />
-    <Compile Include="Entities\PuntoControl.cs" />
-    <Compile Include="Entities\Trayecto.cs" />
-    <Compile Include="Entities\Usuario.cs" />
+    <Compile Include="Entities\SAgencia.cs" />
+    <Compile Include="Entities\SCliente.cs" />
+    <Compile Include="Entities\SEmpresa.cs" />
+    <Compile Include="Entities\SPaquete.cs" />
+    <Compile Include="Entities\SPaquetePuntoControl.cs" />
+    <Compile Include="Entities\SPuntoControl.cs" />
+    <Compile Include="Entities\STrayecto.cs" />
+    <Compile Include="Entities\SUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

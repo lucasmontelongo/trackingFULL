@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Entities
 {
-    public class PuntoControl
+    public class SPuntoControl
     {
         public int Id { get; set; }
         public int Orden { get; set; }
@@ -15,6 +15,7 @@ namespace Shared.Entities
         public int IdTrayecto { get; set; }
         public bool Borrado { get; set; }
 
-        public List<PaquetePuntoControl> ListaPaquetePuntoControl { get; set; }
+        //Coleccion de paquetes que han pasado por este punto de control
+        public List<SPaquetePuntoControl> ListaPaquetePuntoControl { get; set; }
     }
 }

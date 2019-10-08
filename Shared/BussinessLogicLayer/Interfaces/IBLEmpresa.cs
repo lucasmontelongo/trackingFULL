@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.Entities;
 
-namespace DataAccessLayer.Interfaces
+namespace BussinessLogicLayer.Interfaces
 {
-    public interface IDALUsuario
+    public interface IBLEmpresa
     {
-        
+        void addEmpresa(SEmpresa emp);
     }
 }

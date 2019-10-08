@@ -18,7 +18,6 @@ namespace DataAccessLayer
         public PuntoControl()
         {
             this.PaquetePuntoControl = new HashSet<PaquetePuntoControl>();
-            this.PaquetePuntoControl1 = new HashSet<PaquetePuntoControl>();
         }
     
         public Nullable<int> idTrayecto { get; set; }
@@ -31,8 +30,6 @@ namespace DataAccessLayer
         public virtual Agencia Agencia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaquetePuntoControl> PaquetePuntoControl { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PaquetePuntoControl> PaquetePuntoControl1 { get; set; }
         public virtual Trayecto Trayecto { get; set; }
     }
 }

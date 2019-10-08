@@ -11,7 +11,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="250" />
-          <Property Name="ubicacion" Type="nchar" MaxLength="10" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="200" />
           <Property Name="envioDomicilio" Type="bit" />
           <Property Name="idEmpresa" Type="int" />
           <Property Name="borrado" Type="bit" />
@@ -33,7 +33,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="nchar" MaxLength="10" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
           <Property Name="borrado" Type="bit" />
         </EntityType>
         <EntityType Name="Paquete">
@@ -54,8 +54,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="idPaquete" Type="int" />
-          <Property Name="idPuntocontrolviejo" Type="int" />
-          <Property Name="idPuntocontrolnuevo" Type="int" />
+          <Property Name="idPuntoControl" Type="int" />
           <Property Name="fechaLlegada" Type="datetime" />
           <Property Name="idEmpleado" Type="int" />
           <Property Name="borrado" Type="bit" />
@@ -152,7 +151,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaquetePuntoControl_PuntoControl">
+        <Association Name="FK_PaquetePuntoControl_PuntoControl2">
           <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
           <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -160,19 +159,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="PaquetePuntoControl">
-              <PropertyRef Name="idPuntocontrolviejo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaquetePuntoControl_PuntoControl1">
-          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
-          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PuntoControl">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PaquetePuntoControl">
-              <PropertyRef Name="idPuntocontrolnuevo" />
+              <PropertyRef Name="idPuntoControl" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -241,11 +228,7 @@
             <End Role="Paquete" EntitySet="Paquete" />
             <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl" Association="Self.FK_PaquetePuntoControl_PuntoControl">
-            <End Role="PuntoControl" EntitySet="PuntoControl" />
-            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl1" Association="Self.FK_PaquetePuntoControl_PuntoControl1">
+          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl2" Association="Self.FK_PaquetePuntoControl_PuntoControl2">
             <End Role="PuntoControl" EntitySet="PuntoControl" />
             <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
           </AssociationSet>
@@ -273,7 +256,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ubicacion" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ubicacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="envioDomicilio" Type="Boolean" />
           <Property Name="idEmpresa" Type="Int32" />
           <Property Name="borrado" Type="Boolean" />
@@ -299,7 +282,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="borrado" Type="Boolean" />
           <NavigationProperty Name="Agencia" Relationship="Self.FK_Agencia_Empresa" FromRole="Empresa" ToRole="Agencia" />
         </EntityType>
@@ -325,16 +308,14 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="idPaquete" Type="Int32" />
-          <Property Name="idPuntocontrolviejo" Type="Int32" />
-          <Property Name="idPuntocontrolnuevo" Type="Int32" />
+          <Property Name="idPuntoControl" Type="Int32" />
           <Property Name="fechaLlegada" Type="DateTime" Precision="3" />
           <Property Name="idEmpleado" Type="Int32" />
           <Property Name="borrado" Type="Boolean" />
           <Property Name="retraso" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Paquete" Relationship="Self.FK_PaquetePuntoControl_Paquete" FromRole="PaquetePuntoControl" ToRole="Paquete" />
-          <NavigationProperty Name="PuntoControl" Relationship="Self.FK_PaquetePuntoControl_PuntoControl" FromRole="PaquetePuntoControl" ToRole="PuntoControl" />
-          <NavigationProperty Name="PuntoControl1" Relationship="Self.FK_PaquetePuntoControl_PuntoControl1" FromRole="PaquetePuntoControl" ToRole="PuntoControl" />
+          <NavigationProperty Name="PuntoControl" Relationship="Self.FK_PaquetePuntoControl_PuntoControl2" FromRole="PaquetePuntoControl" ToRole="PuntoControl" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_PaquetePuntoControl_Usuario" FromRole="PaquetePuntoControl" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="PuntoControl">
@@ -348,8 +329,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="borrado" Type="Boolean" />
           <NavigationProperty Name="Agencia" Relationship="Self.FK_PuntoControl_Agencia" FromRole="PuntoControl" ToRole="Agencia" />
-          <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_PuntoControl" FromRole="PuntoControl" ToRole="PaquetePuntoControl" />
-          <NavigationProperty Name="PaquetePuntoControl1" Relationship="Self.FK_PaquetePuntoControl_PuntoControl1" FromRole="PuntoControl" ToRole="PaquetePuntoControl" />
+          <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_PuntoControl2" FromRole="PuntoControl" ToRole="PaquetePuntoControl" />
           <NavigationProperty Name="Trayecto" Relationship="Self.FK_PuntoControl_Trayecto" FromRole="PuntoControl" ToRole="Trayecto" />
         </EntityType>
         <EntityType Name="Trayecto">
@@ -446,7 +426,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaquetePuntoControl_PuntoControl">
+        <Association Name="FK_PaquetePuntoControl_PuntoControl2">
           <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
           <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -454,19 +434,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="PaquetePuntoControl">
-              <PropertyRef Name="idPuntocontrolviejo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaquetePuntoControl_PuntoControl1">
-          <End Role="PuntoControl" Type="Self.PuntoControl" Multiplicity="0..1" />
-          <End Role="PaquetePuntoControl" Type="Self.PaquetePuntoControl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PuntoControl">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PaquetePuntoControl">
-              <PropertyRef Name="idPuntocontrolnuevo" />
+              <PropertyRef Name="idPuntoControl" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -527,11 +495,7 @@
             <End Role="Paquete" EntitySet="Paquete" />
             <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl" Association="Self.FK_PaquetePuntoControl_PuntoControl">
-            <End Role="PuntoControl" EntitySet="PuntoControl" />
-            <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl1" Association="Self.FK_PaquetePuntoControl_PuntoControl1">
+          <AssociationSet Name="FK_PaquetePuntoControl_PuntoControl2" Association="Self.FK_PaquetePuntoControl_PuntoControl2">
             <End Role="PuntoControl" EntitySet="PuntoControl" />
             <End Role="PaquetePuntoControl" EntitySet="PaquetePuntoControl" />
           </AssociationSet>
@@ -602,8 +566,7 @@
             <EntityTypeMapping TypeName="trackingFULLModel.PaquetePuntoControl">
               <MappingFragment StoreEntitySet="PaquetePuntoControl">
                 <ScalarProperty Name="idPaquete" ColumnName="idPaquete" />
-                <ScalarProperty Name="idPuntocontrolviejo" ColumnName="idPuntocontrolviejo" />
-                <ScalarProperty Name="idPuntocontrolnuevo" ColumnName="idPuntocontrolnuevo" />
+                <ScalarProperty Name="idPuntoControl" ColumnName="idPuntoControl" />
                 <ScalarProperty Name="fechaLlegada" ColumnName="fechaLlegada" />
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
                 <ScalarProperty Name="borrado" ColumnName="borrado" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Entities
 {
-    public class Paquete
+    public class SPaquete
     {
         public int Id { get; set; }
         public string Codigo { get; set; }
@@ -16,5 +16,8 @@ namespace Shared.Entities
         public int IdRemitente { get; set; }
         public int IdDestinatario { get; set; }
         public bool Borrado { get; set; }
+
+        //Coleccion de los puntos de control por los que ha pasado el paquete
+        public List<SPaquetePuntoControl> ListaPaquetePuntoControl { get; set; }
     }
 }
