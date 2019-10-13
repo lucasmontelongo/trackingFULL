@@ -59,6 +59,7 @@
     <Compile Include="DAL\Conversiones.cs" />
     <Compile Include="DAL\DALAgencia.cs" />
     <Compile Include="DAL\DALEmpresa.cs" />
+    <Compile Include="DAL\DALUsuario.cs" />
     <Compile Include="Empresa.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
