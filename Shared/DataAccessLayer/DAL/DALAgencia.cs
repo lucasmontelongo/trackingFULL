@@ -9,30 +9,11 @@ namespace DataAccessLayer.DAL
 {
     public class DALAgencia
     {
-        SAgencia modeloAEntidad(Agencia a)
-        {
-            SAgencia agencia = new SAgencia()
-            {
-                Id = a.id,
-                IdEmpresa = (int)a.idEmpresa,
-                Nombre = a.nombre,
-                Ubicacion = a.ubicacion,
-                Borrado = (bool)a.borrado,
-                EnvioDomicilio = (bool)a.envioDomicilio,
-                ListaPuntoControl = null
-            };
-            return agencia;
-        }
+        Conversiones _conv;
 
-        Agencia entidadAModelo(SAgencia a)
+        public DALAgencia()
         {
-            Agencia agencia = new Agencia()
-            {
-                id = a.Id,
-                idEmpresa = a.IdEmpresa,
-                
-            };
-            return null;
+            _conv = new Conversiones();
         }
 
         public List<SAgencia> getAll()
@@ -44,7 +25,7 @@ namespace DataAccessLayer.DAL
                     List<SAgencia> agencias = new List<SAgencia>();
                     en.Agencia.ToList().ForEach(x =>
                     {
-                        agencias.Add(modeloAEntidad(x));
+                        agencias.Add(_conv.modeloAEntidad(x));
                     });
                     return agencias;
                 }

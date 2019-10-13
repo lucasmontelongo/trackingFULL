@@ -21,5 +21,10 @@ namespace BussinessLogicLayer.BL
         {
             return _dal.getAll();
         }
+
+        public void addAgencia()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
