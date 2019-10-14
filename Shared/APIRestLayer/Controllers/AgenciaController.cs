@@ -72,5 +72,19 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [HttpDelete]
+        public IHttpActionResult deleteAgencia(int id)
+        {
+            try
+            {
+                BLAgencia bl = new BLAgencia();
+                return Ok(bl.deleteAgencia(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

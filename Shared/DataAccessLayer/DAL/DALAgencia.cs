@@ -40,7 +40,10 @@ namespace DataAccessLayer.DAL
                     List<SAgencia> agencias = new List<SAgencia>();
                     en.Agencia.ToList().ForEach(x =>
                     {
-                        agencias.Add(_conv.modeloAEntidad(x));
+                        if (x.borrado == false)
+                        {
+                            agencias.Add(_conv.modeloAEntidad(x));
+                        }
                     });
                     return agencias;
                 }
@@ -80,6 +83,26 @@ namespace DataAccessLayer.DAL
                     ag = _conv.entidadAModelo(a, ag);
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public string deleteAgencia(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Agencia a = en.Agencia.Find(id);
+                    a.borrado = true;
+                    en.SaveChanges(); // Que pasa con las demas entidades que tienen a esta agencia como FK????
+
+                    return null;
                 }
                 catch (Exception)
                 {

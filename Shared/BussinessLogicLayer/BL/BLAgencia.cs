@@ -58,5 +58,17 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public string deleteAgencia(int id)
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
