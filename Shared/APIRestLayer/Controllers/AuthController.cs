@@ -11,9 +11,6 @@ using BussinessLogicLayer.BL;
 
 namespace APIRestLayer.Controllers
 {
-    /// <summary>
-    /// login controller class for authenticate users
-    /// </summary>
     [AllowAnonymous]
     [RoutePrefix("api/auth")]
     public class AuthController : ApiController
@@ -57,20 +54,9 @@ namespace APIRestLayer.Controllers
         [Route("google")]
         public IHttpActionResult AuthenticateGoogle(string token)
         {
-            if (login == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            //Algun dia se hara esto
 
-            BLUsuario blusuario = new BLUsuario();
-            string isCredentialValid = blusuario.login(login);
-            if (isCredentialValid == "OK")
-            {
-                var token = TokenGenerator.GenerateTokenJwt(login.Email);
-                return Ok(token);
-            }
-            else
-            {
-                return Unauthorized();
-            }
+            return null;
         }
 
 

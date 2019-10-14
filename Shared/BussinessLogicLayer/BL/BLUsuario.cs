@@ -11,7 +11,7 @@ namespace BussinessLogicLayer.BL
 {
     public class BLUsuario
     {
-        private IDALUsuario _dal;
+        private DALUsuario _dal;
 
         public BLUsuario()
         {
@@ -33,6 +33,18 @@ namespace BussinessLogicLayer.BL
             {
 
                 throw;
+            }
+        }
+
+        public string getRol(string email)
+        {
+            try
+            {
+                return _dal.getRol(email);
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
             }
         }
     }

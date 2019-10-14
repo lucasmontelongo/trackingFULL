@@ -17,14 +17,46 @@ namespace BussinessLogicLayer.BL
             _dal = new DALAgencia();
         }
 
+        public SAgencia getAgencia(int id)
+        {
+            try
+            {
+                return _dal.getAgencia(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public List<SAgencia> getAll()
         {
             return _dal.getAll();
         }
 
-        public void addAgencia()
+        public SAgencia addAgencia(SAgencia a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _dal.addAgencia(a);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
+
+        public SAgencia updateAgencia(SAgencia a)
+        {
+            try
+            {
+                return _dal.updateAgencia(a);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

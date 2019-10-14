@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BussinessLogicLayer.BL;
+using Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,15 +19,58 @@ namespace APIRestLayer.Controllers
         [HttpGet]
         public IHttpActionResult GetId(int id)
         {
-            var customerFake = "customer-fake";
-            return Ok(customerFake);
+            try
+            {
+                BLAgencia bl = new BLAgencia();
+                return Ok(bl.getAgencia(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
         }
 
         [HttpGet]
         public IHttpActionResult GetAll()
         {
-            var customersFake = new string[] { "customer-1", "customer-2", "customer-3" };
-            return Ok(customersFake);
+            try
+            {
+                BLAgencia bl = new BLAgencia();
+                return Ok(bl.getAll());
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
         }
+        
+        [HttpPost]
+        public IHttpActionResult addAgencia(SAgencia a)
+        {
+            try
+            {
+                BLAgencia bl = new BLAgencia();
+                return Ok(bl.addAgencia(a));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
+        [HttpPut]
+        public IHttpActionResult updateAgencia(SAgencia a)
+        {
+            try
+            {
+                BLAgencia bl = new BLAgencia();
+                return Ok(bl.updateAgencia(a));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

@@ -40,6 +40,17 @@ namespace DataAccessLayer.DAL
             return agencia;
         }
 
+        public Agencia entidadAModelo(SAgencia a, Agencia ag)
+        {
+            ag.id = a.Id;
+            ag.idEmpresa = a.IdEmpresa;
+            ag.nombre = a.Nombre;
+            ag.ubicacion = a.Ubicacion;
+            ag.borrado = a.Borrado;
+            ag.envioDomicilio = a.EnvioDomicilio;
+            return ag;
+        }
+
         //USUARIO
 
         public SUsuario modeloAEntidad(Usuario u)
@@ -66,6 +77,16 @@ namespace DataAccessLayer.DAL
                 borrado = u.Borrado
             };
             return usuario;
+        }
+
+        public Usuario entidadAModeloUpdate(SUsuario u, Usuario us)
+        {
+            us.id = u.Id;
+            us.email = u.Email;
+            us.password = u.Password;
+            us.rol = u.Rol;
+            us.borrado = u.Borrado;
+            return us;
         }
 
         //CLIENTE
@@ -98,6 +119,18 @@ namespace DataAccessLayer.DAL
                 borrado = c.Borrado
             };
             return cliente;
+        }
+
+        public Cliente entidadAModelo(SCliente c, Cliente cl)
+        {
+            cl.id = c.Id;
+            cl.email = c.Email;
+            cl.nombreCompleto = c.NombreCompleto;
+            cl.tipoDocumento = c.TipoDocumento;
+            cl.numeroDocumento = c.NumeroDocumento;
+            cl.telefono = c.Telefono;
+            cl.borrado = c.Borrado;
+            return cl;
         }
 
         //PAQUETE
@@ -134,6 +167,19 @@ namespace DataAccessLayer.DAL
             return paquete;
         }
 
+        public Paquete entidadAModelo(SPaquete p, Paquete pa)
+        {
+            pa.id = p.Id;
+            pa.idDestinatario = p.IdDestinatario;
+            pa.idRemitente = p.IdRemitente;
+            pa.IdTrayecto = p.IdTrayecto;
+            pa.codigo = p.Codigo;
+            pa.fechaIngreso = p.FechaIngreso;
+            pa.fechaEntrega = p.FechaEntrega;
+            pa.borrado = p.Borrado;
+            return pa;
+        }
+
         //TRAYECTO
 
         public STrayecto modeloAEntidad(Trayecto t)
@@ -158,6 +204,15 @@ namespace DataAccessLayer.DAL
                 borrado = t.Borrado
             };
             return trayecto;
+        }
+
+        public Trayecto entidadAModelo(STrayecto t, Trayecto tr)
+        {
+            tr.id = t.Id;
+            tr.nombre = t.Nombre;
+            tr.version = t.Version;
+            tr.borrado = t.Borrado;
+            return tr;
         }
 
         //PUNTO DE CONTROL
@@ -188,6 +243,17 @@ namespace DataAccessLayer.DAL
                 borrado = p.Borrado
             };
             return puntoControl;
+        }
+
+        public PuntoControl entidadAModelo(SPuntoControl p, PuntoControl pc)
+        {
+            pc.id = p.Id;
+            pc.idAgencia = p.IdAgencia;
+            pc.idTrayecto = p.IdTrayecto;
+            pc.orden = p.Orden;
+            pc.tiempo = p.Tiempo;
+            pc.borrado = p.Borrado;
+            return pc;
         }
 
         //PAQUETE - PUNTO DE CONTROL
@@ -222,6 +288,18 @@ namespace DataAccessLayer.DAL
             return paquetePuntoControl;
         }
 
+        public PaquetePuntoControl entidadAModelo(SPaquetePuntoControl p, PaquetePuntoControl pc)
+        {
+            pc.id = p.Id;
+            pc.idPaquete = p.IdPaquete;
+            pc.idEmpleado = p.IdEmpleado;
+            pc.idPuntoControl = p.IdPuntoControl;
+            pc.fechaLlegada = p.FechaLlegada;
+            pc.retraso = p.Retraso;
+            pc.borrado = p.Borrado;
+            return pc;
+        }
+
         //EMPRESA
 
         public SEmpresa modeloAEntidad(Empresa e)
@@ -244,6 +322,14 @@ namespace DataAccessLayer.DAL
                 borrado = e.Borrado
             };
             return empresa;
+        }
+
+        public Empresa entidadAModelo(SEmpresa e, Empresa em)
+        {
+            em.id = e.Id;
+            em.nombre = e.Nombre;
+            em.borrado = e.Borrado;
+            return em;
         }
 
     }

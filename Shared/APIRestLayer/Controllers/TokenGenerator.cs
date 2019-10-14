@@ -23,7 +23,7 @@ namespace APIRestLayer.Controllers
 
             // create a claimsIdentity
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, email) });
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "User"));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, getRol(email)));
 
             // create token to the user
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
@@ -41,6 +41,8 @@ namespace APIRestLayer.Controllers
 
         public static string getRol(string email)
         {
+            BussinessLogicLayer.BL.BLUsuario u = new BussinessLogicLayer.BL.BLUsuario();
+            return u.getRol(email);
             throw new NotImplementedException();
         }
     }

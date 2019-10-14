@@ -60,5 +60,20 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
+
+        public string getRol(string email)
+        {
+            using(trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    return en.Usuario.First(x => x.email == email).rol;
+                }
+                catch (Exception e)
+                {
+                    return e.ToString();
+                }
+            }
+        }
     }
 }

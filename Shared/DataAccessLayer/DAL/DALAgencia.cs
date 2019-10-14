@@ -16,6 +16,21 @@ namespace DataAccessLayer.DAL
             _conv = new Conversiones();
         }
 
+        public SAgencia getAgencia(int id)
+        {
+            using(trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    return _conv.modeloAEntidad(en.Agencia.Find(id));
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
         public List<SAgencia> getAll()
         {
             using(trackingFULLEntities en = new trackingFULLEntities())
@@ -36,5 +51,43 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
+
+        public SAgencia addAgencia(SAgencia a)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Agencia ag = en.Agencia.Add(_conv.entidadAModelo(a));
+                    en.SaveChanges();
+                    return _conv.modeloAEntidad(ag);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public SAgencia updateAgencia(SAgencia a)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Agencia ag = en.Agencia.Find(a.Id);
+                    ag = _conv.entidadAModelo(a, ag);
+                    en.SaveChanges();
+                    return _conv.modeloAEntidad(ag);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
     }
 }
