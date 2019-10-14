@@ -18,6 +18,11 @@ namespace BussinessLogicLayer.BL
             _dal = new DALUsuario();
         }
 
+        public string login(SUsuario u)
+        {
+            return _dal.login(u);
+        } 
+
         public string addUsuario(SUsuario u)
         {
             try

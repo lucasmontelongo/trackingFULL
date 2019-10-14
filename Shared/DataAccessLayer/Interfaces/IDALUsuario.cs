@@ -9,6 +9,7 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IDALUsuario
     {
+        string login(SUsuario u);
         string addUsuario(SUsuario u);
     }
 }

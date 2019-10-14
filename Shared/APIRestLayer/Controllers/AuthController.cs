@@ -35,16 +35,16 @@ namespace APIRestLayer.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IHttpActionResult Authenticate(LoginRequest login)
+        public IHttpActionResult Authenticate(SUsuario login)
         {
             if (login == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            //TODO: Validate credentials Correctly, this code is only for demo !!
-            bool isCredentialValid = (login.Password == "123456");
-            if (isCredentialValid)
+            BLUsuario blusuario = new BLUsuario();
+            string isCredentialValid = blusuario.login(login);
+            if (isCredentialValid == "OK")
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username);
+                var token = TokenGenerator.GenerateTokenJwt(login.Email);
                 return Ok(token);
             }
             else
@@ -52,5 +52,27 @@ namespace APIRestLayer.Controllers
                 return Unauthorized();
             }
         }
+
+        [HttpPost]
+        [Route("google")]
+        public IHttpActionResult AuthenticateGoogle(string token)
+        {
+            if (login == null)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            BLUsuario blusuario = new BLUsuario();
+            string isCredentialValid = blusuario.login(login);
+            if (isCredentialValid == "OK")
+            {
+                var token = TokenGenerator.GenerateTokenJwt(login.Email);
+                return Ok(token);
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+
+
     }
 }
