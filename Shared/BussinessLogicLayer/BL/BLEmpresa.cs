@@ -1,5 +1,4 @@
 ﻿using DataAccessLayer.DAL;
-using DataAccessLayer.Interfaces;
 using Shared.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BussinessLogicLayer.BL
 {
-    public class BLEmpresa : Interfaces.IBLEmpresa
+    public class BLEmpresa
     {
-        private IDALEmpresa _dal;
+        private DALEmpresa _dal;
 
         public BLEmpresa()
         {

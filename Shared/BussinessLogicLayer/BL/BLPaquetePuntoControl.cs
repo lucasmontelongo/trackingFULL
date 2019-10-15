@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace BussinessLogicLayer.BL
 {
-    public class BLUsuario
+    public class BLPaquetePuntoControl
     {
-        private DALUsuario _dal;
+        private DALPaquetePuntoControl _dal;
 
-        public BLUsuario()
+        public BLPaquetePuntoControl()
         {
-            _dal = new DALUsuario();
+            _dal = new DALPaquetePuntoControl();
         }
 
-        public SUsuario getUsuario(int id)
+        public SPaquetePuntoControl getPaquetePuntoControl(int id)
         {
             try
             {
-                return _dal.getUsuario(id);
+                return _dal.getPaquetePuntoControl(id);
             }
             catch (Exception)
             {
@@ -29,29 +29,16 @@ namespace BussinessLogicLayer.BL
             }
         }
 
-        public List<SUsuario> getAll()
+        public List<SPaquetePuntoControl> getAll()
         {
             return _dal.getAll();
         }
 
-        public string addUsuario(SUsuario u)
+        public SPaquetePuntoControl addPaquetePuntoControl(SPaquetePuntoControl a)
         {
             try
             {
-                return _dal.addUsuario(u);
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-        }
-
-        public SUsuario updateUsuario(SUsuario a)
-        {
-            try
-            {
-                return _dal.updateUsuario(a);
+                return _dal.addPaquetePuntoControl(a);
             }
             catch (Exception)
             {
@@ -59,7 +46,19 @@ namespace BussinessLogicLayer.BL
             }
         }
 
-        public string deleteUsuario(int id)
+        public SPaquetePuntoControl updatePaquetePuntoControl(SPaquetePuntoControl a)
+        {
+            try
+            {
+                return _dal.updatePaquetePuntoControl(a);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public string deletePaquetePuntoControl(int id)
         {
             try
             {
@@ -68,23 +67,6 @@ namespace BussinessLogicLayer.BL
             catch (Exception)
             {
                 throw;
-            }
-        }
-
-        public string login(SUsuario u)
-        {
-            return _dal.login(u);
-        } 
-
-        public string getRol(string email)
-        {
-            try
-            {
-                return _dal.getRol(email);
-            }
-            catch (Exception e)
-            {
-                return e.ToString();
             }
         }
     }

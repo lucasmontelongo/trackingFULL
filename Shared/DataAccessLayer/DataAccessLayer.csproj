@@ -58,14 +58,16 @@
     </Compile>
     <Compile Include="DAL\Conversiones.cs" />
     <Compile Include="DAL\DALAgencia.cs" />
+    <Compile Include="DAL\DALCliente.cs" />
     <Compile Include="DAL\DALEmpresa.cs" />
+    <Compile Include="DAL\DALPaquete.cs" />
+    <Compile Include="DAL\DALPaquetePuntoControl.cs" />
+    <Compile Include="DAL\DALPuntoControl.cs" />
+    <Compile Include="DAL\DALTrayecto.cs" />
     <Compile Include="DAL\DALUsuario.cs" />
     <Compile Include="Empresa.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IDALAgencia.cs" />
-    <Compile Include="Interfaces\IDALEmpresa.cs" />
-    <Compile Include="Interfaces\IDALUsuario.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

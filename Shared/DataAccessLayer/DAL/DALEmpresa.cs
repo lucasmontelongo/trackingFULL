@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.DAL
 {
-    public class DALEmpresa : Interfaces.IDALEmpresa
+    public class DALEmpresa
     {
 
         public void addEmpresa(SEmpresa emp)
@@ -17,9 +17,6 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
-                    // Your code...
-                    // Could also be before try if you know the exception occurs in SaveChanges
-
                     Empresa e = new Empresa()
                     {
                         nombre = emp.Nombre,

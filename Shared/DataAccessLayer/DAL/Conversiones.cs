@@ -79,7 +79,7 @@ namespace DataAccessLayer.DAL
             return usuario;
         }
 
-        public Usuario entidadAModeloUpdate(SUsuario u, Usuario us)
+        public Usuario entidadAModelo(SUsuario u, Usuario us)
         {
             us.id = u.Id;
             us.email = u.Email;
