@@ -50,6 +50,7 @@
     <Compile Include="Entities\STrayecto.cs" />
     <Compile Include="Entities\SUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilidades\Randoms.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />

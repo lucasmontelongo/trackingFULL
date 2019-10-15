@@ -20,14 +20,18 @@ namespace APIRestLayer.Controllers
         [Route("registro")]
         public IHttpActionResult Registro(SUsuario u)
         {
-            u.Rol = "Cliente";
-            BLUsuario blusuario = new BLUsuario();
-            if(blusuario.addUsuario(u) == "OK")
+            try
             {
+                u.Rol = "Cliente";
+                BLUsuario blusuario = new BLUsuario();
+                blusuario.addUsuario(u);
                 var token = TokenGenerator.GenerateTokenJwt(u.Email);
                 return Ok(token);
             }
-            return InternalServerError();
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
         }
 
         [HttpPost]
@@ -59,6 +63,20 @@ namespace APIRestLayer.Controllers
             return null;
         }
 
+        [HttpGet]
+        [Route("confirmaremail")]
+        public IHttpActionResult ConfirmarEmail(string email, string codigoConfirmacion)
+        {
+            try
+            {
+                BLUsuario bl = new BLUsuario();
+                return Ok(bl.confirmarEmail(email, codigoConfirmacion));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
 
     }
 }

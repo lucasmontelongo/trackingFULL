@@ -25,6 +25,8 @@ namespace DataAccessLayer
         public string password { get; set; }
         public string rol { get; set; }
         public Nullable<bool> borrado { get; set; }
+        public Nullable<bool> emailValido { get; set; }
+        public string codigoConfirmacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaquetePuntoControl> PaquetePuntoControl { get; set; }

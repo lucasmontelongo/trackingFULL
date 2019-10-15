@@ -34,13 +34,13 @@ namespace BussinessLogicLayer.BL
             return _dal.getAll();
         }
 
-        public string addUsuario(SUsuario u)
+        public bool addUsuario(SUsuario u)
         {
             try
             {
                 return _dal.addUsuario(u);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 throw;
@@ -85,6 +85,18 @@ namespace BussinessLogicLayer.BL
             catch (Exception e)
             {
                 return e.ToString();
+            }
+        }
+
+        public bool confirmarEmail(string email, string codigoConfirmacion)
+        {
+            try
+            {
+                return _dal.confirmarEmail(email, codigoConfirmacion);
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
     }

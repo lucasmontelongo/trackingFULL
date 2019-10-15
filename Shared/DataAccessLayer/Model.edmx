@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="trackingFULLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="trackingFULLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agencia">
           <Key>
             <PropertyRef Name="id" />
@@ -90,6 +90,8 @@
           <Property Name="password" Type="varchar" MaxLength="250" />
           <Property Name="rol" Type="varchar" MaxLength="50" />
           <Property Name="borrado" Type="bit" />
+          <Property Name="emailValido" Type="bit" />
+          <Property Name="codigoConfirmacion" Type="varchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_Agencia_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
@@ -245,8 +247,7 @@
             <End Role="PuntoControl" EntitySet="PuntoControl" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="trackingFULLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -353,6 +354,8 @@
           <Property Name="rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="borrado" Type="Boolean" />
           <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_Usuario" FromRole="Usuario" ToRole="PaquetePuntoControl" />
+          <Property Name="emailValido" Type="Boolean" />
+          <Property Name="codigoConfirmacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Agencia_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
@@ -600,6 +603,8 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="trackingFULLModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="codigoConfirmacion" ColumnName="codigoConfirmacion" />
+                <ScalarProperty Name="emailValido" ColumnName="emailValido" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="password" ColumnName="password" />

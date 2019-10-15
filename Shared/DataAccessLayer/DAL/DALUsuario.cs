@@ -1,4 +1,5 @@
 ﻿using Shared.Entities;
+using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,19 +56,22 @@ namespace DataAccessLayer.DAL
             }
         }
 
-        public string addUsuario(SUsuario u)
+        public bool addUsuario(SUsuario u)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())
             {
                 try
                 {
-                    en.Usuario.Add(_conv.entidadAModelo(u));
+                    Usuario usuario = _conv.entidadAModelo(u);
+                    usuario.codigoConfirmacion = Randoms.RandomString(100);
+                    usuario.emailValido = false;
+                    en.Usuario.Add(usuario);
                     en.SaveChanges();
-                    return "OK";
+                    return true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    return e.ToString();
+                    throw;
                 }
             }
         }
@@ -152,5 +156,28 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
+
+        public bool confirmarEmail(string email, string codigoConfirmacion)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Usuario u = en.Usuario.First(x => x.email == email);
+                    if(u.codigoConfirmacion == codigoConfirmacion)
+                    {
+                        u.emailValido = true;
+                        en.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
     }
 }
