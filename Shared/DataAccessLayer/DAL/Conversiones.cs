@@ -189,8 +189,13 @@ namespace DataAccessLayer.DAL
                 Id = t.id,
                 Nombre = t.nombre,
                 Version = (int)t.version,
-                Borrado = (bool)t.borrado
+                Borrado = (bool)t.borrado,
+                ListaPuntosControl = new List<SPuntoControl>()
             };
+            t.PuntoControl.ToList().ForEach(x =>
+            {
+                trayecto.ListaPuntosControl.Add(modeloAEntidad(x));
+            });
             return trayecto;
         }
 
@@ -212,6 +217,27 @@ namespace DataAccessLayer.DAL
             tr.nombre = t.Nombre;
             tr.version = t.Version;
             tr.borrado = t.Borrado;
+
+            bool nuevo = true;
+            int id = 0;
+            tr.PuntoControl.ToList().ForEach(x =>
+            {
+                nuevo = true;
+                t.ListaPuntosControl.ToList().ForEach(y =>
+                {
+                    if (x.id == y.Id)
+                    {
+                        x = entidadAModelo(y);
+                        nuevo = false;
+                    }
+                    id = y.Id;
+                });
+                if (nuevo)
+                {
+                    tr.PuntoControl.Add(entidadAModelo(t.ListaPuntosControl.First(y => y.Id == id)));
+                }
+            });
+
             return tr;
         }
 

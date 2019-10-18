@@ -62,6 +62,10 @@ namespace DataAccessLayer.DAL
                 try
                 {
                     Trayecto ag = en.Trayecto.Add(_conv.entidadAModelo(a));
+                    a.ListaPuntosControl.ForEach(x =>
+                    {
+                        ag.PuntoControl.Add(_conv.entidadAModelo(x));
+                    });
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }

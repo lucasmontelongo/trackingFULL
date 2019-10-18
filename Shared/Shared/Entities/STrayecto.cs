@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,14 @@ namespace Shared.Entities
 
         //Coleccion de paquetes que tiene el trayecto
         public List<SPaquete> ListaPaquetes { get; set; }
+
+        public bool validation()
+        {
+            if (this.Nombre == null || this.Nombre == "" || this.Borrado || this.ListaPuntosControl == null || this.ListaPuntosControl.Count < 2)
+            {
+                throw new ETrayecto("Algun parametro invalido"); //esto deberiamos hacer una validacion para cada campo y eso para devolver el mensaje correcto de lo que falla, pero bueno por ahora queda asi
+            }
+            return true;
+        }
     }
 }

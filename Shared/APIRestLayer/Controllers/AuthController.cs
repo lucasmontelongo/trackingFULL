@@ -50,7 +50,7 @@ namespace APIRestLayer.Controllers
             }
             else
             {
-                return Unauthorized();
+                return Content(HttpStatusCode.Unauthorized, isCredentialValid);
             }
         }
 

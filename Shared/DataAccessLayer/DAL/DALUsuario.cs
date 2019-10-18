@@ -121,17 +121,18 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
-                    SUsuario usuario = _conv.modeloAEntidad(en.Usuario.First(x => x.email == u.Email));
+                    Usuario usuario = en.Usuario.First(x => x.email == u.Email);
                     if (usuario != null)
                     {
-                        if (usuario.Password == u.Password) // Deberiamos hashear la pass y aca llamariamos a una funcion que compruebe si esta bien o no, por ahora queda asi
+                        if (usuario.password == u.Password) // Deberiamos hashear la pass y aca llamariamos a una funcion que compruebe si esta bien o no, por ahora queda asi
                         {
-                            return "OK";
+                            if (usuario.emailValido == true)
+                            {
+                                return "OK";
+                            }
+                            return "Debe autenticar su correo antes de poder ingresar, por favor revise su email";
                         }
-                        else
-                        {
-                            return "La contrase;a no coincide";
-                        }
+                        return "La contrase;a no coincide";
                     }
                     return "El usuario no existe";
                 }

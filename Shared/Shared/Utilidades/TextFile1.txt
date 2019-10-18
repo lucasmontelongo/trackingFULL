@@ -1,0 +1,24 @@
+﻿
+//TRAYECTOS
+{
+	"nombre": "Trayecto2",
+	"ListaPuntosControl": [
+		{
+			"Orden": 1,
+			"Tiempo": 0,
+			"IdAgencia": 1
+		},
+		{
+			"Orden": 2,
+			"Tiempo": 3600,
+			"IdAgencia": 3
+		}
+	]
+}
+
+
+//USUARIOS
+{
+	"Email": "lucasmontelongo@outlook.com",
+	"Password": "123456"
+}
