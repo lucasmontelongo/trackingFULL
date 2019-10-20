@@ -63,7 +63,7 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return null;
+                return _dal.deleteTrayecto(id);
             }
             catch (Exception)
             {

@@ -70,6 +70,7 @@
           <Property Name="orden" Type="int" />
           <Property Name="tiempo" Type="int" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="250" />
           <Property Name="borrado" Type="bit" />
         </EntityType>
         <EntityType Name="Trayecto">
@@ -332,6 +333,7 @@
           <NavigationProperty Name="Agencia" Relationship="Self.FK_PuntoControl_Agencia" FromRole="PuntoControl" ToRole="Agencia" />
           <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_PuntoControl2" FromRole="PuntoControl" ToRole="PaquetePuntoControl" />
           <NavigationProperty Name="Trayecto" Relationship="Self.FK_PuntoControl_Trayecto" FromRole="PuntoControl" ToRole="Trayecto" />
+          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Trayecto">
           <Key>
@@ -581,6 +583,7 @@
           <EntitySetMapping Name="PuntoControl">
             <EntityTypeMapping TypeName="trackingFULLModel.PuntoControl">
               <MappingFragment StoreEntitySet="PuntoControl">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="idTrayecto" ColumnName="idTrayecto" />
                 <ScalarProperty Name="idAgencia" ColumnName="idAgencia" />
                 <ScalarProperty Name="orden" ColumnName="orden" />

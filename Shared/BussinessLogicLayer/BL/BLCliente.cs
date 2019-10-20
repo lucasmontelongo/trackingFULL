@@ -62,7 +62,7 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return null;
+                return _dal.deleteCliente(id);
             }
             catch (Exception)
             {

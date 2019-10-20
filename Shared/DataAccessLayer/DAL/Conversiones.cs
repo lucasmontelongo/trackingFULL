@@ -213,30 +213,9 @@ namespace DataAccessLayer.DAL
 
         public Trayecto entidadAModelo(STrayecto t, Trayecto tr)
         {
-            tr.id = t.Id;
             tr.nombre = t.Nombre;
             tr.version = t.Version;
             tr.borrado = t.Borrado;
-
-            bool nuevo = true;
-            int id = 0;
-            tr.PuntoControl.ToList().ForEach(x =>
-            {
-                nuevo = true;
-                t.ListaPuntosControl.ToList().ForEach(y =>
-                {
-                    if (x.id == y.Id)
-                    {
-                        x = entidadAModelo(y);
-                        nuevo = false;
-                    }
-                    id = y.Id;
-                });
-                if (nuevo)
-                {
-                    tr.PuntoControl.Add(entidadAModelo(t.ListaPuntosControl.First(y => y.Id == id)));
-                }
-            });
 
             return tr;
         }
@@ -248,12 +227,16 @@ namespace DataAccessLayer.DAL
             SPuntoControl puntoControl = new SPuntoControl()
             {
                 Id = p.id,
-                IdAgencia = (int)p.idAgencia,
                 IdTrayecto = (int)p.idTrayecto,
                 Orden = (int)p.orden,
                 Tiempo = (int)p.tiempo,
-                Borrado = (bool)p.borrado
+                Borrado = (bool)p.borrado,
+                Nombre = p.nombre
             };
+            if (p.idAgencia != null)
+            {
+                puntoControl.IdAgencia = p.idAgencia;
+            }
             return puntoControl;
         }
 
@@ -262,23 +245,31 @@ namespace DataAccessLayer.DAL
             PuntoControl puntoControl = new PuntoControl()
             {
                 id = p.Id,
-                idAgencia = p.IdAgencia,
                 idTrayecto = p.IdTrayecto,
                 orden = p.Orden,
                 tiempo = p.Tiempo,
-                borrado = p.Borrado
+                borrado = p.Borrado,
+                nombre = p.Nombre
             };
+            if (p.IdAgencia != null)
+            {
+                puntoControl.idAgencia = p.IdAgencia;
+            }
             return puntoControl;
         }
 
         public PuntoControl entidadAModelo(SPuntoControl p, PuntoControl pc)
         {
             pc.id = p.Id;
-            pc.idAgencia = p.IdAgencia;
             pc.idTrayecto = p.IdTrayecto;
             pc.orden = p.Orden;
             pc.tiempo = p.Tiempo;
             pc.borrado = p.Borrado;
+            pc.nombre = p.Nombre;
+            if (p.IdAgencia != null)
+            {
+                pc.idAgencia = p.IdAgencia;
+            }
             return pc;
         }
 

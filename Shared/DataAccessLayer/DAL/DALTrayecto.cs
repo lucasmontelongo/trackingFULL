@@ -85,6 +85,18 @@ namespace DataAccessLayer.DAL
                 {
                     Trayecto ag = en.Trayecto.Find(a.Id);
                     ag = _conv.entidadAModelo(a, ag);
+                    DALPuntoControl dalp = new DALPuntoControl();
+                    a.ListaPuntosControl.ToList().ForEach(x =>
+                    {
+                        if (x.Id > 0 && x.Id < 999)
+                        {
+                            dalp.updatePuntoControl(x);
+                        }
+                        else
+                        {
+                            dalp.addPuntoControl(x);
+                        }
+                    });
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }
@@ -107,6 +119,27 @@ namespace DataAccessLayer.DAL
                     en.SaveChanges();
 
                     return null;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public bool isActive(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Trayecto a = en.Trayecto.Find(id);
+                    if ((bool)a.borrado)
+                    {
+                        return false;
+                    }
+                    return true;
                 }
                 catch (Exception)
                 {

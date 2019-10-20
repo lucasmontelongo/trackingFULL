@@ -112,5 +112,26 @@ namespace DataAccessLayer.DAL
             }
         }
 
+        public bool isActive(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    PuntoControl a = en.PuntoControl.Find(id);
+                    if ((bool)a.borrado)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
     }
 }
