@@ -22,11 +22,18 @@ namespace Shared.Entities
 
         public bool validation()
         {
-            if (this.Nombre == null || this.Nombre == "" || this.Borrado || this.ListaPuntosControl == null || this.ListaPuntosControl.Count < 2)
+            try
             {
-                throw new ETrayecto("Algun parametro invalido"); //esto deberiamos hacer una validacion para cada campo y eso para devolver el mensaje correcto de lo que falla, pero bueno por ahora queda asi
+                if (this.Nombre == null || this.Nombre == "" || this.Borrado || this.ListaPuntosControl == null || this.ListaPuntosControl.Count < 2)
+                {
+                    throw new ETrayecto("Algun parametro invalido"); //esto deberiamos hacer una validacion para cada campo y eso para devolver el mensaje correcto de lo que falla, pero bueno por ahora queda asi
+                }
+                return true;
             }
-            return true;
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

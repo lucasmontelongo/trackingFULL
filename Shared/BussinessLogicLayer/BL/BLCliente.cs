@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.DAL;
 using Shared.Entities;
+using Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,11 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return _dal.addCliente(a);
+                if (validacion(a))
+                {
+                    return _dal.addCliente(a);
+                }
+                throw new ECliente("Algun error raro del carajo");
             }
             catch (Exception)
             {
@@ -69,5 +74,24 @@ namespace BussinessLogicLayer.BL
                 throw;
             }
         }
+
+        public bool validacion(SCliente c)
+        {
+            try
+            {
+                _dal.existe(c);
+                if(c.TipoDocumento != "CI" && c.TipoDocumento != "Pasaporte")
+                {
+                    throw new ECliente("El tipo de documento indicado no es valido");
+                }    
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

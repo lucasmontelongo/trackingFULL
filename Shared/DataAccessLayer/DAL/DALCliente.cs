@@ -1,4 +1,5 @@
 ﻿using Shared.Entities;
+using Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +62,7 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
+
                     Cliente ag = en.Cliente.Add(_conv.entidadAModelo(a));
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
@@ -111,5 +113,31 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
+
+        public bool existe(SCliente c)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Cliente a = en.Cliente.FirstOrDefault(x => x.email == c.Email);
+                    if (a != null)
+                    {
+                        throw new ECliente("Ya existe un cliente con ese email en el sistema");
+                    }
+                    if(en.Cliente.FirstOrDefault(x => x.numeroDocumento == c.NumeroDocumento) != null)
+                    {
+                        throw new ECliente("Ya existe un cliente con ese numero de documento en el sistema");
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
     }
 }

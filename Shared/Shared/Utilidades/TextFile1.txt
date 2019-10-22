@@ -76,3 +76,14 @@
 	"Email": "lucasmontelongo@outlook.com",
 	"Password": "123456"
 }
+
+
+//CLIENTES
+{
+	"NombreCompleto": "Lucas Montelongo",
+	"Email": "lucasmontelongo@outlook.com",
+	"Telefono": "092116146",
+	"TipoDocumento": "CI",
+	"NumeroDocumento": "47429413"
+	
+}

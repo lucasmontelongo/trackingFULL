@@ -50,6 +50,7 @@
     <Compile Include="Entities\SPuntoControl.cs" />
     <Compile Include="Entities\STrayecto.cs" />
     <Compile Include="Entities\SUsuario.cs" />
+    <Compile Include="Exceptions\ECliente.cs" />
     <Compile Include="Exceptions\ETrayecto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\Randoms.cs" />

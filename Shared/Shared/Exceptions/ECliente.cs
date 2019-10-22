@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Shared.Exceptions
 {
-    public class ETrayecto : SystemException
+    public class ECliente : SystemException
     {
-        public ETrayecto()
+        public ECliente()
         {
 
         }
 
-        public ETrayecto(string msg)
-            :base(String.Format(msg))
+        public ECliente(string msg)
+            : base(String.Format(msg))
         {
 
         }
