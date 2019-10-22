@@ -55,15 +55,16 @@ namespace DataAccessLayer.DAL
             }
         }
 
-        public SPaquete addPaquete(SPaquete a)
+        public bool addPaquete(SPaquete a)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())
             {
                 try
                 {
+
                     Paquete ag = en.Paquete.Add(_conv.entidadAModelo(a));
                     en.SaveChanges();
-                    return _conv.modeloAEntidad(ag);
+                    return true;
                 }
                 catch (Exception)
                 {

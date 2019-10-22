@@ -1,7 +1,9 @@
 ﻿using DataAccessLayer.DAL;
+using QRCoder;
 using Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +40,14 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return _dal.addPaquete(a);
+                if (_dal.addPaquete(a))
+                {
+                    string codigo = null;
+                    QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(codigo, QRCodeGenerator.ECCLevel.Q);
+                    QRCode qrCode = new QRCode(qrCodeData);
+                    Bitmap qrCodeImage = qrCode.GetGraphic(20);
+                }
             }
             catch (Exception)
             {
