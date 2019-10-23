@@ -10,6 +10,7 @@ namespace Shared.Entities
     {
         public int Id { get; set; }
         public string Codigo { get; set; }
+        public string CodigoConfirmacion { get; set; }
         public DateTime FechaIngreso { get; set; }
         public DateTime FechaEntrega { get; set; }
         public int IdTrayecto { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Shared.Entities;
+using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,7 @@ namespace DataAccessLayer.DAL
             }
         }
 
-        public bool addPaquete(SPaquete a)
+        public SPaquete addPaquete(SPaquete a)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())
             {
@@ -64,7 +65,7 @@ namespace DataAccessLayer.DAL
 
                     Paquete ag = en.Paquete.Add(_conv.entidadAModelo(a));
                     en.SaveChanges();
-                    return true;
+                    return _conv.modeloAEntidad(ag);
                 }
                 catch (Exception)
                 {

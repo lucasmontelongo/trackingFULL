@@ -109,14 +109,14 @@ namespace BussinessLogicLayer.BL
             Configuration.Default.AddApiKey("api-key", "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");
             var apiInstance = new SMTPApi();
             var templateId = 1;  // long? | Id of the template
-            var sendEmail = new SendEmail(emailTo:  new List<string>() { "tuxlukz@gmail.com" }); // SendEmail | 
+            var sendEmail = new SendEmail(emailTo:  new List<string>() { "tuxlukz@gmail.com" }); // SendEmail |
             try
             {
                 // Get your account informations, plans and credits details
                 apiInstance.SendTemplate(templateId, sendEmail);
                 return "pepe";
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }

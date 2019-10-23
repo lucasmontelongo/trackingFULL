@@ -28,6 +28,7 @@ namespace DataAccessLayer
         public Nullable<System.DateTime> fechaIngreso { get; set; }
         public Nullable<System.DateTime> fechaEntrega { get; set; }
         public Nullable<bool> borrado { get; set; }
+        public string codigoConfirmacion { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         public virtual Cliente Cliente1 { get; set; }

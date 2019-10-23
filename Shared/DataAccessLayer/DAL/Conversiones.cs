@@ -144,6 +144,7 @@ namespace DataAccessLayer.DAL
                 IdRemitente = (int)p.idRemitente,
                 IdTrayecto = (int)p.IdTrayecto,
                 Codigo = p.codigo,
+                CodigoConfirmacion = p.codigoConfirmacion,
                 FechaIngreso = (DateTime)p.fechaIngreso,
                 FechaEntrega = (DateTime)p.fechaEntrega,
                 Borrado = (bool)p.borrado
@@ -160,6 +161,7 @@ namespace DataAccessLayer.DAL
                 idRemitente = p.IdRemitente,
                 IdTrayecto = p.IdTrayecto,
                 codigo = p.Codigo,
+                codigoConfirmacion = p.CodigoConfirmacion,
                 fechaIngreso = p.FechaIngreso,
                 fechaEntrega = p.FechaEntrega,
                 borrado = p.Borrado
@@ -169,11 +171,12 @@ namespace DataAccessLayer.DAL
 
         public Paquete entidadAModelo(SPaquete p, Paquete pa)
         {
-            pa.id = p.Id;
+            //pa.id = p.Id;
             pa.idDestinatario = p.IdDestinatario;
             pa.idRemitente = p.IdRemitente;
             pa.IdTrayecto = p.IdTrayecto;
             pa.codigo = p.Codigo;
+            pa.codigoConfirmacion = p.CodigoConfirmacion;
             pa.fechaIngreso = p.FechaIngreso;
             pa.fechaEntrega = p.FechaEntrega;
             pa.borrado = p.Borrado;

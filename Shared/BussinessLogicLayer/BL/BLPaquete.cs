@@ -1,6 +1,8 @@
 ﻿using DataAccessLayer.DAL;
 using QRCoder;
 using Shared.Entities;
+using Shared.Exceptions;
+using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -40,14 +42,23 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                if (_dal.addPaquete(a))
+                a.Id = 0;
+                a.FechaIngreso = DateTime.Now;
+                a.FechaEntrega = DateTime.Now;
+                a.CodigoConfirmacion = Randoms.RandomString(6);
+                a.Codigo = "";
+                a.Borrado = false;
+                a.ListaPaquetePuntoControl = null;
+                SPaquete p = _dal.addPaquete(a);
+                if (p != null)
                 {
-                    string codigo = null;
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(codigo, QRCodeGenerator.ECCLevel.Q);
-                    QRCode qrCode = new QRCode(qrCodeData);
-                    Bitmap qrCodeImage = qrCode.GetGraphic(20);
+                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(p.Id.ToString(), QRCodeGenerator.ECCLevel.Q);
+                    Base64QRCode qrCode = new Base64QRCode(qrCodeData);
+                    p.Codigo = qrCode.GetGraphic(20);
+                    return _dal.updatePaquete(p);
                 }
+                throw new ECompartida("Algun error raro en a;adir el paquete"); 
             }
             catch (Exception)
             {

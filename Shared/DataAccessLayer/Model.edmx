@@ -41,7 +41,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codigo" Type="varchar" MaxLength="250" />
+          <Property Name="codigoConfirmacion" Type="varchar" MaxLength="10" />
+          <Property Name="codigo" Type="varchar(max)" />
           <Property Name="IdTrayecto" Type="int" />
           <Property Name="idRemitente" Type="int" />
           <Property Name="idDestinatario" Type="int" />
@@ -293,7 +294,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IdTrayecto" Type="Int32" />
           <Property Name="idRemitente" Type="Int32" />
           <Property Name="idDestinatario" Type="Int32" />
@@ -304,6 +305,7 @@
           <NavigationProperty Name="Cliente1" Relationship="Self.FK_Paquete_Cliente1" FromRole="Paquete" ToRole="Cliente" />
           <NavigationProperty Name="Trayecto" Relationship="Self.FK_Paquete_Trayecto" FromRole="Paquete" ToRole="Trayecto" />
           <NavigationProperty Name="PaquetePuntoControl" Relationship="Self.FK_PaquetePuntoControl_Paquete" FromRole="Paquete" ToRole="PaquetePuntoControl" />
+          <Property Name="codigoConfirmacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PaquetePuntoControl">
           <Key>
@@ -556,6 +558,7 @@
           <EntitySetMapping Name="Paquete">
             <EntityTypeMapping TypeName="trackingFULLModel.Paquete">
               <MappingFragment StoreEntitySet="Paquete">
+                <ScalarProperty Name="codigoConfirmacion" ColumnName="codigoConfirmacion" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="IdTrayecto" ColumnName="IdTrayecto" />
