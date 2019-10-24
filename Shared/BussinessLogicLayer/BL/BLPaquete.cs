@@ -89,5 +89,67 @@ namespace BussinessLogicLayer.BL
                 throw;
             }
         }
+
+        public SPaquetePuntoControl avanzar(SPaquetePuntoControl ppc)
+        {
+            try
+            {
+                var _dalPPC = new DALPaquetePuntoControl();
+                var _dalPC = new DALPuntoControl();
+                var _dalT = new DALTrayecto();
+                SPaquete p = _dal.getPaquete(ppc.IdPaquete);
+                if (p != null && p.Borrado == false)
+                {
+                    STrayecto t = _dalT.getTrayecto(p.IdTrayecto);
+                    List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(p.Id);
+                    ppc.FechaLlegada = DateTime.Now;
+                    ppc.Borrado = false;
+                    //string lista = "";
+                    //t.ListaPuntosControl.ForEach(x =>
+                    //{
+                    //    lista += " " + x.Orden.ToString();
+                    //});
+                    //throw new ECompartida(lista);
+                    if (ppcList.Count > 0)
+                    {
+                        if (t.ListaPuntosControl.Max(x => x.Orden) > ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden))
+                        {
+                            SPuntoControl pcActual = t.ListaPuntosControl.First(x => x.Orden == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1);
+                            ppc.IdPuntoControl = t.ListaPuntosControl.First(x => x.Orden == pcActual.Orden).Id;
+                            int tiempoEstimado = 0;
+                            t.ListaPuntosControl.ForEach(x =>
+                            {
+                                if (x.Orden <= pcActual.Orden)
+                                {
+                                    tiempoEstimado += x.Tiempo;
+                                }
+                            });
+                            int tiempoViaje = (p.FechaIngreso - ppc.FechaLlegada).Seconds;
+                            if ((tiempoViaje <= tiempoEstimado))
+                            {
+                                ppc.Retraso -= (tiempoEstimado - tiempoViaje);
+                            }
+                            else
+                            {
+                                ppc.Retraso += (tiempoViaje - tiempoEstimado);
+                            }
+                            return _dalPPC.addPaquetePuntoControl(ppc);
+                        }
+                    }
+                    else
+                    {
+                        ppc.IdPuntoControl = t.ListaPuntosControl.First(x => x.Orden == 1).Id;
+                        return _dalPPC.addPaquetePuntoControl(ppc);
+                    }
+                }
+
+                throw new ECompartida("Error");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

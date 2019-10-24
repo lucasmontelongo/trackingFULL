@@ -111,5 +111,30 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
+
+        public List<SPaquetePuntoControl> getAllByPaquete(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    List<SPaquetePuntoControl> paquetePuntoControl = new List<SPaquetePuntoControl>();
+                    en.PaquetePuntoControl.ToList().ForEach(x =>
+                    {
+                        if (x.borrado == false && x.idPaquete == id)
+                        {
+                            paquetePuntoControl.Add(_conv.modeloAEntidad(x));
+                        }
+                    });
+                    return paquetePuntoControl;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
     }
 }

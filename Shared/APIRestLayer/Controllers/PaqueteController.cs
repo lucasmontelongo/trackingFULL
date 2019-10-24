@@ -82,5 +82,21 @@ namespace APIRestLayer.Controllers
                 return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+        [HttpPost]
+        [Route("avanzar")]
+        public IHttpActionResult avanzar(SPaquetePuntoControl a)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.avanzar(a));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }
