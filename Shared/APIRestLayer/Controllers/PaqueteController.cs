@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace APIRestLayer.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Funcionario")]
     [RoutePrefix("api/paquete")]
     public class PaqueteController : ApiController
     {
@@ -91,6 +91,21 @@ namespace APIRestLayer.Controllers
             {
                 BLPaquete bl = new BLPaquete();
                 return Ok(bl.avanzar(a));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
+        [HttpPost]
+        [Route("retroceder")]
+        public IHttpActionResult retroceder(SPaquetePuntoControl a)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.retroceder(a));
             }
             catch (Exception e)
             {

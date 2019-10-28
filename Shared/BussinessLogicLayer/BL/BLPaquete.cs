@@ -104,12 +104,6 @@ namespace BussinessLogicLayer.BL
                     List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(p.Id);
                     ppc.FechaLlegada = DateTime.Now;
                     ppc.Borrado = false;
-                    //string lista = "";
-                    //t.ListaPuntosControl.ForEach(x =>
-                    //{
-                    //    lista += " " + x.Orden.ToString();
-                    //});
-                    //throw new ECompartida(lista);
                     if (ppcList.Count > 0)
                     {
                         if (t.ListaPuntosControl.Max(x => x.Orden) > ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden))
@@ -144,6 +138,35 @@ namespace BussinessLogicLayer.BL
                 }
 
                 throw new ECompartida("Error");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool retroceder(SPaquetePuntoControl ppc)
+        {
+            try
+            {
+                var _dalPPC = new DALPaquetePuntoControl();
+                List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(ppc.IdPaquete);
+                int ppcAEliminarId = ppcList.Max(x => x.Id);
+                SPaquetePuntoControl ppcAEliminar = ppcList.First(x => x.Id == ppcAEliminarId);
+                if (ppcAEliminar != null)
+                {
+                    var _dalU = new DALUsuario();
+                    SUsuario empleado = _dalU.getUsuario(ppc.IdEmpleado);
+                    if ((empleado.Rol == "Funcionario" && empleado.Id == ppcAEliminar.IdEmpleado) || empleado.Rol == "Encargado")
+                    {
+                        return _dalPPC.deletePaquetePuntoControl(ppcAEliminar.Id);
+                    }
+                    else
+                    {
+                        throw new ECompartida("El usuario que realizo la peticion no tiene autorizacion para realizar esta operacion");
+                    }
+                }
+                throw new ECompartida("No se encontro ningun paquete con el ID enviado");
             }
             catch (Exception)
             {

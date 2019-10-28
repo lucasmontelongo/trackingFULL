@@ -92,7 +92,7 @@ namespace DataAccessLayer.DAL
             }
         }
 
-        public string deletePaquetePuntoControl(int id)
+        public bool deletePaquetePuntoControl(int id)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())
             {
@@ -102,7 +102,7 @@ namespace DataAccessLayer.DAL
                     a.borrado = true;
                     en.SaveChanges();
 
-                    return null;
+                    return true;
                 }
                 catch (Exception)
                 {
