@@ -122,5 +122,17 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public SUsuario newAdmin(int id)
+        {
+            try
+            {
+                return _dal.newAdmin(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

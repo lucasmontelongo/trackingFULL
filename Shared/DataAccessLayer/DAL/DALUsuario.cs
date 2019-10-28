@@ -180,5 +180,23 @@ namespace DataAccessLayer.DAL
             }
         }
 
+        public SUsuario newAdmin(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Usuario u = en.Usuario.Find(id);
+                    u.rol = "SuperAdmin";
+                    en.SaveChanges();
+                    return _conv.modeloAEntidad(u);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
     }
 }
