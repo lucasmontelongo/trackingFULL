@@ -1,6 +1,8 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Registro";
 }
+
 <style>
 
     body {
@@ -164,7 +166,6 @@
     }
 
     .modal__container {
-        display: -ms-flexbox;
         display: flex;
         max-width: 675px;
         min-height: 400px;
@@ -176,7 +177,6 @@
 
     .modal__featured {
         position: relative;
-        -ms-flex: 1;
         flex: 1;
         min-width: 230px;
         padding: 20px;
@@ -193,12 +193,12 @@
         width: 200%;
         background-color: #fbcf34;
         border-radius: 50%;
-        transform: translateX(-50%) translateY(-25%);
+        transform: translateY(-25%) translateX(0%);
     }
 
     .modal__product {
         position: absolute;
-        top: 15%;
+        top: 25%;
         left: 50%;
         max-width: 85%;
         transform: translateX(calc(-50% - 10px));
@@ -212,13 +212,18 @@
 
 <div class="modal">
     <div class="modal__container">
-        <div class="modal__featured">
-            <div class="modal__circle"></div>
-            <img src="https://cdn.pixabay.com/photo/2013/07/12/16/51/packages-151372_960_720.png" class="modal__product" />
-        </div>
+
         <div class="modal__content">
             <form>
                 <ul class="form-list">
+                    <li class="form-list__row">
+                        <label>Nombre</label>
+                        <input type="text" name="" required="" />
+                    </li>
+                    <li class="form-list__row">
+                        <label>Apellido</label>
+                        <input type="text" name="" required="" />
+                    </li>
                     <li class="form-list__row">
                         <label>Correo electrónico</label>
                         <input type="text" name="" required="" />
@@ -229,22 +234,29 @@
                             <input type="text" required="" />
                         </div>
                     </li>
+                    <li class="form-list__row">
+                        <label>Confirmar Contraseña</label>
+                        <div>
+                            <input type="text" required="" />
+                        </div>
+                    </li>
 
                     <li class="form-list__row form-list__row--agree">
                         <label>
-                            <input type="checkbox" checked="checked">
-                            Recordar contraseña
-                        </label>
-                        <label>
-                            No tienes cuenta? <a href="~/Home/Registro">Regístrate</a>
+                            Ya tienes cuenta? <a href="~/Home/Index">Ingresa aquí</a>
                         </label>
                     </li>
                     <li>
-                        <button type="submit" class="button">Ingresar</button>
+                        <button type="submit" class="button">Registrarse</button>
                     </li>
                 </ul>
             </form>
         </div>
+        <div class="modal__featured">
+            <div class="modal__circle"></div>
+            <!---<img src="https://cdn.pixabay.com/photo/2013/07/12/16/51/package-151375_960_720.png" class="modal__product" />-->
+        </div>
     </div>
-    <a href="~/Home/Usuario">Ver pagina usuario</a>
 </div>
+
+

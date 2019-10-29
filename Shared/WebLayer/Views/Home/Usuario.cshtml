@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Usuario";
+}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<style>
+    body {
+        background-color: #E9E9E9;
+    }
+
+    i {
+        font-size: 80px;
+        color: darkblue;
+    }
+
+    #cont {
+        margin-top: 5%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #envios {
+        padding: 50px;
+        text-align: center;
+        background-color: white;
+        border-radius: 8px;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        -webkit-box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+        -moz-box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+        box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+    }
+
+    #perfil {
+        padding: 50px;
+        text-align: center;
+        background-color: white;
+        border-radius: 8px;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        height: 96%;
+        -webkit-box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+        -moz-box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+        box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+    }
+
+    #titulo {
+        font-weight: bold;
+        font-size: 1.5em;
+        padding: 15px;
+    }
+
+    .perf {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div id="cont" class="container">
+    <div>
+        <div id="envios">
+            <div><i class="fas fa-shipping-fast"></i></div>
+            <div id="titulo">Mis envíos</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+        </div>
+        <div id="envios">
+            <div><i class="fas fa-box-open"></i></div>
+            <div id="titulo">Paquetes recibidos</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+        </div>
+    </div>
+    <div>
+        <div id="perfil" class="perf">
+            <div><i class="fas fa-user-alt"></i></div>
+            <div id="titulo">Mi perfil</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+        </div>
+    </div>
+    <div>
+        <div id="envios">
+            <div><i class="fas fa-search"></i></div>
+            <div id="titulo">Seguir paquete</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+        </div>
+        <div id="envios">
+            <div><i class="far fa-clipboard"></i></div>
+            <div id="titulo">Informes</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+        </div>
+    </div>
+</div>
+
+
