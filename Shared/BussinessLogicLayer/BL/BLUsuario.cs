@@ -75,7 +75,7 @@ namespace BussinessLogicLayer.BL
             }
         }
 
-        public string login(SUsuario u)
+        public SUsuario login(SUsuario u)
         {
             return _dal.login(u);
         } 

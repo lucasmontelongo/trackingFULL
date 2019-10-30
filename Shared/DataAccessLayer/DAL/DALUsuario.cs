@@ -1,4 +1,5 @@
 ﻿using Shared.Entities;
+using Shared.Exceptions;
 using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -115,7 +116,7 @@ namespace DataAccessLayer.DAL
             }
         }
 
-        public string login(SUsuario u)
+        public SUsuario login(SUsuario u)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())
             {
@@ -128,17 +129,17 @@ namespace DataAccessLayer.DAL
                         {
                             if (usuario.emailValido == true)
                             {
-                                return "OK";
+                                return _conv.modeloAEntidad(usuario);
                             }
-                            return "Debe autenticar su correo antes de poder ingresar, por favor revise su email";
+                            throw new ECompartida("Debe autenticar su correo antes de poder ingresar, por favor revise su email");
                         }
-                        return "La contrase;a no coincide";
+                        throw new ECompartida("La contrase;a no coincide");
                     }
-                    return "El usuario no existe";
+                    throw new ECompartida("El usuario no existe");
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    return e.ToString();
+                    throw;
                 }
             }
         }

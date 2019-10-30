@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
 using BussinessLogicLayer.BL;
+using System.Dynamic;
 
 namespace APIRestLayer.Controllers
 {
@@ -38,19 +39,29 @@ namespace APIRestLayer.Controllers
         [Route("login")]
         public IHttpActionResult Authenticate(SUsuario login)
         {
-            if (login == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            try
+            {
+                if (login == null)
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            BLUsuario blusuario = new BLUsuario();
-            string isCredentialValid = blusuario.login(login);
-            if (isCredentialValid == "OK")
-            {
-                var token = TokenGenerator.GenerateTokenJwt(login.Email);
-                return Ok(token);
+                BLUsuario blusuario = new BLUsuario();
+                SUsuario usuario = blusuario.login(login);
+                if (usuario != null)
+                {
+                    dynamic res = new ExpandoObject();
+                    res.Token = TokenGenerator.GenerateTokenJwt(login.Email); ;
+                    res.Email = usuario.Email;
+                    res.Rol = usuario.Rol;
+                    return Ok(res);
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "El usuario no existe");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return Content(HttpStatusCode.Unauthorized, isCredentialValid);
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
