@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="BL\BLAgencia.cs" />
     <Compile Include="BL\BLCliente.cs" />
+    <Compile Include="BL\BLEmail.cs" />
     <Compile Include="BL\BLEmpresa.cs" />
     <Compile Include="BL\BLPaquete.cs" />
     <Compile Include="BL\BLPaquetePuntoControl.cs" />

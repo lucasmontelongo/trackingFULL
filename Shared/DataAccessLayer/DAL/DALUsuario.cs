@@ -57,7 +57,7 @@ namespace DataAccessLayer.DAL
             }
         }
 
-        public bool addUsuario(SUsuario u)
+        public SUsuario addUsuario(SUsuario u)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())
             {
@@ -68,7 +68,7 @@ namespace DataAccessLayer.DAL
                     usuario.emailValido = false;
                     en.Usuario.Add(usuario);
                     en.SaveChanges();
-                    return true;
+                    return _conv.modeloAEntidad(usuario);
                 }
                 catch (Exception)
                 {
@@ -155,6 +155,22 @@ namespace DataAccessLayer.DAL
                 catch (Exception e)
                 {
                     return e.ToString();
+                }
+            }
+        }
+
+        public string getCodigoConfirmacionEmail(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Usuario u = en.Usuario.Find(id);
+                    return u.codigoConfirmacion;
+                }
+                catch (Exception)
+                {
+                    throw;
                 }
             }
         }

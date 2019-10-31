@@ -89,20 +89,5 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("prueba")]
-        public IHttpActionResult prueba()
-        {
-            try
-            {
-                BLUsuario bl = new BLUsuario();
-                return Ok(bl.pruebaEmail());
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
-            }
-        }
-
     }
 }
