@@ -55,7 +55,7 @@ namespace BussinessLogicLayer.BL
             {
                 var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
                 var request = setRequest("post");
-                request.AddParameter("application/json", "{\"sender\":{\"email\":\"tuxlukz@gmail.com\"},\"to\":[{\"email\":\"" + email + "\"}],\"replyTo\":{\"email\":\"tuxlukz@gmail.com\"},\"templateId\":1,\"params\":{\"LINKCONFIRMACION\":\"http://localhost:52952/api/auth/confirmaremail?email=" + email + "&codigoConfirmacion=" + codigoConfirmacion + "\"}}", ParameterType.RequestBody);
+                request.AddParameter("application/json", "{\"sender\":{\"email\":\"tuxlukz@gmail.com\"},\"to\":[{\"email\":\"" + email + "\"}],\"replyTo\":{\"email\":\"tuxlukz@gmail.com\"},\"templateId\":1,\"params\":{\"LINKCONFIRMACION\":\"http://localhost:52917/auth/confirmaremail?email=" + email + "&codigoConfirmacion=" + codigoConfirmacion + "\"}}", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
                 return response.ToString();
             }

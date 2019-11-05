@@ -25,13 +25,23 @@ namespace APIRestLayer.Controllers
             {
                 u.Rol = "Cliente";
                 BLUsuario blusuario = new BLUsuario();
-                blusuario.addUsuario(u);
-                var token = TokenGenerator.GenerateTokenJwt(u.Email);
-                return Ok(token);
+                SUsuario usuario = blusuario.addUsuario(u);
+                if (usuario != null)
+                {
+                    dynamic res = new ExpandoObject();
+                    res.Token = TokenGenerator.GenerateTokenJwt(usuario.Email); ;
+                    res.Email = usuario.Email;
+                    res.Rol = usuario.Rol;
+                    return Ok(res);
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "No se ha podido crear el usuario por algun motivo rarezcamente rarezco");
+                }
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 

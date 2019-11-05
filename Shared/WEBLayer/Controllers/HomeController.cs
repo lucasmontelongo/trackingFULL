@@ -17,35 +17,6 @@ namespace WEBLayer.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Index(Usuario u)
-        {
-            try
-            {
-                var client = new RestClient("http://localhost:52952/api/auth/login");
-                var request = new RestRequest(Method.POST);
-                request.AddHeader("content-type", "application/json");
-                request.AddParameter("application/json", "{\"Email\":\"" + u.Email + "\",\"Password\":\"" + u.Password + "\"}", ParameterType.RequestBody);
-                IRestResponse response = client.Execute(request);
-                if (response.StatusCode.ToString() == "OK")
-                {
-                    var usuario = JsonConvert.DeserializeObject<Usuario>(response.Content);
-                    Session["USUARIO_MAIL"] = usuario.Email;
-                    Session["USUARIO_TOKEN"] = usuario.Token;
-                    Session["USUARIO_ROL"] = usuario.Rol;
-                }
-                else
-                {
-                    ViewBag.Message = "Cagamos dijo ramos";
-                }
-                return View();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public ActionResult Registro()
         {
             return View();
