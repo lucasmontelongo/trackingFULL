@@ -1,6 +1,9 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "Login";
 }
+
+<style>
 
     body {
         font-family: 'Open Sans', sans-serif;
@@ -209,64 +212,54 @@
     }
 </style>
 
+@if (@ViewBag.Message != null)
+{
+    <script>console.log("@ViewBag.Message");</script>
+}
+
 <div class="modal">
     <div class="modal__container">
         <div class="modal__featured">
             <div class="modal__circle"></div>
             <img src="https://cdn.pixabay.com/photo/2013/07/12/16/51/packages-151372_960_720.png" class="modal__product" />
         </div>
-        <div class="modal__content">
-            <form>
-                <ul class="form-list">
-                    <li class="form-list__row">
-                        <label>Correo electrónico</label>
-                        <input id="correo" type="text" name="" required="" />
-                    </li>
-                    <li class="form-list__row">
-                        <label>Contraseña</label>
-                        <div>
-                            <input id="contraseña" type="text" required="" />
-                        </div>
-                    </li>
+        @if (Session["USUARIO_MAIL"] == null)
+        {
+            <div class="modal__content">
+                <form action="/auth/login" method="post">
+                    <ul class="form-list">
+                        <li class="form-list__row">
+                            <label>Correo electrónico</label>
+                            <input id="correo" type="email" name="Email" required="" />
+                        </li>
+                        <li class="form-list__row">
+                            <label>Contraseña</label>
+                            <div>
+                                <input id="contraseña" type="password" name="Password" required="" />
+                            </div>
+                        </li>
 
-                    <li class="form-list__row form-list__row--agree">
-                        <label>
-                            <input type="checkbox" checked="checked">
-                            Recordar contraseña
-                        </label>
-                        <label>
-                            No tienes cuenta? <a href="~/Home/Registro">Regístrate</a>
-                        </label>
-                    </li>
+                        <li class="form-list__row form-list__row--agree">
+                            <label>
+                                <input type="checkbox" checked="checked">
+                                Recordar contraseña
+                            </label>
+                            <label>
+                                No tienes cuenta? <a href="~/Home/Registro">Regístrate</a>
+                            </label>
+                        </li>
 
-                </ul>
-            </form>
-            
-                <button onclick="login()" type="submit" class="button">Ingresar</button>
-            
-        </div>
+                    </ul>
+                    <button type="submit" class="button">Ingresar</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <p>Ya estas logueado!</p>
+        }
+
     </div>
+    <a href="~/Home/Usuario">Ver pagina usuario</a>
 </div>
 
-<script>
-    function login() {
-        var correo = $("#correo").val();
-        var pass = $("#contraseña").val();
-
-        $.ajax({
-            url: 'http://localhost:52952/api/auth/login',
-            method: 'post',
-            data: {
-                'Email': correo,
-                'Password': pass,
-            },
-            success: function (e) {
-                console.log(e);
-                localStorage.setItem("token", e);
-            }
-
-
-        })
-    }
-   
-</script>

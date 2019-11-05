@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\ECompartida.cs" />
     <Compile Include="Exceptions\ETrayecto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilidades\Direcciones.cs" />
     <Compile Include="Utilidades\Randoms.cs" />
   </ItemGroup>
   <ItemGroup>

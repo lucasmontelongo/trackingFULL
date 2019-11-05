@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
 using BussinessLogicLayer.BL;
+using System.Dynamic;
 
 namespace APIRestLayer.Controllers
 {
@@ -24,13 +25,23 @@ namespace APIRestLayer.Controllers
             {
                 u.Rol = "Cliente";
                 BLUsuario blusuario = new BLUsuario();
-                blusuario.addUsuario(u);
-                var token = TokenGenerator.GenerateTokenJwt(u.Email);
-                return Ok(token);
+                SUsuario usuario = blusuario.addUsuario(u);
+                if (usuario != null)
+                {
+                    dynamic res = new ExpandoObject();
+                    res.Token = TokenGenerator.GenerateTokenJwt(usuario.Email); ;
+                    res.Email = usuario.Email;
+                    res.Rol = usuario.Rol;
+                    return Ok(res);
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "No se ha podido crear el usuario por algun motivo rarezcamente rarezco");
+                }
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -38,19 +49,29 @@ namespace APIRestLayer.Controllers
         [Route("login")]
         public IHttpActionResult Authenticate(SUsuario login)
         {
-            if (login == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            try
+            {
+                if (login == null)
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            BLUsuario blusuario = new BLUsuario();
-            string isCredentialValid = blusuario.login(login);
-            if (isCredentialValid == "OK")
-            {
-                var token = TokenGenerator.GenerateTokenJwt(login.Email);
-                return Ok(token);
+                BLUsuario blusuario = new BLUsuario();
+                SUsuario usuario = blusuario.login(login);
+                if (usuario != null)
+                {
+                    dynamic res = new ExpandoObject();
+                    res.Token = TokenGenerator.GenerateTokenJwt(login.Email); ;
+                    res.Email = usuario.Email;
+                    res.Rol = usuario.Rol;
+                    return Ok(res);
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "El usuario no existe");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return Content(HttpStatusCode.Unauthorized, isCredentialValid);
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -71,21 +92,6 @@ namespace APIRestLayer.Controllers
             {
                 BLUsuario bl = new BLUsuario();
                 return Ok(bl.confirmarEmail(email, codigoConfirmacion));
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
-            }
-        }
-
-        [HttpGet]
-        [Route("prueba")]
-        public IHttpActionResult prueba()
-        {
-            try
-            {
-                BLUsuario bl = new BLUsuario();
-                return Ok(bl.pruebaEmail());
             }
             catch (Exception e)
             {

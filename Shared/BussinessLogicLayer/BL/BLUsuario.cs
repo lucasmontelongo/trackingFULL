@@ -9,6 +9,7 @@ using sib_api_v3_sdk.Api;
 using sib_api_v3_sdk.Client;
 using sib_api_v3_sdk.Model;
 using System.Diagnostics;
+using RestSharp;
 
 namespace BussinessLogicLayer.BL
 {
@@ -38,11 +39,13 @@ namespace BussinessLogicLayer.BL
             return _dal.getAll();
         }
 
-        public bool addUsuario(SUsuario u)
+        public SUsuario addUsuario(SUsuario u)
         {
             try
             {
-                return _dal.addUsuario(u);
+                SUsuario usuario = _dal.addUsuario(u);
+                BLEmail.confirmacionDeEmail(usuario.Email, getCodigoConfirmacionEmail(usuario.Id));
+                return usuario;
             }
             catch (Exception)
             {
@@ -75,7 +78,7 @@ namespace BussinessLogicLayer.BL
             }
         }
 
-        public string login(SUsuario u)
+        public SUsuario login(SUsuario u)
         {
             return _dal.login(u);
         } 
@@ -92,6 +95,18 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public string getCodigoConfirmacionEmail(int id)
+        {
+            try
+            {
+                return _dal.getCodigoConfirmacionEmail(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public bool confirmarEmail(string email, string codigoConfirmacion)
         {
             try
@@ -101,24 +116,6 @@ namespace BussinessLogicLayer.BL
             catch (Exception e)
             {
                 throw e;
-            }
-        }
-
-        public string pruebaEmail()
-        {
-            Configuration.Default.AddApiKey("api-key", "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");
-            var apiInstance = new SMTPApi();
-            var templateId = 1;  // long? | Id of the template
-            var sendEmail = new SendEmail(emailTo:  new List<string>() { "tuxlukz@gmail.com" }); // SendEmail |
-            try
-            {
-                // Get your account informations, plans and credits details
-                apiInstance.SendTemplate(templateId, sendEmail);
-                return "pepe";
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
