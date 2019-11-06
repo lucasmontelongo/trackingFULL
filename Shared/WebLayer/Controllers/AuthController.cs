@@ -25,7 +25,7 @@ namespace WEBLayer.Controllers
         {
             try
             {
-                var client = new RestClient("http://localhost:52952/api/auth/login");
+                var client = new RestClient(Direcciones.ApiRest + "auth/login");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("content-type", "application/json");
                 request.AddParameter("application/json", "{\"Email\":\"" + u.Email + "\",\"Password\":\"" + u.Password + "\"}", ParameterType.RequestBody);
@@ -36,12 +36,13 @@ namespace WEBLayer.Controllers
                     Session["USUARIO_MAIL"] = usuario.Email;
                     Session["USUARIO_TOKEN"] = usuario.Token;
                     Session["USUARIO_ROL"] = usuario.Rol;
+                    return RedirectToAction("Index", "Usuario");
                 }
                 else
                 {
                     ViewBag.Message = "Cagamos dijo ramos";
+                    return View();
                 }
-                return View();
             }
             catch (Exception)
             {
@@ -62,7 +63,7 @@ namespace WEBLayer.Controllers
         {
             try
             {
-                var client = new RestClient("http://localhost:52952/api/auth/registro");
+                var client = new RestClient(Direcciones.ApiRest + "auth/registro");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("content-type", "application/json");
                 request.AddParameter("application/json", "{\"Email\":\"" + u.Email + "\",\"Password\":\"" + u.Password + "\"}", ParameterType.RequestBody);
