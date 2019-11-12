@@ -3,5 +3,125 @@
     ViewBag.Title = "SeguirPaquete";
 }
 
-<h2>SeguirPaquete</h2>
+<style>
+    #seguir {
+        margin-top: 2%;
+    }
+
+    .buscar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    p {
+        font-weight: bold;
+        color: darkslateblue;
+    }
+
+    h5 {
+        text-align: center;
+        font-size: 12px;
+        width: 50%;
+        margin: 1% auto;
+    }
+
+    .codigo {
+        position: relative;
+        width: 100%;
+        max-width: 280px;
+    }
+
+        .codigo .label {
+            position: absolute;
+            top: 16px;
+            left: 0;
+            font-size: 16px;
+            color: #9098a9;
+            font-weight: 500;
+            transform-origin: 0 0;
+            transition: all 0.2s ease;
+        }
+
+        .codigo .border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            background: #07f;
+            transform: scaleX(0);
+            transform-origin: 0 0;
+            transition: all 0.15s ease;
+        }
+
+        .codigo input {
+            -webkit-appearance: none;
+            width: 100%;
+            border: 0;
+            font-family: inherit;
+            padding: 12px 0;
+            height: 48px;
+            font-size: 16px;
+            font-weight: 500;
+            border-bottom: 2px solid #c8ccd4;
+            background: none;
+            border-radius: 0;
+            color: #223254;
+            transition: all 0.15s ease;
+        }
+
+            .codigo input:hover {
+                background: rgba(34,50,84,0.03);
+            }
+
+            .codigo input:focus {
+                background: none;
+                outline: none;
+            }
+
+                .codigo input:focus + span {
+                    color: #07f;
+                    transform: translateY(-26px) scale(0.75);
+                }
+
+                    .codigo input:focus + span + .border {
+                        transform: scaleX(1);
+                    }
+
+    .codigo, button {
+        margin: 0.2%;
+    }
+
+    .title {
+        margin-bottom: 3%;
+    }
+</style>
+
+<div class="container" id="seguir">
+    <p class="title" style="text-align: center">Digite el código del envio a seguir</p>
+
+    <form action="" name="formulario">
+        <div class="buscar">
+            <label for="codigo" class="codigo">
+                <input type="text" id="codigo" placeholder="&nbsp;">
+                <span class="label">Código de rastreo</span>
+                <span class="border"></span>
+            </label>
+            <button type="submit" class="btn-info">Ir</button>
+        </div>
+    </form>
+
+    <h5>
+        El código de seguimiento debe ser digitado en forma completa, sin signos de puntuación,
+        ni espacios y debe incluir las dos letras iniciales, los seis números y las dos letras finales. <br />
+        Total: 10 caracteres Ej: RR126789UY
+    </h5>
+</div>
+
+<div id="mostrarEnvios">
+
+</div>
+
+
 

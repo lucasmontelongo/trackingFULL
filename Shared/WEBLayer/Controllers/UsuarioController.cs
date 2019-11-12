@@ -9,7 +9,22 @@ namespace WEBLayer.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
-        public ActionResult Index()
+        public ActionResult Envios()
+        {
+            return View();
+        }
+
+        public ActionResult Perfil()
+        {
+            return View();
+        }
+
+        public ActionResult SeguirPaquete()
+        {
+            return View();
+        }
+
+        public ActionResult Recibidos()
         {
             return View();
         }
