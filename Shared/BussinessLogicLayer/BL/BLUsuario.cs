@@ -10,6 +10,7 @@ using sib_api_v3_sdk.Client;
 using sib_api_v3_sdk.Model;
 using System.Diagnostics;
 using RestSharp;
+using Shared.Exceptions;
 
 namespace BussinessLogicLayer.BL
 {
@@ -124,6 +125,56 @@ namespace BussinessLogicLayer.BL
             try
             {
                 return _dal.newAdmin(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public SUsuario getUsuarioByEmail(string email)
+        {
+            try
+            {
+                return _dal.getUsuarioByEmail(email);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<SPaquete> paquetesEnviados(string email) // el email es del que realizo la peticion
+        {
+            try
+            {
+                BLCliente bl = new BLCliente();
+                SCliente c = bl.getClienteByEmail(email);
+                if (c.Email != null)
+                {
+                    BLPaquete blp = new BLPaquete();
+                    return blp.paquetesEnviados(c.Id);
+                }
+                throw new ECompartida("No tienes permisos suficientes para realizar esta accion");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<SPaquete> paquetesRecibidos(string email) // el email es del que realizo la peticion
+        {
+            try
+            {
+                BLCliente bl = new BLCliente();
+                SCliente c = bl.getClienteByEmail(email);
+                if (c.Email != null)
+                {
+                    BLPaquete blp = new BLPaquete();
+                    return blp.paquetesRecibidos(c.Id);
+                }
+                throw new ECompartida("No tienes permisos suficientes para realizar esta accion");
             }
             catch (Exception)
             {

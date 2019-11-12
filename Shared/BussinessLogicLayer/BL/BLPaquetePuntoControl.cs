@@ -69,5 +69,18 @@ namespace BussinessLogicLayer.BL
                 throw;
             }
         }
+
+        public List<SPaquetePuntoControl> puntosControlDeUnPaquete(int id)
+        {
+            try
+            {
+                return _dal.getAllByPaquete(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

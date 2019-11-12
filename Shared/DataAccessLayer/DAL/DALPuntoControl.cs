@@ -133,5 +133,29 @@ namespace DataAccessLayer.DAL
             }
         }
 
+        public List<SPuntoControl> puntosControlDeUnTrayecto(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    List<SPuntoControl> puntoControl = new List<SPuntoControl>();
+                    en.PuntoControl.ToList().ForEach(x =>
+                    {
+                        if (x.borrado == false && x.idTrayecto == id)
+                        {
+                            puntoControl.Add(_conv.modeloAEntidad(x));
+                        }
+                    });
+                    return puntoControl;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
     }
 }

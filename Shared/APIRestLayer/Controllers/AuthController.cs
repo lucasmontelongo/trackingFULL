@@ -62,6 +62,7 @@ namespace APIRestLayer.Controllers
                     res.Token = TokenGenerator.GenerateTokenJwt(login.Email); ;
                     res.Email = usuario.Email;
                     res.Rol = usuario.Rol;
+                    res.Id = usuario.Id;
                     return Ok(res);
                 }
                 else

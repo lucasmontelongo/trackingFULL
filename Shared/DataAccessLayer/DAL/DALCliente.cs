@@ -139,5 +139,20 @@ namespace DataAccessLayer.DAL
             }
         }
 
+        public SCliente getClienteByEmail(string email)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    return _conv.modeloAEntidad(en.Cliente.First(x => x.email == email));
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
     }
 }

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "PaquetesEnviados";
+}
+
+<div class="container">
+    <h2>Paquetes Enviados</h2>
+    @if (ViewBag.Error == null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Estado</th>
+                    <th>Fecha Ingreso</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var paquete in ViewBag.PaquetesEnviados)
+                {
+                    <tr>
+                        <td>@paquete.Id</td>
+                        @if (paquete.FechaIngreso == paquete.FechaEntrega)
+                        {
+                            <td>En viaje</td>
+                        }
+                        else
+                        {
+                            <td>Entregado</td>
+                        }
+                        <td>@paquete.FechaIngreso</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>@ViewBag.Error</p>
+        <p>@Session["USUARIO_TOKEN"]</p>
+    }
+</div>
+

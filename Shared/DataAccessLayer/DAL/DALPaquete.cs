@@ -113,5 +113,54 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
+
+        public List<SPaquete> paquetesEnviados(int idCliente)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    List<SPaquete> paqEnviados = new List<SPaquete>();
+                    en.Paquete.ToList().ForEach(x =>
+                    {
+                        if(x.idRemitente == idCliente)
+                        {
+                            paqEnviados.Add(_conv.modeloAEntidad(x));
+                        }
+                    });
+                    return paqEnviados;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public List<SPaquete> paquetesRecibidos(int idCliente)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    List<SPaquete> paqEnviados = new List<SPaquete>();
+                    en.Paquete.ToList().ForEach(x =>
+                    {
+                        if (x.idDestinatario == idCliente)
+                        {
+                            paqEnviados.Add(_conv.modeloAEntidad(x));
+                        }
+                    });
+                    return paqEnviados;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
     }
 }

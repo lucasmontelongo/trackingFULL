@@ -93,5 +93,18 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public SCliente getClienteByEmail(string email)
+        {
+            try
+            {
+                return _dal.getClienteByEmail(email);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

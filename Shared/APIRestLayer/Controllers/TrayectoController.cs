@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace APIRestLayer.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Cliente")]
     [RoutePrefix("api/trayecto")]
     public class TrayectoController : ApiController
     {
@@ -83,5 +83,22 @@ namespace APIRestLayer.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("puntoscontrol")]
+        public IHttpActionResult puntosControl(int id)
+        {
+            try
+            {
+                BLPuntoControl bl = new BLPuntoControl();
+                return Ok(bl.puntosControlDeUnTrayecto(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+
+        }
+
     }
 }

@@ -69,5 +69,17 @@ namespace BussinessLogicLayer.BL
                 throw;
             }
         }
+
+        public List<SPuntoControl> puntosControlDeUnTrayecto(int id)
+        {
+            try
+            {
+                return _dal.puntosControlDeUnTrayecto(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
