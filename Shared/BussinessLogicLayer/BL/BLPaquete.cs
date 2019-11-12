@@ -174,5 +174,29 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public List<SPaquete> paquetesEnviados(int id)
+        {
+            try
+            {
+                return _dal.paquetesEnviados(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<SPaquete> paquetesRecibidos(int id)
+        {
+            try
+            {
+                return _dal.paquetesRecibidos(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

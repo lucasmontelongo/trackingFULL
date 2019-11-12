@@ -36,6 +36,7 @@ namespace WEBLayer.Controllers
                     Session["USUARIO_MAIL"] = usuario.Email;
                     Session["USUARIO_TOKEN"] = usuario.Token;
                     Session["USUARIO_ROL"] = usuario.Rol;
+                    Session["USUARIO_ID"] = usuario.Id;
                     return RedirectToAction("Index", "Usuario");
                 }
                 else

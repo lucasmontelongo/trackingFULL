@@ -1,5 +1,6 @@
 ﻿using BussinessLogicLayer.BL;
 using Shared.Entities;
+using Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,19 @@ using System.Web.Http;
 
 namespace APIRestLayer.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     [RoutePrefix("api/cliente")]
     public class ClienteController : ApiController
     {
+        [Authorize(Roles = "Admin, Funcionario, Encargado, Cliente")]
         [HttpGet]
         public IHttpActionResult GetId(int id)
         {
             try
             {
                 BLCliente bl = new BLCliente();
-                return Ok(bl.getCliente(id));
+                SCliente p = bl.getCliente(id);
+                return Ok(p);
             }
             catch (Exception e)
             {
@@ -27,6 +30,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IHttpActionResult GetAll()
         {
@@ -41,6 +45,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IHttpActionResult addCliente(SCliente a)
         {
@@ -55,6 +60,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IHttpActionResult updateCliente(SCliente a)
         {
@@ -69,6 +75,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public IHttpActionResult deleteCliente(int id)
         {
