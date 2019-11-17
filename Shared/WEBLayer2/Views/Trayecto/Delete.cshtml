@@ -1,0 +1,67 @@
+﻿@{ int lineas = 0; string idPC = null, idTrayectoPC = null; string nombrePC = null, ordenPC = null, idAgenciaPC = null, tiempoPC = null; string borradoPC = null;}
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+@using (Html.BeginForm("Delete", "Trayecto", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="idTrayecto">Id:</label>
+        <input type="number" class="form-control" id="idTrayecto" name="idTrayecto" value="@ViewBag.TRAYECTO.Id" readonly>
+    </div>
+    <div class="form-group">
+        <label for="nombreTrayecto">Nombre del trayecto:</label>
+        <input type="text" class="form-control" id="nombreTrayecto" name="nombreTrayecto" value="@ViewBag.TRAYECTO.Nombre">
+    </div>
+
+    <h6>Puntos de control</h6>
+
+    foreach (var item in ViewBag.PUNTOSCONTROL)
+    {
+        lineas = lineas + 1;
+        nombrePC = "nombrePC" + lineas;
+        ordenPC = "ordenPC" + lineas;
+        idAgenciaPC = "idAgenciaPC" + lineas;
+        tiempoPC = "tiempoPC" + lineas;
+        idPC = "idPC" + lineas;
+        idTrayectoPC = "idTrayectoPC" + lineas;
+        borradoPC = "borradoPC" + lineas;
+        <div class="form-group">
+            <label for="@idPC">Id:</label>
+            <input type="number" class="form-control" id="@idPC" name="@idPC" value="@item.Id" readonly />
+        </div>
+        <div class="form-group">
+            <label for="@idTrayectoPC">Id Trayecto:</label>
+            <input type="number" class="form-control" id="@idTrayectoPC" name="@idTrayectoPC" value="@item.IdTrayecto" readonly />
+        </div>
+        <div class="form-group">
+            <label for="@nombrePC">Nombre:</label>
+            <input type="text" class="form-control" id="@nombrePC" name="@nombrePC" value="@item.Nombre" />
+        </div>
+        <div class="form-group">
+            <label for="@ordenPC">Orden:</label>
+            <input type="number" class="form-control" id="@ordenPC" name="@ordenPC" value="@item.Orden" />
+        </div>
+        <div class="form-group">
+            <label for="@tiempoPC">Tiempo:</label>
+            <input type="number" class="form-control" id="@tiempoPC" name="@tiempoPC" value="@item.Tiempo" />
+        </div>
+        <div class="form-group">
+            <label for="@idAgenciaPC">IdAgencia:</label>
+            <input type="number" class="form-control" id="@idAgenciaPC" name="@idAgenciaPC" value="@item.IdAgencia" />
+        </div>
+        <div class="form-group">
+            <label for="@borradoPC">Borrar:</label>
+            <input type="checkbox" class="form-control" id="@borradoPC" name="@borradoPC" value="1" />
+        </div>
+    }
+    <br />
+    <button type="submit" class="btn btn-default">Borrar</button>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

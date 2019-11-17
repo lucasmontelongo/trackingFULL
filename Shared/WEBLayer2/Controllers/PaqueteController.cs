@@ -12,7 +12,8 @@ namespace WEBLayer2.Controllers
     [Authorize]
     public class PaqueteController : Controller
     {
-        // GET: Paquete
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
@@ -107,6 +108,8 @@ namespace WEBLayer2.Controllers
                 return View();
             }
         }
+
+
 
     }
 }

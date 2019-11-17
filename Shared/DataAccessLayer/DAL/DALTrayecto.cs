@@ -88,7 +88,7 @@ namespace DataAccessLayer.DAL
                     DALPuntoControl dalp = new DALPuntoControl();
                     a.ListaPuntosControl.ToList().ForEach(x =>
                     {
-                        if (x.Id > 0 && x.Id < 999)
+                        if (x.Id > 0)
                         {
                             dalp.updatePuntoControl(x);
                         }

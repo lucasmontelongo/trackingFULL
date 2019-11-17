@@ -177,9 +177,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AgenciaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaqueteController.cs" />
+    <Compile Include="Controllers\TrayectoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\User.cs" />
@@ -187,12 +189,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Agencia.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Paquete.cs" />
     <Compile Include="Models\PaquetePuntoControl.cs" />
     <Compile Include="Models\PuntoControl.cs" />
+    <Compile Include="Models\Trayecto.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -257,10 +261,21 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\PaquetesEnviados.cshtml" />
     <Content Include="Views\Usuario\PaquetesRecibidos.cshtml" />
+    <Content Include="Views\Agencia\Details.cshtml" />
+    <Content Include="Views\Agencia\Index.cshtml" />
+    <Content Include="Views\Agencia\Create.cshtml" />
+    <Content Include="Views\Agencia\Edit.cshtml" />
+    <Content Include="Views\Agencia\Delete.cshtml" />
+    <Content Include="Views\Trayecto\Index.cshtml" />
+    <Content Include="Views\Trayecto\Details.cshtml" />
+    <Content Include="Views\Trayecto\Create.cshtml" />
+    <Content Include="Views\Trayecto\Edit.cshtml" />
+    <Content Include="Views\Trayecto\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="NewFolder1\" />
+    <Folder Include="Views\prueba\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

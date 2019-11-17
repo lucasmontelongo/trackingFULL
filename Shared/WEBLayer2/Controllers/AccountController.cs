@@ -92,7 +92,7 @@ namespace WEBLayer2.Controllers
             {
                 FormsAuthentication.SetAuthCookie(model.Email, false);
 
-                var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(20), false, user.Rol);
+                var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(120), false, user.Rol);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 var authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 HttpContext.Response.Cookies.Add(authCookie);
