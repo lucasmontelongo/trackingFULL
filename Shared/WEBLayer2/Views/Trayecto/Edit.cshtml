@@ -1,7 +1,21 @@
 ﻿@{ int lineas = 0; string idPC = null, idTrayectoPC = null; string nombrePC = null, ordenPC = null, idAgenciaPC = null, tiempoPC = null; string borradoPC = null;}
+@{ string agencias = "<option value='null' selected>Ninguna</option>";}
 
 @{
     ViewBag.Title = "Edit";
+}
+
+@if (ViewBag.AGENCIAS != null)
+{
+    foreach (var item in ViewBag.AGENCIAS)
+    {
+        agencias = agencias + "<option value='" + item.Id + "'>" + item.Nombre + "</option>";
+    }
+    <p style="display:none" id="agencias">@agencias</p>
+}
+else
+{
+    <script>console.log("no se que ha pasado")</script>
 }
 
 <h2>Edit</h2>
@@ -51,7 +65,20 @@
         </div>
         <div class="form-group">
             <label for="@idAgenciaPC">IdAgencia:</label>
-            <input type="number" class="form-control" id="@idAgenciaPC" name="@idAgenciaPC" value="@item.IdAgencia" />
+            <select class="form-control" id="@idAgenciaPC" name="@idAgenciaPC">
+                
+                @foreach (var opt in ViewBag.AGENCIAS)
+                {
+                    if (item.IdAgencia == opt.Id)
+                    {
+                        <option value="@opt.Id" selected>@opt.Nombre</option>
+                    }
+                    else
+                    {
+                        <option value="@opt.Id">@opt.Nombre</option>
+                    }
+                }
+            </select>
         </div>
         <div class="form-group">
             <label for="@borradoPC">Borrar:</label>
@@ -90,7 +117,7 @@
         var txt12 = '</div>';
         var txt13 = '<div class="form-group">';
         var txt14 = '<label for="idAgenciaPC' + linea + '">ID Agencia:</label>';
-        var txt15 = '<input type="number" class="form-control" id="idAgenciaPC' + linea + '" name="idAgenciaPC' + linea + '">';
+        var txt15 = '<select class="form-control" id="idAgenciaPC' + linea + '" name="idAgenciaPC' + linea + '">' + $("#agencias").text();
         var txt16 = '</div>';
         $("#puntosDeControl").append(txt0, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10, txt11, txt12, txt13, txt14, txt15, txt16);
     }

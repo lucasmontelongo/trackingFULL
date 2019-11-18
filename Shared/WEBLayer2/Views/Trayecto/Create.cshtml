@@ -1,12 +1,23 @@
-﻿@{
+﻿@{ string agencias = "<option value='null' selected>Ninguna</option>";}
+
+@{
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
 
-@if(ViewBag.ERROR != null)
+@if (ViewBag.ERROR != null)
 {
     <p>@ViewBag.ERROR</p>
+}
+
+@if (ViewBag.AGENCIAS != null)
+{
+    foreach (var item in ViewBag.AGENCIAS)
+    {
+        agencias = agencias + "<option value='" + item.Id + "'>" + item.Nombre + "</option>";
+    }
+    <p style="display:none" id="agencias">@agencias</p>
 }
 
 @using (Html.BeginForm("Create", "Trayecto", FormMethod.Post))
@@ -16,15 +27,12 @@
         <input type="text" class="form-control" id="nombreTrayecto" name="nombreTrayecto">
     </div>
 
-    <h6>Puntos de control</h6>
-
     <div id="puntosDeControl"></div>
 
     <a href="#" id="addPuntoControl" onclick="nuevo()">Nuevo punto de control</a>
     <br />
     <button type="submit" class="btn btn-default">Submit</button>
 }
-@*<form action="" method="post"></form>*@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -50,8 +58,8 @@
         var txt11 = '<input type="number" class="form-control" id="tiempoPC' + linea + '" name="tiempoPC' + linea + '">';
         var txt12 = '</div>';
         var txt13 = '<div class="form-group">';
-        var txt14 = '<label for="idAgenciaPC' + linea + '">ID Agencia:</label>';
-        var txt15 = '<input type="number" class="form-control" id="idAgenciaPC' + linea + '" name="idAgenciaPC' + linea + '">';
+        var txt14 = '<label for="idAgenciaPC' + linea + '">Agencia:</label>';
+        var txt15 = '<select class="form-control" id="idAgenciaPC' + linea + '" name="idAgenciaPC' + linea + '">' + $("#agencias").text();
         var txt16 = '</div>';
         $("#puntosDeControl").append(txt0, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10, txt11, txt12, txt13, txt14, txt15, txt16);
     }

@@ -53,7 +53,28 @@ namespace WEBLayer2.Controllers
         // GET: Trayecto/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "agencia");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    ViewBag.AGENCIAS = JsonConvert.DeserializeObject<List<Models.Agencia>>(response.Content);
+                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
         }
 
         // POST: Trayecto/Create
@@ -85,11 +106,14 @@ namespace WEBLayer2.Controllers
                             Nombre = collection["nombrePC" + linea],
                             Orden = Int32.Parse(collection["ordenPC" + linea]),
                             Tiempo = Int32.Parse(collection["tiempoPC" + linea]),
-                            IdAgencia = Int32.Parse(collection["idAgenciaPC" + linea]),
                             Borrado = false,
                             IdTrayecto = 1,
                             Id = 1
                         };
+                        if (collection["idAgenciaPC" + linea] != "null")
+                        {
+                            pc.IdAgencia = Int32.Parse(collection["idAgenciaPC" + linea]);
+                        }
                         t.ListaPuntosControl.Add(pc);
                         linea = linea + 1;
                     }
@@ -132,6 +156,19 @@ namespace WEBLayer2.Controllers
                 if (response.StatusCode.ToString() == "OK")
                 {
                     ViewBag.PUNTOSCONTROL = JsonConvert.DeserializeObject<List<Models.PuntoControl>>(response.Content);
+                    client = new RestClient(Direcciones.ApiRest + "agencia");
+                    request = new RestRequest(Method.GET);
+                    request.AddHeader("content-type", "application/json");
+                    request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                    response = client.Execute(request);
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        ViewBag.AGENCIAS = JsonConvert.DeserializeObject<List<Models.Agencia>>(response.Content);
+                    }
+                    else
+                    {
+                        ViewBag.ERROR = response.Content;
+                    }
                     return View();
                 }
                 ViewBag.ERROR = response.Content;
