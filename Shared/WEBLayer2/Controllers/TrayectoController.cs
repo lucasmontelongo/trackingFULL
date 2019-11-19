@@ -163,7 +163,13 @@ namespace WEBLayer2.Controllers
                     response = client.Execute(request);
                     if (response.StatusCode.ToString() == "OK")
                     {
-                        ViewBag.AGENCIAS = JsonConvert.DeserializeObject<List<Models.Agencia>>(response.Content);
+                        List<Models.Agencia> a = new List<Models.Agencia>();
+                        //a.Add(new Models.Agencia() { Id = 0, Nombre = "Ninguna", Borrado = false, EnvioDomicilio = false, IdEmpresa = 1, Ubicacion = "lerelele" });
+                        foreach (var item in JsonConvert.DeserializeObject<List<Models.Agencia>>(response.Content))
+                        {
+                            a.Add(item);
+                        }
+                        ViewBag.AGENCIAS = a;
                     }
                     else
                     {

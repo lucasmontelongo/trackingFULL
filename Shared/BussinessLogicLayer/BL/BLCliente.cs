@@ -80,10 +80,13 @@ namespace BussinessLogicLayer.BL
             try
             {
                 _dal.existe(c);
-                if(c.TipoDocumento != "CI" && c.TipoDocumento != "Pasaporte")
+                if (c.NumeroDocumento != null)
                 {
-                    throw new ECliente("El tipo de documento indicado no es valido");
-                }    
+                    if (c.TipoDocumento != "CI" && c.TipoDocumento != "Pasaporte")
+                    {
+                        throw new ECliente("El tipo de documento indicado no es valido");
+                    }
+                } 
                 return true;
             }
             catch (Exception)

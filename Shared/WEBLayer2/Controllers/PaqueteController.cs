@@ -16,8 +16,31 @@ namespace WEBLayer2.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return View(JsonConvert.DeserializeObject<List<Models.Paquete>>(response.Content));
+                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
         }
+
+
 
         [HttpGet]
         [Route("detalle")]
