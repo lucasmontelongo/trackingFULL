@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Shared.Utilidades
+
+@{
     ViewBag.Title = "Create";
 }
 
@@ -29,23 +31,29 @@
         </div>
 
         <div class="form-group">
-            <label for="IdRemitente">Trayecto:</label>
-            <select name="IdRemitente" id="IdRemitente" class="form-control">
+            <label for="emailRemitente">Remitente:</label>
+            @*<select name="IdRemitente" id="IdRemitente" class="form-control">
                 @foreach (var item in ViewBag.CLIENTES)
                 {
                     <option value="@item.Id">@item.NombreCompleto</option>
                 }
-            </select>
+            </select>*@
+            <input type="text" name="emailRemitente" id="emailRemitente" class="form-control" onkeyup="funciones.existeRemitente()"/>
+            <input type="text" name="IdRemitente" id="IdRemitente" class="form-control" style="display:none"/>
+            <div id="rem"></div>
         </div>
 
         <div class="form-group">
-            <label for="IdDestinatario">Trayecto:</label>
-            <select name="IdDestinatario" id="IdDestinatario" class="form-control">
-                @foreach (var item in ViewBag.CLIENTES)
-                {
-                    <option value="@item.Id">@item.NombreCompleto</option>
-                }
-            </select>
+            <label for="emailDestinatario">Destinatario:</label>
+            @*<select name="IdDestinatario" id="IdDestinatario" class="form-control">
+            @foreach (var item in ViewBag.CLIENTES)
+            {
+                <option value="@item.Id">@item.NombreCompleto</option>
+            }
+        </select>*@
+            <input type="text" name="emailDestinatario" id="emailDestinatario" class="form-control" onkeyup="funciones.existeDestinatario()" />
+            <input type="text" name="IdDestinatario" id="IdDestinatario" class="form-control" style="display:none"/>
+            <div id="des"></div>
         </div>
 
         <div class="form-group">
@@ -62,4 +70,74 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+
+    <script>
+        $(document).ready(function () {
+            funciones = {
+                existeRemitente : function () {
+                    var c = $("#emailRemitente").val();
+                    var direccionAPI = "@Direcciones.ApiRest" + "/cliente/asd";
+                    $.ajax({
+                        data: { "Email": c },
+                        type: "GET",
+                        dataType: "json",
+                        url: direccionAPI,
+                        success: function (respuesta) {
+                            if (respuesta.NumeroDocumento != null) {
+                                $("#rem").html(
+                                    "<p>OK</p>"
+                                );
+                                $("#IdRemitente").val(respuesta.Id);
+                                console.log($("#IdRemitente").val())
+                            }
+                            else {
+                                var direccionWEB = "@Direcciones.Web" + "cliente/edit/" + respuesta.Id;
+                                $("#rem").html(
+                                    "<p>El cliente existe pero se deben completar datos, por favor hagalo aqui:" +
+                                    "<button type='button' class='btn btn -default'><a href='" + direccionWEB + "' target='_blank'>Editar</a></button>"
+                                );
+                                $("#IdRemitente").val(respuesta.Id);
+                            }
+                        },
+                        error: function (respuesta) {
+                            var direccionWEB = "@Direcciones.Web" + "cliente/create/";
+                            $("#rem").html(
+                                "<p>El cliente no existe en el sistema, registrelo:" +
+                                "<button type='button' class='btn btn -default'><a href='" + direccionWEB + "' target='_blank'>Crear</a></button>"
+                            );
+                        }
+                    });
+                },
+            existeDestinatario : function () {
+                var c = $("#emailDestinatario").val();
+                var direccionAPI = "@Direcciones.ApiRest" + "/cliente/asd";
+                $.ajax({
+                    data: { "Email": c },
+                    type: "GET",
+                    dataType: "json",
+                    url: direccionAPI,
+                    success: function (respuesta) {
+                        if (respuesta.Id != null) {
+                            var direccionWEB = "@Direcciones.Web" + "cliente/edit/" + respuesta.Id;
+                            $("#des").html(
+                                "<p>OK</p>"
+                            );
+                            $("#IdDestinatario").val(respuesta.Id);
+                        }
+                    },
+                    error: function (respuesta) {
+                        var direccionWEB = "@Direcciones.Web" + "cliente/create/";
+                        $("#des").html(
+                            "<p>El cliente no existe en el sistema, registrelo:" +
+                            "<button type='button' class='btn btn -default'><a href='" + direccionWEB + "' target='_blank'>Crear</a></button>"
+                        );
+                    }
+                });
+            }
+        }
+
+            
+        });
+    </script>
 }

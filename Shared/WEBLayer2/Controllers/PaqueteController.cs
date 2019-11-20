@@ -79,7 +79,7 @@ namespace WEBLayer2.Controllers
 
         // POST: Cliente/Create
         [HttpPost]
-        public ActionResult Create(Paquete collection)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
@@ -87,7 +87,13 @@ namespace WEBLayer2.Controllers
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("content-type", "application/json");
                 request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
-                request.AddJsonBody(collection);
+                Paquete t = new Paquete()
+                {
+                    IdTrayecto = Int32.Parse(collection["IdTrayecto"]),
+                    IdRemitente = Int32.Parse(collection["IdRemitente"]),
+                    IdDestinatario = Int32.Parse(collection["IdDestinatario"])
+                };
+                request.AddJsonBody(t);
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {

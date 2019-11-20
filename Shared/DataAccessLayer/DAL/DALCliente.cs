@@ -145,7 +145,12 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
-                    return _conv.modeloAEntidad(en.Cliente.First(x => x.email == email));
+                    Cliente a = en.Cliente.FirstOrDefault(x => x.email == email);
+                    if (a == null)
+                    {
+                        throw new ECliente("No existe ningun cliente con ese email en el sistema");
+                    }
+                    return _conv.modeloAEntidad(a);
                 }
                 catch (Exception e)
                 {
