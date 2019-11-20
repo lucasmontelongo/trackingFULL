@@ -92,7 +92,7 @@ namespace WEBLayer2.Controllers
                 if (response.StatusCode.ToString() == "OK")
                 {
                     ViewBag.OK = "El paquete fue dado de alta correctamente";
-                    return RedirectToAction("index", "cliente");
+                    return RedirectToAction("index", "paquete");
                 }
                 ViewBag.ERROR = "Hubo un problema al dar de alta el paquete: " + response.Content.ToString() + ". Por favor revise todos los datos y vuelva a intentarlo";
                 return Create();
