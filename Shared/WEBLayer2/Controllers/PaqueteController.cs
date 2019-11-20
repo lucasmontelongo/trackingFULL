@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WEBLayer2.Models;
 
 namespace WEBLayer2.Controllers
 {
@@ -40,7 +41,68 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        // GET: Cliente/Create
+        public ActionResult Create()
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "trayecto");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    ViewBag.TRAYECTOS = JsonConvert.DeserializeObject<List<Trayecto>>(response.Content);
+                    client = new RestClient(Direcciones.ApiRest + "cliente");
+                    request = new RestRequest(Method.GET);
+                    request.AddHeader("content-type", "application/json");
+                    request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                    response = client.Execute(request);
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        ViewBag.CLIENTES = JsonConvert.DeserializeObject<List<Models.Cliente>>(response.Content);
+                        return View();
+                    }
+                    ViewBag.ERROR = response.Content;
+                    return View();
+                }
+                ViewBag.ERROR = response.Content;
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
+        }
 
+        // POST: Cliente/Create
+        [HttpPost]
+        public ActionResult Create(Paquete collection)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddJsonBody(collection);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    ViewBag.OK = "El paquete fue dado de alta correctamente";
+                    return RedirectToAction("index", "cliente");
+                }
+                ViewBag.ERROR = "Hubo un problema al dar de alta el paquete: " + response.Content.ToString() + ". Por favor revise todos los datos y vuelva a intentarlo";
+                return Create();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return Create();
+            }
+        }
 
         [HttpGet]
         [Route("detalle")]
