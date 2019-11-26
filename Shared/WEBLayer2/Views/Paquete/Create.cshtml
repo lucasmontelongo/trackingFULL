@@ -1,4 +1,4 @@
-﻿@using Shared.Utilidades
+﻿@model WEBLayer2.Models.PaqueteDTO
 
 @{
     ViewBag.Title = "Create";
@@ -11,49 +11,84 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "Paquete", FormMethod.Post))
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
-        <h4>Paquete</h4>
+        <h4>PaqueteDTO</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         <div class="form-group">
-            <label for="IdTrayecto">Trayecto:</label>
-            <select name="IdTrayecto" id="IdTrayecto" class="form-control">
-                @foreach (var item in ViewBag.TRAYECTOS)
-                {
-                    <option value="@item.Id">@item.Nombre</option>
-                }
-            </select>
+            @Html.LabelFor(model => model.IdTrayecto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdTrayecto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdTrayecto, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="emailRemitente">Remitente:</label>
-            @*<select name="IdRemitente" id="IdRemitente" class="form-control">
-                @foreach (var item in ViewBag.CLIENTES)
-                {
-                    <option value="@item.Id">@item.NombreCompleto</option>
-                }
-            </select>*@
-            <input type="text" name="emailRemitente" id="emailRemitente" class="form-control" onkeyup="funciones.existeRemitente()"/>
-            <input type="text" name="IdRemitente" id="IdRemitente" class="form-control" style="display:none"/>
-            <div id="rem"></div>
+            @Html.LabelFor(model => model.Remitente.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remitente.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remitente.Email, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="emailDestinatario">Destinatario:</label>
-            @*<select name="IdDestinatario" id="IdDestinatario" class="form-control">
-            @foreach (var item in ViewBag.CLIENTES)
-            {
-                <option value="@item.Id">@item.NombreCompleto</option>
-            }
-        </select>*@
-            <input type="text" name="emailDestinatario" id="emailDestinatario" class="form-control" onkeyup="funciones.existeDestinatario()" />
-            <input type="text" name="IdDestinatario" id="IdDestinatario" class="form-control" style="display:none"/>
-            <div id="des"></div>
+            @Html.LabelFor(model => model.Remitente.NombreCompleto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remitente.NombreCompleto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remitente.NombreCompleto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remitente.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remitente.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remitente.Telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remitente.NumeroDocumento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remitente.NumeroDocumento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remitente.NumeroDocumento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remitente.TipoDocumento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remitente.TipoDocumento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remitente.TipoDocumento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Destinatario.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Destinatario.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Destinatario.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Destinatario.NombreCompleto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Destinatario.NombreCompleto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Destinatario.NombreCompleto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Destinatario.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Destinatario.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Destinatario.Telefono, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
@@ -67,77 +102,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquery")
-
-    <script>
-        $(document).ready(function () {
-            funciones = {
-                existeRemitente : function () {
-                    var c = $("#emailRemitente").val();
-                    var direccionAPI = "@Direcciones.ApiRest" + "/cliente/asd";
-                    $.ajax({
-                        data: { "Email": c },
-                        type: "GET",
-                        dataType: "json",
-                        url: direccionAPI,
-                        success: function (respuesta) {
-                            if (respuesta.NumeroDocumento != null) {
-                                $("#rem").html(
-                                    "<p>OK</p>"
-                                );
-                                $("#IdRemitente").val(respuesta.Id);
-                                console.log($("#IdRemitente").val())
-                            }
-                            else {
-                                var direccionWEB = "@Direcciones.Web" + "cliente/edit/" + respuesta.Id;
-                                $("#rem").html(
-                                    "<p>El cliente existe pero se deben completar datos, por favor hagalo aqui:" +
-                                    "<button type='button' class='btn btn -default'><a href='" + direccionWEB + "' target='_blank'>Editar</a></button>"
-                                );
-                                $("#IdRemitente").val(respuesta.Id);
-                            }
-                        },
-                        error: function (respuesta) {
-                            var direccionWEB = "@Direcciones.Web" + "cliente/create/";
-                            $("#rem").html(
-                                "<p>El cliente no existe en el sistema, registrelo:" +
-                                "<button type='button' class='btn btn -default'><a href='" + direccionWEB + "' target='_blank'>Crear</a></button>"
-                            );
-                        }
-                    });
-                },
-            existeDestinatario : function () {
-                var c = $("#emailDestinatario").val();
-                var direccionAPI = "@Direcciones.ApiRest" + "/cliente/asd";
-                $.ajax({
-                    data: { "Email": c },
-                    type: "GET",
-                    dataType: "json",
-                    url: direccionAPI,
-                    success: function (respuesta) {
-                        if (respuesta.Id != null) {
-                            var direccionWEB = "@Direcciones.Web" + "cliente/edit/" + respuesta.Id;
-                            $("#des").html(
-                                "<p>OK</p>"
-                            );
-                            $("#IdDestinatario").val(respuesta.Id);
-                        }
-                    },
-                    error: function (respuesta) {
-                        var direccionWEB = "@Direcciones.Web" + "cliente/create/";
-                        $("#des").html(
-                            "<p>El cliente no existe en el sistema, registrelo:" +
-                            "<button type='button' class='btn btn -default'><a href='" + direccionWEB + "' target='_blank'>Crear</a></button>"
-                        );
-                    }
-                });
-            }
-        }
-
-            
-        });
-    </script>
-}

@@ -6,6 +6,7 @@ using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,7 +107,7 @@ namespace BussinessLogicLayer.BL
                     ppc.Borrado = false;
                     if (ppcList.Count > 0)
                     {
-                        if (t.ListaPuntosControl.Max(x => x.Orden) > ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden))
+                        if (t.ListaPuntosControl.Max(x => x.Orden) > ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden)+1)
                         {
                             SPuntoControl pcActual = t.ListaPuntosControl.First(x => x.Orden == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1);
                             ppc.IdPuntoControl = t.ListaPuntosControl.First(x => x.Orden == pcActual.Orden).Id;
@@ -128,6 +129,14 @@ namespace BussinessLogicLayer.BL
                                 ppc.Retraso += (tiempoViaje - tiempoEstimado);
                             }
                             return _dalPPC.addPaquetePuntoControl(ppc);
+                        }
+                        else if(t.ListaPuntosControl.Max(x => x.Orden) == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1)
+                        {
+                            throw new ECompartida("Solo queda el ultimo paso de entrega, para esto debe realizar la peticion correspondiente enviando el codigo proporcionado por el cliente");
+                        }
+                        else
+                        {
+                            throw new ECompartida("El paquete ya llego a su punto final, no se puede avanzar mas");
                         }
                     }
                     else
@@ -151,22 +160,26 @@ namespace BussinessLogicLayer.BL
             {
                 var _dalPPC = new DALPaquetePuntoControl();
                 List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(ppc.IdPaquete);
-                int ppcAEliminarId = ppcList.Max(x => x.Id);
-                SPaquetePuntoControl ppcAEliminar = ppcList.First(x => x.Id == ppcAEliminarId);
-                if (ppcAEliminar != null)
+                if(ppcList.Count() > 0)
                 {
-                    var _dalU = new DALUsuario();
-                    SUsuario empleado = _dalU.getUsuario(ppc.IdEmpleado);
-                    if ((empleado.Rol == "Funcionario" && empleado.Id == ppcAEliminar.IdEmpleado) || empleado.Rol == "Encargado")
+                    int ppcAEliminarId = ppcList.Max(x => x.Id);
+                    SPaquetePuntoControl ppcAEliminar = ppcList.First(x => x.Id == ppcAEliminarId);
+                    if (ppcAEliminar != null)
                     {
-                        return _dalPPC.deletePaquetePuntoControl(ppcAEliminar.Id);
+                        var _dalU = new DALUsuario();
+                        SUsuario empleado = _dalU.getUsuario(ppc.IdEmpleado);
+                        if ((empleado.Rol == "Funcionario" && empleado.Id == ppcAEliminar.IdEmpleado) || empleado.Rol == "Encargado" || empleado.Rol == "Admin")
+                        {
+                            return _dalPPC.deletePaquetePuntoControl(ppcAEliminar.Id);
+                        }
+                        else
+                        {
+                            throw new ECompartida("El usuario que realizo la peticion no tiene autorizacion para realizar esta operacion");
+                        }
                     }
-                    else
-                    {
-                        throw new ECompartida("El usuario que realizo la peticion no tiene autorizacion para realizar esta operacion");
-                    }
+                    throw new ECompartida("No se encontro ningun paquete con el ID enviado");
                 }
-                throw new ECompartida("No se encontro ningun paquete con el ID enviado");
+                throw new ECompartida("No se puede retroceder mas el paquete");
             }
             catch (Exception)
             {
@@ -191,6 +204,46 @@ namespace BussinessLogicLayer.BL
             try
             {
                 return _dal.paquetesRecibidos(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public dynamic detallesPaquete(string email, string role, int idPaquete)
+        {
+            try
+            {
+                SPaquete paquete = this.getPaquete(idPaquete);
+                BLCliente blCliente = new BLCliente();
+                if (role != "Admin")
+                {
+                    SCliente cliente = blCliente.getClienteByEmail(email);
+                    if (cliente != null)
+                    {
+                        if (cliente.Id != paquete.IdDestinatario && cliente.Id != paquete.IdRemitente)
+                        {
+                            throw new ECompartida("No tienes acceso a la informacion de este paquete");
+                        }
+                    }
+                    throw new ECompartida("El email enviado en la solicitud no pertenece a un cliente del sistema");
+                }
+                SCliente Remitente = blCliente.getCliente(paquete.IdRemitente);
+                SCliente Destinatario = blCliente.getCliente(paquete.IdDestinatario);
+                BLTrayecto bLTrayecto = new BLTrayecto();
+                STrayecto Trayecto = bLTrayecto.getTrayecto(paquete.IdTrayecto);
+                BLPuntoControl bLPuntoControl = new BLPuntoControl();
+                Trayecto.ListaPuntosControl = bLPuntoControl.puntosControlDeUnTrayecto(paquete.IdTrayecto);
+                BLPaquetePuntoControl bLPaquetePuntoControl = new BLPaquetePuntoControl();
+                List<SPaquetePuntoControl> PaquetePuntosControl = bLPaquetePuntoControl.puntosControlDeUnPaquete(paquete.Id);
+                dynamic respuesta = new ExpandoObject();
+                respuesta.IdTrayecto = paquete.Id;
+                respuesta.Trayecto = Trayecto;
+                respuesta.Remitente = Remitente;
+                respuesta.Destinatario = Destinatario;
+                respuesta.PaquetePuntoControl = PaquetePuntosControl;
+                return respuesta;
             }
             catch (Exception)
             {

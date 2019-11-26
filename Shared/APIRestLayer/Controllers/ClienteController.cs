@@ -98,7 +98,8 @@ namespace APIRestLayer.Controllers
             try
             {
                 BLCliente bl = new BLCliente();
-                return Ok(bl.getClienteByEmail(Email));
+                SCliente c = bl.getClienteByEmail(Email);
+                return Ok(c);
             }
             catch (Exception e)
             {
@@ -106,6 +107,21 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        //Esta funcion es para cuando se registra un nuevo paquete, se envian los datos de los usuarios y se registran en la base o se actualizan los datos
+        [HttpPost]
+        [Route("nuevopaquete")]
+        public IHttpActionResult nuevoPaquete(List<SCliente> clientes)
+        {
+            try
+            {
+                BLCliente bl = new BLCliente();
+                return Ok(bl.nuevoPaquete(clientes));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
 
     }
 }

@@ -260,7 +260,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Paquete\Detalle.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\PaquetesEnviados.cshtml" />
     <Content Include="Views\Usuario\PaquetesRecibidos.cshtml" />
@@ -281,7 +280,9 @@
     <Content Include="Views\Cliente\Delete.cshtml" />
     <Content Include="Views\Paquete\Index.cshtml" />
     <Content Include="Views\Home\AvisoVerificacion.cshtml" />
+    <Content Include="Views\Paquete\CreateAntihuo.cshtml" />
     <Content Include="Views\Paquete\Create.cshtml" />
+    <Content Include="Views\Paquete\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
