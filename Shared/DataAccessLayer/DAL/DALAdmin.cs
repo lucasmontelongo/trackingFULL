@@ -22,7 +22,7 @@ namespace DataAccessLayer.DAL
                 try
                 {
                     Usuario u = en.Usuario.FirstOrDefault(x => x.email == email);
-                    if(u != null)
+                    if (u != null)
                     {
                         u.rol = "Admin";
                         en.SaveChanges();
@@ -38,5 +38,6 @@ namespace DataAccessLayer.DAL
                     throw e;
                 }
             }
+        }
     }
 }

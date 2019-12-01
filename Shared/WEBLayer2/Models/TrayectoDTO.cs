@@ -7,5 +7,6 @@ namespace WEBLayer2.Models
 {
     public class TrayectoDTO
     {
+        public string Nombre { get; set; }
     }
 }

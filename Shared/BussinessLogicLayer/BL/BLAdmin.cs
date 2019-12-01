@@ -21,8 +21,6 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                //BLUsuario blUsuario = new BLUsuario();
-                //SUsuario u = blUsuario.getUsuarioByEmail(email);
                 return _dal.add(email);
             }
             catch (Exception)

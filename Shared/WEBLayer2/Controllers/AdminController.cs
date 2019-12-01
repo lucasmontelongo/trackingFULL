@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RestSharp;
+using Shared.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,14 +29,21 @@ namespace WEBLayer2.Controllers
         {
             try
             {
-                var client = new RestClient(Direcciones.ApiRest + "agencia");
+                var client = new RestClient(Direcciones.ApiRest + "admin/prueba");
                 var request = new RestRequest(Method.GET);
                 request.AddHeader("content-type", "application/json");
                 request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddHeader("email", email);
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {
+                    ViewBag.OK = "El usuario con el email " + email + " ahora tiene permisos de administrador";                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
                 }
+                return View();
+            }
             catch (Exception e)
             {
                 ViewBag.ERROR = e;
