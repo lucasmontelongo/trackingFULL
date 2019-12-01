@@ -139,7 +139,29 @@ namespace WEBLayer2.Controllers
             }
         }
 
-        
+        // GET: Cliente/Create
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddHeader("id", id.ToString());
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return View(JsonConvert.DeserializeObject<Paquete>(response.Content));
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
+        }
 
     }
 }
