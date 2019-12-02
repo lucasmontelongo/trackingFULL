@@ -13,25 +13,22 @@ namespace APIRestLayer.Controllers
     public class AdminController : ApiController
     {
 
-        [HttpGet]
-        public IHttpActionResult prueba()
-        {
-            return Ok("adad");
-        }
-
-        [HttpPost] //vete a saber por que, pero esta porqueria no la agarra si haces una peticion, en algun momento me enterare el porque
-        [Route("banana")]
-        public IHttpActionResult pepe(string email)
+        [HttpPost] 
+        [Route("addpermisos")]
+        public IHttpActionResult addpermisos(string email, string role)
         {
             try
             {
                 BLAdmin bl = new BLAdmin();
-                return Ok(bl.add(email));
+                return Ok(bl.add(email, role));
             }
             catch (Exception e)
             {
                 return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
+
+
     }
 }

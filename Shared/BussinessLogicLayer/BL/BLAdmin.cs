@@ -17,11 +17,11 @@ namespace BussinessLogicLayer.BL
             _dal = new DALAdmin();
         }
 
-        public bool add(string email)
+        public bool add(string email, string role)
         {
             try
             {
-                return _dal.add(email);
+                return _dal.add(email, role);
             }
             catch (Exception)
             {

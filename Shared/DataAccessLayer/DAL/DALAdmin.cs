@@ -15,7 +15,7 @@ namespace DataAccessLayer.DAL
             _conv = new Conversiones();
         }
 
-        public bool add(string email)
+        public bool add(string email, string role)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())
             {
@@ -24,7 +24,7 @@ namespace DataAccessLayer.DAL
                     Usuario u = en.Usuario.FirstOrDefault(x => x.email == email);
                     if (u != null)
                     {
-                        u.rol = "Admin";
+                        u.rol = role;
                         en.SaveChanges();
                         return true;
                     }

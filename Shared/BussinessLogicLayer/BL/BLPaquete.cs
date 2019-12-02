@@ -239,6 +239,7 @@ namespace BussinessLogicLayer.BL
                 List<SPaquetePuntoControl> PaquetePuntosControl = bLPaquetePuntoControl.puntosControlDeUnPaquete(paquete.Id);
                 dynamic respuesta = new ExpandoObject();
                 respuesta.IdTrayecto = paquete.Id;
+                respuesta.Qr = paquete.Codigo;
                 respuesta.Trayecto = Trayecto;
                 respuesta.Remitente = Remitente;
                 respuesta.Destinatario = Destinatario;
