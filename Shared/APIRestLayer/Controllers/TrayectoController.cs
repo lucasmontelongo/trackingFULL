@@ -148,5 +148,21 @@ namespace APIRestLayer.Controllers
 
         }
 
+        [HttpDelete]
+        [Route("deletepuntocontrol")]
+        public IHttpActionResult deletePuntoControl(int id)
+        {
+            try
+            {
+                BLPuntoControl bl = new BLPuntoControl();
+                return Ok(bl.deletePuntoControl(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+
+        }
+
     }
 }

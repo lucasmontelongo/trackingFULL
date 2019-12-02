@@ -69,6 +69,15 @@ namespace DataAccessLayer.DAL
                             ag.PuntoControl.Add(_conv.entidadAModelo(x));
                         });
                     }
+                    else
+                    {
+                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Recibido en origen", orden = 1, tiempo = 0, borrado = false  });
+                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Esperando en origen", orden = 2, tiempo = 0, borrado = false });
+                        ag.PuntoControl.Add(new PuntoControl() { nombre = "En viaje", orden = 3, tiempo = 0, borrado = false });
+                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Recibido en destino", orden = 4, tiempo = 0, borrado = false });
+                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Entregado al cliente", orden = 5, tiempo = 0, borrado = false });
+
+                    }
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }

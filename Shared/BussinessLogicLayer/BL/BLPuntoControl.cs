@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.DAL;
 using Shared.Entities;
+using Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,18 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
+                if (a.Orden < 1)
+                {
+                    throw new ECompartida("El orden debe ser mayor a cero");
+                }
+                List<SPuntoControl> pclist = puntosControlDeUnTrayecto(a.IdTrayecto);
+                pclist.ForEach(x =>
+                {
+                    if (x.Orden == a.Orden)
+                    {
+                        throw new ECompartida("Ya existe un punto de control con el mismo orden");
+                    }
+                });
                 return _dal.addPuntoControl(a);
             }
             catch (Exception)
@@ -50,6 +63,21 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
+                if (a.Orden < 1)
+                {
+                    throw new ECompartida("El orden debe ser mayor a cero");
+                }
+                List<SPuntoControl> pclist = puntosControlDeUnTrayecto(a.IdTrayecto);
+                pclist.ForEach(x =>
+                {
+                    if (x.Orden == a.Orden)
+                    {
+                        if (x.Id != a.Id)
+                        {
+                            throw new ECompartida("Ya existe un punto de control con el mismo orden");
+                        }
+                    }
+                });
                 return _dal.updatePuntoControl(a);
             }
             catch (Exception)
@@ -62,7 +90,7 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return null;
+                return _dal.deletePuntoControl(id);
             }
             catch (Exception)
             {

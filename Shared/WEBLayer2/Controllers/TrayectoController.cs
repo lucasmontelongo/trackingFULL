@@ -348,5 +348,61 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult DeletePC(int id)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "trayecto/getpuntocontrol");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddQueryParameter("id", id.ToString());
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return View(JsonConvert.DeserializeObject<PuntoControl>(response.Content));
+                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeletePC(FormCollection collection)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "trayecto/deletepuntocontrol");
+                var request = new RestRequest(Method.DELETE);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddQueryParameter("id", collection["Id"]);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
+                }
+                return DeletePC(Int32.Parse(collection["Id"]));
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return DeletePC(Int32.Parse(collection["Id"]));
+            }
+        }
+
     }
 }

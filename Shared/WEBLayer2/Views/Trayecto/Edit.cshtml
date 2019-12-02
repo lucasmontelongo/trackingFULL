@@ -39,16 +39,18 @@
                 <th>Orden</th>
                 <th>Tiempo</th>
                 <th></th>
+                <th></th>
             </tr>
             @foreach (var item in Model.ListaPuntosControl)
             {
-                <tr>
-                    <td>@item.Nombre</td>
-                    <td>@item.IdAgencia</td>
-                    <td>@item.Orden</td>
-                    <td>@item.Tiempo</td>
-                    <td>@Html.ActionLink("Editar", "EditPC", new { id = item.Id })</td>
-                </tr>
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.IdAgencia</td>
+                <td>@item.Orden</td>
+                <td>@item.Tiempo</td>
+                <td>@Html.ActionLink("Editar", "EditPC", new { id = item.Id })</td>
+                <td>@Html.ActionLink("Eliminar", "DeletePC", new { id = item.Id })</td>
+            </tr>
             }
         </table>
 
