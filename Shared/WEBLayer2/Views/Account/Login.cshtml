@@ -20,7 +20,6 @@
                         <ul class="form-list">
                             <li class="form-list__row">
                                 @Html.AntiForgeryToken()
-                                <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             </li>
                             <li class="form-list__row">
@@ -63,9 +62,8 @@
                             <li class="form-list__row">
                                 <p id="reg">
                                     <label>
-                                        No tienes cuenta?
+                                        No tienes cuenta? @Html.ActionLink("Regístrate", "Register")
                                     </label>
-                                    @Html.ActionLink("Regístrate", "Register")
                                 </p>
                             </li>
                             @* Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña
