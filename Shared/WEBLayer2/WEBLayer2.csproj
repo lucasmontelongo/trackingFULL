@@ -201,6 +201,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Paquete.cs" />
     <Compile Include="Models\PaqueteDTO.cs" />
+    <Compile Include="Models\PaqueteFiltroDTO.cs" />
     <Compile Include="Models\PaquetePuntoControl.cs" />
     <Compile Include="Models\PuntoControl.cs" />
     <Compile Include="Models\Trayecto.cs" />
@@ -298,6 +299,8 @@
     <Content Include="Views\Trayecto\EditPC.cshtml" />
     <Content Include="Views\Trayecto\DeletePC.cshtml" />
     <Content Include="Views\Admin\EtiquetaPDF.cshtml" />
+    <Content Include="Views\Paquete\FiltroResultado.cshtml" />
+    <Content Include="Views\Paquete\Filtro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

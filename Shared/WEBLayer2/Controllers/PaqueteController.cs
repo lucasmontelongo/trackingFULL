@@ -235,27 +235,58 @@ namespace WEBLayer2.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Filtro(int id, Paquete collection)
+        [HttpGet]
+        public ActionResult Filtro()
         {
             try
             {
-                var client = new RestClient(Direcciones.ApiRest + "paquete");
-                var request = new RestRequest(Method.GET);
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Filtro(PaqueteFiltroDTO collection)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete/filtro");
+                var request = new RestRequest(Method.POST);
                 request.AddHeader("content-type", "application/json");
                 request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
-                request.AddHeader("id", id.ToString());
+                request.AddJsonBody(collection);
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {
-                    return RedirectToAction("Index");
+                    List<Paquete> lp = JsonConvert.DeserializeObject<List<Models.Paquete>>(response.Content);
+                    ViewBag.PAQUETES = lp;
+                    return View();
                 }
                 throw new ECompartida(response.Content);
             }
             catch (Exception e)
             {
                 ViewBag.ERROR = e.Message;
-                return Delete(id);
+                return Filtro();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult FiltroResultado(List<Paquete> lp)
+        {
+            try
+            {
+                ViewBag.PAQUETES = lp;
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
             }
         }
 

@@ -257,6 +257,7 @@ namespace BussinessLogicLayer.BL
             try
             {
                 List<SPaquete> todos = _dal.getAll();
+                bool cambio = false;
                 List<SPaquete> temporal = new List<SPaquete>();
                 List<SPaquete> respuesta = new List<SPaquete>();
                 BLCliente _blCliente = new BLCliente();
@@ -267,6 +268,7 @@ namespace BussinessLogicLayer.BL
                     });
                     todos = respuesta;
                     respuesta = new List<SPaquete>();
+                    cambio = true;
                 }
                 if (filtro.Remitente != null)
                 {
@@ -279,6 +281,7 @@ namespace BussinessLogicLayer.BL
                     });
                     todos = respuesta;
                     respuesta = new List<SPaquete>();
+                    cambio = true;
                 }
                 if (filtro.Destinatario != null)
                 {
@@ -291,6 +294,7 @@ namespace BussinessLogicLayer.BL
                     });
                     todos = respuesta;
                     respuesta = new List<SPaquete>();
+                    cambio = true;
                 }
                 if (filtro.Estado != null)
                 {
@@ -305,6 +309,7 @@ namespace BussinessLogicLayer.BL
                         });
                         todos = respuesta;
                         respuesta = new List<SPaquete>();
+                        cambio = true;
                     }
                     else
                     {
@@ -317,9 +322,14 @@ namespace BussinessLogicLayer.BL
                         });
                         todos = respuesta;
                         respuesta = new List<SPaquete>();
+                        cambio = true;
                     }
                 }
-                return todos;
+                if (cambio)
+                {
+                    return todos;
+                }
+                return null;
             }
             catch (Exception)
             {
