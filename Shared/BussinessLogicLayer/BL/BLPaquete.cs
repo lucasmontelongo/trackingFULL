@@ -49,7 +49,7 @@ namespace BussinessLogicLayer.BL
                 a.CodigoConfirmacion = Randoms.RandomString(6);
                 a.Codigo = "";
                 a.Borrado = false;
-                a.ListaPaquetePuntoControl = null;
+                //a.ListaPaquetePuntoControl = null;
                 SPaquete p = _dal.addPaquete(a);
                 if (p != null)
                 {
@@ -83,7 +83,7 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return null;
+                return _dal.deletePaquete(id);
             }
             catch (Exception)
             {
@@ -245,6 +245,81 @@ namespace BussinessLogicLayer.BL
                 respuesta.Destinatario = Destinatario;
                 respuesta.PaquetePuntoControl = PaquetePuntosControl;
                 return respuesta;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<SPaquete> filtro(PaqueteFiltroDTO filtro)
+        {
+            try
+            {
+                List<SPaquete> todos = _dal.getAll();
+                List<SPaquete> temporal = new List<SPaquete>();
+                List<SPaquete> respuesta = new List<SPaquete>();
+                BLCliente _blCliente = new BLCliente();
+                if (filtro.FechaFinal != null && filtro.FechaInicio != null)
+                {
+                    todos.Where(x => ((x.FechaIngreso >= filtro.FechaInicio) && (x.FechaIngreso <= filtro.FechaFinal)) || ((x.FechaEntrega >= filtro.FechaInicio) && (x.FechaEntrega <= filtro.FechaFinal))).ToList().ForEach(x => {
+                        respuesta.Add(x);
+                    });
+                    todos = respuesta;
+                    respuesta = new List<SPaquete>();
+                }
+                if (filtro.Remitente != null)
+                {
+                    todos.Where(x => x.IdRemitente == _blCliente.getClienteByEmail(filtro.Remitente).Id).ToList().ForEach(x =>
+                    {
+                        if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
+                        {
+                            respuesta.Add(x);
+                        }
+                    });
+                    todos = respuesta;
+                    respuesta = new List<SPaquete>();
+                }
+                if (filtro.Destinatario != null)
+                {
+                    todos.Where(x => x.IdDestinatario == _blCliente.getClienteByEmail(filtro.Destinatario).Id).ToList().ForEach(x =>
+                    {
+                        if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
+                        {
+                            respuesta.Add(x);
+                        }
+                    });
+                    todos = respuesta;
+                    respuesta = new List<SPaquete>();
+                }
+                if (filtro.Estado != null)
+                {
+                    if (filtro.Estado == "En viaje")
+                    {
+                        todos.Where(x => x.FechaIngreso == x.FechaEntrega).ToList().ForEach(x =>
+                        {
+                            if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
+                            {
+                                respuesta.Add(x);
+                            }
+                        });
+                        todos = respuesta;
+                        respuesta = new List<SPaquete>();
+                    }
+                    else
+                    {
+                        todos.Where(x => x.FechaIngreso != x.FechaEntrega).ToList().ForEach(x =>
+                        {
+                            if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
+                            {
+                                respuesta.Add(x);
+                            }
+                        });
+                        todos = respuesta;
+                        respuesta = new List<SPaquete>();
+                    }
+                }
+                return todos;
             }
             catch (Exception)
             {

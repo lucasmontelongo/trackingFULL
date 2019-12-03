@@ -172,5 +172,21 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [Route("filtro")]
+        public IHttpActionResult filtro(PaqueteFiltroDTO filtro)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.filtro(filtro));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
+using Shared.Exceptions;
 using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -148,7 +149,54 @@ namespace WEBLayer2.Controllers
                 var request = new RestRequest(Method.GET);
                 request.AddHeader("content-type", "application/json");
                 request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
-                request.AddHeader("id", id.ToString());
+                request.AddQueryParameter("id", id.ToString());
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return View(JsonConvert.DeserializeObject<Paquete>(response.Content));
+                }
+                throw new ECompartida(response.Content);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Paquete collection)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete");
+                var request = new RestRequest(Method.PUT);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddJsonBody(collection);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return RedirectToAction("Index");
+                }
+                throw new ECompartida(response.Content);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return Edit(collection.Id);
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddQueryParameter("id", id.ToString());
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {
@@ -160,6 +208,54 @@ namespace WEBLayer2.Controllers
             {
                 ViewBag.ERROR = e.Message;
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, Paquete collection)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete");
+                var request = new RestRequest(Method.DELETE);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddHeader("id", id.ToString());
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return RedirectToAction("Index");
+                }
+                throw new ECompartida(response.Content);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return Delete(id);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Filtro(int id, Paquete collection)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddHeader("id", id.ToString());
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    return RedirectToAction("Index");
+                }
+                throw new ECompartida(response.Content);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return Delete(id);
             }
         }
 
