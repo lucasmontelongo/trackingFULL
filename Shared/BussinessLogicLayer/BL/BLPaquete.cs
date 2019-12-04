@@ -337,5 +337,54 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public SPaquetePuntoControl entregaCliente(SPaquetePuntoControl ppc, string codigo)
+        {
+            try
+            {
+                SPaquete p = _dal.getPaquete(ppc.IdPaquete);
+                if(p.CodigoConfirmacion == codigo)
+                {
+                    var _dalPPC = new DALPaquetePuntoControl();
+                    var _dalPC = new DALPuntoControl();
+                    var _dalT = new DALTrayecto();
+                    ppc.FechaLlegada = DateTime.Now;
+                    ppc.Borrado = false;
+                    var pclist = _dalPC.puntosControlDeUnTrayecto(p.IdTrayecto);
+                    ppc.IdPuntoControl = pclist.Max(x => x.Id);
+                    List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(p.Id);
+                    ppcList.ForEach(x =>
+                    {
+                        if (x.IdPuntoControl == ppc.IdPuntoControl)
+                        {
+                            throw new ECompartida("El paquete ya fue entregado al cliente anteriormente");
+                        }
+                    });
+                    int tiempoEstimado = 0;
+                    pclist.ForEach(x =>
+                    {
+                        if (x.Orden <= pclist.First(z => z.Id == ppc.IdPuntoControl).Orden)
+                        {
+                            tiempoEstimado += x.Tiempo;
+                        }
+                    });
+                    int tiempoViaje = (p.FechaIngreso - ppc.FechaLlegada).Seconds;
+                    if ((tiempoViaje <= tiempoEstimado))
+                    {
+                        ppc.Retraso -= (tiempoEstimado - tiempoViaje);
+                    }
+                    else
+                    {
+                        ppc.Retraso += (tiempoViaje - tiempoEstimado);
+                    }
+                    return _dalPPC.addPaquetePuntoControl(ppc);
+                }
+                throw new ECompartida("El codigo no coincide con el paquete");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

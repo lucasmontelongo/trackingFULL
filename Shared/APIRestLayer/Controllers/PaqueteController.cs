@@ -188,5 +188,26 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin, Funcionario, Encargado")]
+        [HttpGet]
+        [Route("entregacliente")]
+        public IHttpActionResult entregaCliente(int IdEmpleado, int IdPaquete, string codigo)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                SPaquetePuntoControl ppc = new SPaquetePuntoControl()
+                {
+                    IdEmpleado = IdEmpleado,
+                    IdPaquete = IdPaquete
+                };
+                return Ok(bl.entregaCliente(ppc, codigo));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }
