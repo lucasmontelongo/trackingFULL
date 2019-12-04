@@ -13,7 +13,7 @@ namespace APIRestLayer.Controllers
     [RoutePrefix("api/paquete")]
     public class PaqueteController : ApiController
     {
-        [Authorize(Roles = "Admin, Funcionario, Encargado, Cliente")]
+        [Authorize]
         [HttpGet]
         public IHttpActionResult GetId(int id)
         {
@@ -74,7 +74,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -140,7 +140,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin, Cliente")]
+        [Authorize]
         [HttpGet]
         [Route("puntoscontrol")]
         public IHttpActionResult puntoscontrol(int id)
@@ -149,6 +149,38 @@ namespace APIRestLayer.Controllers
             {
                 BLPaquetePuntoControl bl = new BLPaquetePuntoControl();
                 return Ok(bl.puntosControlDeUnPaquete(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("detalle")]
+        public IHttpActionResult detalle(int id)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.detallesPaquete(TokenInfo.getClaim(Request, "email"), TokenInfo.getClaim(Request, "role"), id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [Route("filtro")]
+        public IHttpActionResult filtro(PaqueteFiltroDTO filtro)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.filtro(filtro));
             }
             catch (Exception e)
             {

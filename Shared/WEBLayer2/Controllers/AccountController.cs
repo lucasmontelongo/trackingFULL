@@ -166,27 +166,43 @@ namespace WEBLayer2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Enviar correo electrónico con este vínculo
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
+                    var user = new Usuario { Email = model.Email, Password = model.Email };
+                    var client = new RestClient(Direcciones.ApiRest + "auth/registro");
+                    var request = new RestRequest(Method.POST);
+                    request.AddHeader("content-type", "application/json");
+                    request.AddParameter("application/json", "{\"Email\":\"" + user.Email + "\",\"Password\":\"" + user.Password + "\"}", ParameterType.RequestBody);
+                    IRestResponse response = client.Execute(request);
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        user = JsonConvert.DeserializeObject<Usuario>(response.Content);
 
-                    return RedirectToAction("Index", "Home");
+                        if (user != null)
+                        {
+                            return RedirectToAction("AvisoVerificacion","Home");
+                        }
+
+                        else
+                        {
+                            ModelState.AddModelError("", "Invalid login attempt.");
+                            return View(model);
+                        }
+                    }
+                    ViewBag.ERROR = response.Content;
+                    return Register();
                 }
-                AddErrors(result);
-            }
 
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+                // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return Register();
+            }
         }
 
         //

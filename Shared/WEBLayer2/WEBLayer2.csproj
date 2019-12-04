@@ -49,6 +49,9 @@
     <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.1.0\lib\net452\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -177,6 +180,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AgenciaController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,12 +196,16 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agencia.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\EtiquetaDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Paquete.cs" />
+    <Compile Include="Models\PaqueteDTO.cs" />
+    <Compile Include="Models\PaqueteFiltroDTO.cs" />
     <Compile Include="Models\PaquetePuntoControl.cs" />
     <Compile Include="Models\PuntoControl.cs" />
     <Compile Include="Models\Trayecto.cs" />
+    <Compile Include="Models\TrayectoDTO.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -212,8 +220,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -259,7 +272,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Paquete\Detalle.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\PaquetesEnviados.cshtml" />
     <Content Include="Views\Usuario\PaquetesRecibidos.cshtml" />
@@ -270,8 +282,6 @@
     <Content Include="Views\Agencia\Delete.cshtml" />
     <Content Include="Views\Trayecto\Index.cshtml" />
     <Content Include="Views\Trayecto\Details.cshtml" />
-    <Content Include="Views\Trayecto\Create.cshtml" />
-    <Content Include="Views\Trayecto\Edit.cshtml" />
     <Content Include="Views\Trayecto\Delete.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Cliente\Details.cshtml" />
@@ -279,6 +289,19 @@
     <Content Include="Views\Cliente\Edit.cshtml" />
     <Content Include="Views\Cliente\Delete.cshtml" />
     <Content Include="Views\Paquete\Index.cshtml" />
+    <Content Include="Views\Home\AvisoVerificacion.cshtml" />
+    <Content Include="Views\Paquete\Create.cshtml" />
+    <Content Include="Views\Paquete\Details.cshtml" />
+    <Content Include="Views\Paquete\Edit.cshtml" />
+    <Content Include="Views\Admin\nuevoAdministrador.cshtml" />
+    <Content Include="Views\Trayecto\Create.cshtml" />
+    <Content Include="Views\Trayecto\Edit.cshtml" />
+    <Content Include="Views\Trayecto\CreatePC.cshtml" />
+    <Content Include="Views\Trayecto\EditPC.cshtml" />
+    <Content Include="Views\Trayecto\DeletePC.cshtml" />
+    <Content Include="Views\Admin\EtiquetaPDF.cshtml" />
+    <Content Include="Views\Paquete\FiltroResultado.cshtml" />
+    <Content Include="Views\Paquete\Filtro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

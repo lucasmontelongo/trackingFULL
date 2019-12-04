@@ -57,6 +57,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Conversiones.cs" />
+    <Compile Include="DAL\DALAdmin.cs" />
     <Compile Include="DAL\DALAgencia.cs" />
     <Compile Include="DAL\DALCliente.cs" />
     <Compile Include="DAL\DALEmpresa.cs" />

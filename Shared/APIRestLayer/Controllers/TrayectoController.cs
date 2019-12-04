@@ -100,5 +100,69 @@ namespace APIRestLayer.Controllers
 
         }
 
+        [HttpPost]
+        [Route("addpuntocontrol")]
+        public IHttpActionResult addPuntoControl(SPuntoControl pc)
+        {
+            try
+            {
+                BLPuntoControl bl = new BLPuntoControl();
+                return Ok(bl.addPuntoControl(pc));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+
+        }
+
+        [HttpGet]
+        [Route("getpuntocontrol")]
+        public IHttpActionResult getPuntoControl(int id)
+        {
+            try
+            {
+                BLPuntoControl bl = new BLPuntoControl();
+                return Ok(bl.getPuntoControl(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+
+        }
+
+        [HttpPut]
+        [Route("editpuntocontrol")]
+        public IHttpActionResult editPuntoControl(SPuntoControl pc)
+        {
+            try
+            {
+                BLPuntoControl bl = new BLPuntoControl();
+                return Ok(bl.updatePuntoControl(pc));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+
+        }
+
+        [HttpDelete]
+        [Route("deletepuntocontrol")]
+        public IHttpActionResult deletePuntoControl(int id)
+        {
+            try
+            {
+                BLPuntoControl bl = new BLPuntoControl();
+                return Ok(bl.deletePuntoControl(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+
+        }
+
     }
 }

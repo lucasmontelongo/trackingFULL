@@ -1,66 +1,40 @@
-﻿@{ string agencias = "<option value='null' selected>Ninguna</option>";}
+﻿@model WEBLayer2.Models.TrayectoDTO
 
 @{
     ViewBag.Title = "Create";
 }
-
-<h2>Create</h2>
 
 @if (ViewBag.ERROR != null)
 {
     <p>@ViewBag.ERROR</p>
 }
 
-@if (ViewBag.AGENCIAS != null)
-{
-    foreach (var item in ViewBag.AGENCIAS)
-    {
-        agencias = agencias + "<option value='" + item.Id + "'>" + item.Nombre + "</option>";
-    }
-    <p style="display:none" id="agencias">@agencias</p>
-}
+<h2>Create</h2>
 
-@using (Html.BeginForm("Create", "Trayecto", FormMethod.Post))
+@using (Html.BeginForm()) 
 {
-    <div class="form-group">
-        <label for="nombreTrayecto">Nombre del trayecto:</label>
-        <input type="text" class="form-control" id="nombreTrayecto" name="nombreTrayecto">
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TrayectoDTO</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
     </div>
-
-    <div id="puntosDeControl"></div>
-
-    <a href="#" id="addPuntoControl" onclick="nuevo()">Nuevo punto de control</a>
-    <br />
-    <button type="submit" class="btn btn-default">Submit</button>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-<script>
-
-    var linea = 0;
-
-    function nuevo() {
-        linea = linea + 1;
-        var txt0 = '<hr> Punto de Control ' + linea;
-        var txt1 = '<div class="form-group">';
-        var txt2 = '<label for="nombrePC' + linea + '">Nombre:</label>';
-        var txt3 = '<input type="text" class="form-control" id="nombrePC' + linea + '" name="nombrePC' + linea + '">';
-        var txt4 = '</div>';
-        var txt5 = '<div class="form-group">';
-        var txt6 = '<label for="ordenPC' + linea + '">Orden:</label>';
-        var txt7 = '<input type="number" class="form-control" id="ordenPC' + linea + '" name="ordenPC' + linea + '">';
-        var txt8 = '</div>';
-        var txt9 = '<div class="form-group">';
-        var txt10 = '<label for="tiempoPC' + linea + '">Tiempo:</label>';
-        var txt11 = '<input type="number" class="form-control" id="tiempoPC' + linea + '" name="tiempoPC' + linea + '">';
-        var txt12 = '</div>';
-        var txt13 = '<div class="form-group">';
-        var txt14 = '<label for="idAgenciaPC' + linea + '">Agencia:</label>';
-        var txt15 = '<select class="form-control" id="idAgenciaPC' + linea + '" name="idAgenciaPC' + linea + '">' + $("#agencias").text();
-        var txt16 = '</div>';
-        $("#puntosDeControl").append(txt0, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt10, txt11, txt12, txt13, txt14, txt15, txt16);
-    }
-</script>
