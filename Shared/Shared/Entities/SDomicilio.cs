@@ -10,5 +10,6 @@ namespace Shared.Entities
     {
         public int IdPaquete { get; set; }
         public bool Envio { get; set; }
+        public DateTime Hora { get; set; }
     }
 }

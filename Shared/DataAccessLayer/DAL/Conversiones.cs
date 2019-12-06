@@ -359,7 +359,8 @@ namespace DataAccessLayer.DAL
             SDomicilio empresa = new SDomicilio()
             {
                 IdPaquete = e.idPaquete,
-                Envio = (bool)e.envio
+                Envio = (bool)e.envio,
+                Hora = (DateTime)e.hora
             };
             return empresa;
         }
@@ -369,7 +370,8 @@ namespace DataAccessLayer.DAL
             Domicilio empresa = new Domicilio()
             {
                 idPaquete = e.IdPaquete,
-                envio = e.Envio
+                envio = e.Envio,
+                hora = e.Hora
             };
             return empresa;
         }

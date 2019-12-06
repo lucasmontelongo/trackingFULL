@@ -175,6 +175,7 @@ namespace DataAccessLayer.DAL
                     if (dom != null)
                     {
                         dom.envio = d.Envio;
+                        dom.hora = d.Hora;
                         en.SaveChanges();
                         return true;
                     }

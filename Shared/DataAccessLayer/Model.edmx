@@ -33,6 +33,7 @@
             <PropertyRef Name="idPaquete" />
           </Key>
           <Property Name="idPaquete" Type="int" Nullable="false" />
+          <Property Name="hora" Type="datetime" />
           <Property Name="envio" Type="bit" />
         </EntityType>
         <EntityType Name="Empresa">
@@ -530,6 +531,7 @@
           </Key>
           <Property Name="idPaquete" Type="Int32" Nullable="false" />
           <Property Name="envio" Type="Boolean" />
+          <Property Name="hora" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -638,6 +640,7 @@
           <EntitySetMapping Name="Domicilio">
             <EntityTypeMapping TypeName="trackingFULLModel.Domicilio">
               <MappingFragment StoreEntitySet="Domicilio">
+                <ScalarProperty Name="hora" ColumnName="hora" />
                 <ScalarProperty Name="envio" ColumnName="envio" />
                 <ScalarProperty Name="idPaquete" ColumnName="idPaquete" />
               </MappingFragment>

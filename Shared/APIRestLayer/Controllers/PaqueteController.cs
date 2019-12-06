@@ -212,7 +212,7 @@ namespace APIRestLayer.Controllers
         [Authorize]
         [HttpGet]
         [Route("updateenviodomicilio")]
-        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio)
+        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio, DateTime Hora)
         {
             try
             {
@@ -220,7 +220,8 @@ namespace APIRestLayer.Controllers
                 SDomicilio d = new SDomicilio()
                 {
                     Envio = Envio,
-                    IdPaquete = Int32.Parse(IdPaquete)
+                    IdPaquete = Int32.Parse(IdPaquete),
+                    Hora = Hora
                 };
                 BLPaquete bl = new BLPaquete();
                 return Ok(bl.updateEnvioDomicilio(d, email));

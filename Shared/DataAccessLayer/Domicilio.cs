@@ -16,5 +16,6 @@ namespace DataAccessLayer
     {
         public int idPaquete { get; set; }
         public Nullable<bool> envio { get; set; }
+        public Nullable<System.DateTime> hora { get; set; }
     }
 }
