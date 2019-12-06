@@ -209,5 +209,27 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("updateenviodomicilio")]
+        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio)
+        {
+            try
+            {
+                string email = TokenInfo.getClaim(Request, "email");
+                SDomicilio d = new SDomicilio()
+                {
+                    Envio = Envio,
+                    IdPaquete = Int32.Parse(IdPaquete)
+                };
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.updateEnvioDomicilio(d, email));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

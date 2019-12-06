@@ -352,5 +352,27 @@ namespace DataAccessLayer.DAL
             return em;
         }
 
+        //ENVIO A DOMICILIO
+
+        public SDomicilio modeloAEntidad(Domicilio e)
+        {
+            SDomicilio empresa = new SDomicilio()
+            {
+                IdPaquete = e.idPaquete,
+                Envio = (bool)e.envio
+            };
+            return empresa;
+        }
+
+        public Domicilio entidadAModelo(SDomicilio e)
+        {
+            Domicilio empresa = new Domicilio()
+            {
+                idPaquete = e.IdPaquete,
+                envio = e.Envio
+            };
+            return empresa;
+        }
+
     }
 }

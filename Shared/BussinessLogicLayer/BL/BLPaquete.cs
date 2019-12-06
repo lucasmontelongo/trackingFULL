@@ -386,5 +386,24 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public bool updateEnvioDomicilio(SDomicilio d, string email)
+        {
+            try
+            {
+                SPaquete p = getPaquete(d.IdPaquete);
+                BLCliente _blC = new BLCliente();
+                SCliente c = _blC.getCliente(p.IdDestinatario);
+                if (c.Email == email)
+                {
+                    return _dal.updateEnvioDomicilio(d);
+                }
+                throw new ECompartida("No tienes permisos para realizar esta accion");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
