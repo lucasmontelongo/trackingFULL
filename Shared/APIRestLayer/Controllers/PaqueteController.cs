@@ -111,12 +111,15 @@ namespace APIRestLayer.Controllers
         [Authorize(Roles = "Encargado, Funcionario, Admin")]
         [HttpPost]
         [Route("avanzar")]
-        public IHttpActionResult avanzar(SPaquetePuntoControl a)
+        public IHttpActionResult avanzar(SPaquete es)
         {
             try
             {
+                string email = TokenInfo.getClaim(Request, "email");
+                BLUsuario _blU = new BLUsuario();
+                SUsuario u = _blU.getUsuarioByEmail(email);
                 BLPaquete bl = new BLPaquete();
-                return Ok(bl.avanzar(a));
+                return Ok(bl.avanzar(new SPaquetePuntoControl() { IdPaquete = es.Id, IdEmpleado = u.Id}));
             }
             catch (Exception e)
             {
@@ -127,12 +130,15 @@ namespace APIRestLayer.Controllers
         [Authorize(Roles = "Encargado, Funcionario, Admin")]
         [HttpPost]
         [Route("retroceder")]
-        public IHttpActionResult retroceder(SPaquetePuntoControl a)
+        public IHttpActionResult retroceder(SPaquete es)
         {
             try
             {
+                string email = TokenInfo.getClaim(Request, "email");
+                BLUsuario _blU = new BLUsuario();
+                SUsuario u = _blU.getUsuarioByEmail(email);
                 BLPaquete bl = new BLPaquete();
-                return Ok(bl.retroceder(a));
+                return Ok(bl.retroceder(new SPaquetePuntoControl() { IdPaquete = es.Id, IdEmpleado = u.Id }));
             }
             catch (Exception e)
             {

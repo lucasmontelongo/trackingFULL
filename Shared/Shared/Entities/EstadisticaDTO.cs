@@ -8,6 +8,6 @@ namespace Shared.Entities
 {
     public class EstadisticaDTO
     {
-        public int MyProperty { get; set; }
+        public int idPaquete { get; set; }
     }
 }

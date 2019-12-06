@@ -290,5 +290,47 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        [Authorize(Roles = "Funcionario, Encargado")]
+        [HttpGet]
+        public ActionResult Avanzar()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
+        }
+
+        //[Authorize(Roles = "Funcionario, Encargado")]
+        //[HttpPost]
+        //public ActionResult Avanzar(int idPaquete)
+        //{
+        //    try
+        //    {
+        //        var client = new RestClient(Direcciones.ApiRest + "paquete/filtro");
+        //        var request = new RestRequest(Method.POST);
+        //        request.AddHeader("content-type", "application/json");
+        //        request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+        //        request.AddJsonBody(collection);
+        //        IRestResponse response = client.Execute(request);
+        //        if (response.StatusCode.ToString() == "OK")
+        //        {
+        //            List<Paquete> lp = JsonConvert.DeserializeObject<List<Models.Paquete>>(response.Content);
+        //            ViewBag.PAQUETES = lp;
+        //            return Avanzar();
+        //        }
+        //        throw new ECompartida(response.Content);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ViewBag.ERROR = e.Message;
+        //        return View();
+        //    }
+        //}
+
     }
 }
