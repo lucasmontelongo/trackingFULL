@@ -28,7 +28,20 @@ namespace APIRestLayer.Controllers
             }
         }
 
-
+        //[HttpGet]
+        //[Route("estadisticas")]
+        //public IHttpActionResult estadisticas(string estadistica)
+        //{
+        //    try
+        //    {
+        //        BLAdmin bl = new BLAdmin();
+        //        return Ok(bl.estadisticas(estadistica));
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Content(HttpStatusCode.InternalServerError, e.Message);
+        //    }
+        //}
 
     }
 }

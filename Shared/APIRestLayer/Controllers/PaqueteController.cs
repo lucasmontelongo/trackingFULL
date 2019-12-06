@@ -188,5 +188,49 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin, Funcionario, Encargado")]
+        [HttpGet]
+        [Route("entregacliente")]
+        public IHttpActionResult entregaCliente(int IdEmpleado, int IdPaquete, string codigo)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                SPaquetePuntoControl ppc = new SPaquetePuntoControl()
+                {
+                    IdEmpleado = IdEmpleado,
+                    IdPaquete = IdPaquete
+                };
+                return Ok(bl.entregaCliente(ppc, codigo));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("updateenviodomicilio")]
+        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio, DateTime Hora)
+        {
+            try
+            {
+                string email = TokenInfo.getClaim(Request, "email");
+                SDomicilio d = new SDomicilio()
+                {
+                    Envio = Envio,
+                    IdPaquete = Int32.Parse(IdPaquete),
+                    Hora = Hora
+                };
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.updateEnvioDomicilio(d, email));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

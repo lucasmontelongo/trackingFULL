@@ -66,6 +66,9 @@
     <Compile Include="DAL\DALPuntoControl.cs" />
     <Compile Include="DAL\DALTrayecto.cs" />
     <Compile Include="DAL\DALUsuario.cs" />
+    <Compile Include="Domicilio.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Empresa.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

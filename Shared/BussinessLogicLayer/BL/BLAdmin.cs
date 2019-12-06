@@ -28,5 +28,18 @@ namespace BussinessLogicLayer.BL
                 throw;
             }
         }
+
+        //public bool estadisticas(string estadistica)
+        //{
+        //    try
+        //    {
+        //        return _dal.add(email, role);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
+
     }
 }
