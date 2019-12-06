@@ -292,7 +292,7 @@ namespace WEBLayer2.Controllers
 
         [Authorize(Roles = "Funcionario, Encargado")]
         [HttpGet]
-        public ActionResult Avanzar()
+        public ActionResult Manejar()
         {
             try
             {
@@ -305,32 +305,39 @@ namespace WEBLayer2.Controllers
             }
         }
 
-        //[Authorize(Roles = "Funcionario, Encargado")]
-        //[HttpPost]
-        //public ActionResult Avanzar(int idPaquete)
-        //{
-        //    try
-        //    {
-        //        var client = new RestClient(Direcciones.ApiRest + "paquete/filtro");
-        //        var request = new RestRequest(Method.POST);
-        //        request.AddHeader("content-type", "application/json");
-        //        request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
-        //        request.AddJsonBody(collection);
-        //        IRestResponse response = client.Execute(request);
-        //        if (response.StatusCode.ToString() == "OK")
-        //        {
-        //            List<Paquete> lp = JsonConvert.DeserializeObject<List<Models.Paquete>>(response.Content);
-        //            ViewBag.PAQUETES = lp;
-        //            return Avanzar();
-        //        }
-        //        throw new ECompartida(response.Content);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ViewBag.ERROR = e.Message;
-        //        return View();
-        //    }
-        //}
+        [Authorize(Roles = "Funcionario, Encargado")]
+        [HttpPost]
+        public ActionResult Manejar(int idPaquete, string accion)
+        {
+            try
+            {
+                var client = new RestClient();
+                if (accion == "avanzar")
+                {
+                    client = new RestClient(Direcciones.ApiRest + "paquete/avanzar");
+                }
+                else
+                {
+                    client = new RestClient(Direcciones.ApiRest + "paquete/retroceder");
+                }
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddJsonBody(new Paquete() { Id = idPaquete });
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    ViewBag.OK = "Operacion realizada correctamente";
+                    return Manejar();
+                }
+                throw new ECompartida(response.Content);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return Manejar();
+            }
+        }
 
     }
 }

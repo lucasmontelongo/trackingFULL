@@ -196,6 +196,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agencia.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\EnvioDomicilioDTO.cs" />
     <Compile Include="Models\EtiquetaDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -301,6 +302,8 @@
     <Content Include="Views\Admin\EtiquetaPDF.cshtml" />
     <Content Include="Views\Paquete\FiltroResultado.cshtml" />
     <Content Include="Views\Paquete\Filtro.cshtml" />
+    <Content Include="Views\Paquete\Manejar.cshtml" />
+    <Content Include="Views\Usuario\Entrega.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
