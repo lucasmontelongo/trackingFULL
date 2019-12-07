@@ -62,7 +62,7 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return _dal.deleteAgencia(id);
+                return null;
             }
             catch (Exception)
             {

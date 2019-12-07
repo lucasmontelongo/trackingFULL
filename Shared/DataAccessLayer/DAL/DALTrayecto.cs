@@ -62,22 +62,10 @@ namespace DataAccessLayer.DAL
                 try
                 {
                     Trayecto ag = en.Trayecto.Add(_conv.entidadAModelo(a));
-                    if (a.ListaPuntosControl != null)
+                    a.ListaPuntosControl.ForEach(x =>
                     {
-                        a.ListaPuntosControl.ForEach(x =>
-                        {
-                            ag.PuntoControl.Add(_conv.entidadAModelo(x));
-                        });
-                    }
-                    else
-                    {
-                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Recibido en origen", orden = 1, tiempo = 0, borrado = false  });
-                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Esperando en origen", orden = 2, tiempo = 0, borrado = false });
-                        ag.PuntoControl.Add(new PuntoControl() { nombre = "En viaje", orden = 3, tiempo = 0, borrado = false });
-                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Recibido en destino", orden = 4, tiempo = 0, borrado = false });
-                        ag.PuntoControl.Add(new PuntoControl() { nombre = "Entregado al cliente", orden = 5, tiempo = 0, borrado = false });
-
-                    }
+                        ag.PuntoControl.Add(_conv.entidadAModelo(x));
+                    });
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }
@@ -98,20 +86,17 @@ namespace DataAccessLayer.DAL
                     Trayecto ag = en.Trayecto.Find(a.Id);
                     ag = _conv.entidadAModelo(a, ag);
                     DALPuntoControl dalp = new DALPuntoControl();
-                    if (a.ListaPuntosControl != null)
+                    a.ListaPuntosControl.ToList().ForEach(x =>
                     {
-                        a.ListaPuntosControl.ToList().ForEach(x =>
+                        if (x.Id > 0 && x.Id < 999)
                         {
-                            if (x.Id > 0)
-                            {
-                                dalp.updatePuntoControl(x);
-                            }
-                            else
-                            {
-                                dalp.addPuntoControl(x);
-                            }
-                        });
-                    }
+                            dalp.updatePuntoControl(x);
+                        }
+                        else
+                        {
+                            dalp.addPuntoControl(x);
+                        }
+                    });
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }

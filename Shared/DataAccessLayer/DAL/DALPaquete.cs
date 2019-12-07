@@ -65,10 +65,7 @@ namespace DataAccessLayer.DAL
 
                     Paquete ag = en.Paquete.Add(_conv.entidadAModelo(a));
                     en.SaveChanges();
-                    SPaquete p = _conv.modeloAEntidad(ag);
-                    en.Domicilio.Add(new Domicilio() { idPaquete = p.Id, envio = false });
-                    en.SaveChanges();
-                    return p;
+                    return _conv.modeloAEntidad(ag);
                 }
                 catch (Exception)
                 {
@@ -156,30 +153,6 @@ namespace DataAccessLayer.DAL
                         }
                     });
                     return paqEnviados;
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-        }
-
-        public bool updateEnvioDomicilio(SDomicilio d)
-        {
-            using (trackingFULLEntities en = new trackingFULLEntities())
-            {
-                try
-                {
-                    Domicilio dom = en.Domicilio.Find(d.IdPaquete);
-                    if (dom != null)
-                    {
-                        dom.envio = d.Envio;
-                        dom.hora = d.Hora;
-                        en.SaveChanges();
-                        return true;
-                    }
-                    return false;
                 }
                 catch (Exception)
                 {

@@ -6,7 +6,6 @@ using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +48,7 @@ namespace BussinessLogicLayer.BL
                 a.CodigoConfirmacion = Randoms.RandomString(6);
                 a.Codigo = "";
                 a.Borrado = false;
-                //a.ListaPaquetePuntoControl = null;
+                a.ListaPaquetePuntoControl = null;
                 SPaquete p = _dal.addPaquete(a);
                 if (p != null)
                 {
@@ -83,7 +82,7 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                return _dal.deletePaquete(id);
+                return null;
             }
             catch (Exception)
             {
@@ -107,7 +106,7 @@ namespace BussinessLogicLayer.BL
                     ppc.Borrado = false;
                     if (ppcList.Count > 0)
                     {
-                        if (t.ListaPuntosControl.Max(x => x.Orden) > ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden)+1)
+                        if (t.ListaPuntosControl.Max(x => x.Orden) > ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden))
                         {
                             SPuntoControl pcActual = t.ListaPuntosControl.First(x => x.Orden == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1);
                             ppc.IdPuntoControl = t.ListaPuntosControl.First(x => x.Orden == pcActual.Orden).Id;
@@ -129,14 +128,6 @@ namespace BussinessLogicLayer.BL
                                 ppc.Retraso += (tiempoViaje - tiempoEstimado);
                             }
                             return _dalPPC.addPaquetePuntoControl(ppc);
-                        }
-                        else if(t.ListaPuntosControl.Max(x => x.Orden) == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1)
-                        {
-                            throw new ECompartida("Solo queda el ultimo paso de entrega, para esto debe realizar la peticion correspondiente enviando el codigo proporcionado por el cliente");
-                        }
-                        else
-                        {
-                            throw new ECompartida("El paquete ya llego a su punto final, no se puede avanzar mas");
                         }
                     }
                     else
@@ -160,26 +151,22 @@ namespace BussinessLogicLayer.BL
             {
                 var _dalPPC = new DALPaquetePuntoControl();
                 List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(ppc.IdPaquete);
-                if(ppcList.Count() > 0)
+                int ppcAEliminarId = ppcList.Max(x => x.Id);
+                SPaquetePuntoControl ppcAEliminar = ppcList.First(x => x.Id == ppcAEliminarId);
+                if (ppcAEliminar != null)
                 {
-                    int ppcAEliminarId = ppcList.Max(x => x.Id);
-                    SPaquetePuntoControl ppcAEliminar = ppcList.First(x => x.Id == ppcAEliminarId);
-                    if (ppcAEliminar != null)
+                    var _dalU = new DALUsuario();
+                    SUsuario empleado = _dalU.getUsuario(ppc.IdEmpleado);
+                    if ((empleado.Rol == "Funcionario" && empleado.Id == ppcAEliminar.IdEmpleado) || empleado.Rol == "Encargado")
                     {
-                        var _dalU = new DALUsuario();
-                        SUsuario empleado = _dalU.getUsuario(ppc.IdEmpleado);
-                        if ((empleado.Rol == "Funcionario" && empleado.Id == ppcAEliminar.IdEmpleado) || empleado.Rol == "Encargado" || empleado.Rol == "Admin")
-                        {
-                            return _dalPPC.deletePaquetePuntoControl(ppcAEliminar.Id);
-                        }
-                        else
-                        {
-                            throw new ECompartida("El usuario que realizo la peticion no tiene autorizacion para realizar esta operacion");
-                        }
+                        return _dalPPC.deletePaquetePuntoControl(ppcAEliminar.Id);
                     }
-                    throw new ECompartida("No se encontro ningun paquete con el ID enviado");
+                    else
+                    {
+                        throw new ECompartida("El usuario que realizo la peticion no tiene autorizacion para realizar esta operacion");
+                    }
                 }
-                throw new ECompartida("No se puede retroceder mas el paquete");
+                throw new ECompartida("No se encontro ningun paquete con el ID enviado");
             }
             catch (Exception)
             {
@@ -204,200 +191,6 @@ namespace BussinessLogicLayer.BL
             try
             {
                 return _dal.paquetesRecibidos(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public dynamic detallesPaquete(string email, string role, int idPaquete)
-        {
-            try
-            {
-                SPaquete paquete = this.getPaquete(idPaquete);
-                BLCliente blCliente = new BLCliente();
-                if (role != "Admin")
-                {
-                    SCliente cliente = blCliente.getClienteByEmail(email);
-                    if (cliente != null)
-                    {
-                        if (cliente.Id != paquete.IdDestinatario && cliente.Id != paquete.IdRemitente)
-                        {
-                            throw new ECompartida("No tienes acceso a la informacion de este paquete");
-                        }
-                    }
-                    throw new ECompartida("El email enviado en la solicitud no pertenece a un cliente del sistema");
-                }
-                SCliente Remitente = blCliente.getCliente(paquete.IdRemitente);
-                SCliente Destinatario = blCliente.getCliente(paquete.IdDestinatario);
-                BLTrayecto bLTrayecto = new BLTrayecto();
-                STrayecto Trayecto = bLTrayecto.getTrayecto(paquete.IdTrayecto);
-                BLPuntoControl bLPuntoControl = new BLPuntoControl();
-                Trayecto.ListaPuntosControl = bLPuntoControl.puntosControlDeUnTrayecto(paquete.IdTrayecto);
-                BLPaquetePuntoControl bLPaquetePuntoControl = new BLPaquetePuntoControl();
-                List<SPaquetePuntoControl> PaquetePuntosControl = bLPaquetePuntoControl.puntosControlDeUnPaquete(paquete.Id);
-                dynamic respuesta = new ExpandoObject();
-                respuesta.IdTrayecto = paquete.Id;
-                respuesta.Qr = paquete.Codigo;
-                respuesta.Trayecto = Trayecto;
-                respuesta.Remitente = Remitente;
-                respuesta.Destinatario = Destinatario;
-                respuesta.PaquetePuntoControl = PaquetePuntosControl;
-                return respuesta;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public List<SPaquete> filtro(PaqueteFiltroDTO filtro)
-        {
-            try
-            {
-                List<SPaquete> todos = _dal.getAll();
-                bool cambio = false;
-                List<SPaquete> temporal = new List<SPaquete>();
-                List<SPaquete> respuesta = new List<SPaquete>();
-                BLCliente _blCliente = new BLCliente();
-                if (filtro.FechaFinal != null && filtro.FechaInicio != null)
-                {
-                    todos.Where(x => ((x.FechaIngreso >= filtro.FechaInicio) && (x.FechaIngreso <= filtro.FechaFinal)) || ((x.FechaEntrega >= filtro.FechaInicio) && (x.FechaEntrega <= filtro.FechaFinal))).ToList().ForEach(x => {
-                        respuesta.Add(x);
-                    });
-                    todos = respuesta;
-                    respuesta = new List<SPaquete>();
-                    cambio = true;
-                }
-                if (filtro.Remitente != null)
-                {
-                    todos.Where(x => x.IdRemitente == _blCliente.getClienteByEmail(filtro.Remitente).Id).ToList().ForEach(x =>
-                    {
-                        if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
-                        {
-                            respuesta.Add(x);
-                        }
-                    });
-                    todos = respuesta;
-                    respuesta = new List<SPaquete>();
-                    cambio = true;
-                }
-                if (filtro.Destinatario != null)
-                {
-                    todos.Where(x => x.IdDestinatario == _blCliente.getClienteByEmail(filtro.Destinatario).Id).ToList().ForEach(x =>
-                    {
-                        if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
-                        {
-                            respuesta.Add(x);
-                        }
-                    });
-                    todos = respuesta;
-                    respuesta = new List<SPaquete>();
-                    cambio = true;
-                }
-                if (filtro.Estado != null)
-                {
-                    if (filtro.Estado == "En viaje")
-                    {
-                        todos.Where(x => x.FechaIngreso == x.FechaEntrega).ToList().ForEach(x =>
-                        {
-                            if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
-                            {
-                                respuesta.Add(x);
-                            }
-                        });
-                        todos = respuesta;
-                        respuesta = new List<SPaquete>();
-                        cambio = true;
-                    }
-                    else
-                    {
-                        todos.Where(x => x.FechaIngreso != x.FechaEntrega).ToList().ForEach(x =>
-                        {
-                            if (respuesta.FirstOrDefault(z => z.Id == x.Id) == null)
-                            {
-                                respuesta.Add(x);
-                            }
-                        });
-                        todos = respuesta;
-                        respuesta = new List<SPaquete>();
-                        cambio = true;
-                    }
-                }
-                if (cambio)
-                {
-                    return todos;
-                }
-                return null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public SPaquetePuntoControl entregaCliente(SPaquetePuntoControl ppc, string codigo)
-        {
-            try
-            {
-                SPaquete p = _dal.getPaquete(ppc.IdPaquete);
-                if(p.CodigoConfirmacion == codigo)
-                {
-                    var _dalPPC = new DALPaquetePuntoControl();
-                    var _dalPC = new DALPuntoControl();
-                    var _dalT = new DALTrayecto();
-                    ppc.FechaLlegada = DateTime.Now;
-                    ppc.Borrado = false;
-                    var pclist = _dalPC.puntosControlDeUnTrayecto(p.IdTrayecto);
-                    ppc.IdPuntoControl = pclist.Max(x => x.Id);
-                    List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(p.Id);
-                    ppcList.ForEach(x =>
-                    {
-                        if (x.IdPuntoControl == ppc.IdPuntoControl)
-                        {
-                            throw new ECompartida("El paquete ya fue entregado al cliente anteriormente");
-                        }
-                    });
-                    int tiempoEstimado = 0;
-                    pclist.ForEach(x =>
-                    {
-                        if (x.Orden <= pclist.First(z => z.Id == ppc.IdPuntoControl).Orden)
-                        {
-                            tiempoEstimado += x.Tiempo;
-                        }
-                    });
-                    int tiempoViaje = (p.FechaIngreso - ppc.FechaLlegada).Seconds;
-                    if ((tiempoViaje <= tiempoEstimado))
-                    {
-                        ppc.Retraso -= (tiempoEstimado - tiempoViaje);
-                    }
-                    else
-                    {
-                        ppc.Retraso += (tiempoViaje - tiempoEstimado);
-                    }
-                    return _dalPPC.addPaquetePuntoControl(ppc);
-                }
-                throw new ECompartida("El codigo no coincide con el paquete");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public bool updateEnvioDomicilio(SDomicilio d, string email)
-        {
-            try
-            {
-                SPaquete p = getPaquete(d.IdPaquete);
-                BLCliente _blC = new BLCliente();
-                SCliente c = _blC.getCliente(p.IdDestinatario);
-                if (c.Email == email)
-                {
-                    return _dal.updateEnvioDomicilio(d);
-                }
-                throw new ECompartida("No tienes permisos para realizar esta accion");
             }
             catch (Exception)
             {

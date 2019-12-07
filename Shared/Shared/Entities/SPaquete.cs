@@ -19,6 +19,6 @@ namespace Shared.Entities
         public bool Borrado { get; set; }
 
         //Coleccion de los puntos de control por los que ha pasado el paquete
-        //public List<SPaquetePuntoControl> ListaPaquetePuntoControl { get; set; }
+        public List<SPaquetePuntoControl> ListaPaquetePuntoControl { get; set; }
     }
 }

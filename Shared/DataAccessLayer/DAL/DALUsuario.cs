@@ -221,12 +221,7 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
-                    Usuario u = en.Usuario.FirstOrDefault(x => x.email == email);
-                    if (u != null && u.borrado == false)
-                    {
-                        return _conv.modeloAEntidad(u);
-                    }
-                    return null;
+                    return _conv.modeloAEntidad(en.Usuario.First(x => x.email == email));
                 }
                 catch (Exception e)
                 {

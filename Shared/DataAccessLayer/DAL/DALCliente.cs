@@ -123,7 +123,11 @@ namespace DataAccessLayer.DAL
                     Cliente a = en.Cliente.FirstOrDefault(x => x.email == c.Email);
                     if (a != null)
                     {
-                        return true;
+                        throw new ECliente("Ya existe un cliente con ese email en el sistema");
+                    }
+                    if(en.Cliente.FirstOrDefault(x => x.numeroDocumento == c.NumeroDocumento) != null)
+                    {
+                        throw new ECliente("Ya existe un cliente con ese numero de documento en el sistema");
                     }
                     return false;
                 }
@@ -141,12 +145,7 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
-                    Cliente a = en.Cliente.FirstOrDefault(x => x.email == email);
-                    if (a == null)
-                    {
-                        return null;
-                    }
-                    return _conv.modeloAEntidad(a);
+                    return _conv.modeloAEntidad(en.Cliente.First(x => x.email == email));
                 }
                 catch (Exception e)
                 {

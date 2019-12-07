@@ -38,7 +38,7 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                //a.validation(); //falta comprobar que no esten duplicadas las agencias y eso, y probablemente mas cosas tambien xD
+                a.validation(); //falta comprobar que no esten duplicadas las agencias y eso, y probablemente mas cosas tambien xD
                 return _dal.addTrayecto(a);
             }
             catch (Exception)

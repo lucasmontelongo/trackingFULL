@@ -10,11 +10,11 @@ using System.Web.Http;
 
 namespace APIRestLayer.Controllers
 {
-    [AllowAnonymous]
+    
     [RoutePrefix("api/cliente")]
     public class ClienteController : ApiController
     {
-        //[Authorize(Roles = "Admin, Funcionario, Encargado, Cliente")]
+        [Authorize(Roles = "Admin, Funcionario, Encargado, Cliente")]
         [HttpGet]
         public IHttpActionResult GetId(int id)
         {
@@ -30,7 +30,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IHttpActionResult GetAll()
         {
@@ -45,7 +45,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IHttpActionResult addCliente(SCliente a)
         {
@@ -60,7 +60,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IHttpActionResult updateCliente(SCliente a)
         {
@@ -75,7 +75,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public IHttpActionResult deleteCliente(int id)
         {
@@ -89,39 +89,5 @@ namespace APIRestLayer.Controllers
                 return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
-        
-        //[AllowAnonymous]
-        [HttpGet]
-        [Route("asd")]
-        public IHttpActionResult existeCliente(string Email)
-        {
-            try
-            {
-                BLCliente bl = new BLCliente();
-                SCliente c = bl.getClienteByEmail(Email);
-                return Ok(c);
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
-            }
-        }
-
-        //Esta funcion es para cuando se registra un nuevo paquete, se envian los datos de los usuarios y se registran en la base o se actualizan los datos
-        [HttpPost]
-        [Route("nuevopaquete")]
-        public IHttpActionResult nuevoPaquete(List<SCliente> clientes)
-        {
-            try
-            {
-                BLCliente bl = new BLCliente();
-                return Ok(bl.nuevoPaquete(clientes));
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
-            }
-        }
-
     }
 }
