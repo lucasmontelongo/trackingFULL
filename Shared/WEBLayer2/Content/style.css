@@ -72,27 +72,11 @@ input {
         border-color: white;
     }
 
-@media (max-width: 767px) {
-    .page {
-        height: auto;
-        padding-bottom: 20px;
-        margin-top: 1%;
-    }
-}
-
 .cont {
     display: flex;
     height: 320px;
     margin: 0 auto;
     width: 640px;
-}
-
-@media (max-width: 767px) {
-    .cont {
-        flex-direction: column;
-        height: 600px;
-        width: 320px;
-    }
 }
 
 .izq {
@@ -101,18 +85,6 @@ input {
     top: 17%;
     position: relative;
     width: 50%;
-}
-
-@media (max-width: 767px) {
-    .izq {
-        height: 100%;
-        left: 20px;
-        width: calc(100% - 40px);
-        max-height: 270px;
-        border-top: 2px solid #474A59;
-        border-right: 2px solid #474A59;
-        border-left: 2px solid #474A59;
-    }
 }
 
 .login {
@@ -137,26 +109,6 @@ input {
     width: 50%;
 }
 
-@media (max-width: 767px) {
-    .der {
-        flex-shrink: 0;
-        height: 100%;
-        width: 100%;
-        max-height: 450px;
-    }
-}
-
-svg {
-    position: absolute;
-    width: 320px;
-}
-
-path {
-    fill: none;
-    stroke-width: 4;
-    stroke-dasharray: 240 1386;
-}
-
 .form {
     margin: 40px;
     position: absolute;
@@ -175,3 +127,41 @@ path {
     #submit:active {
         color: #d0d0d2;
     }
+
+@media (max-width: 767px) {
+
+    #texto {
+        display: none
+    }
+
+    .der {
+        flex-shrink: 0;
+        height: 100%;
+        width: 100%;
+        max-height: 450px;
+    }
+
+    .izq {
+        top: 1%;
+        height: 100%;
+        left: 20px;
+        width: calc(100% - 38px);
+        max-height: 320px;
+        border-top: 2px solid #474A59;
+        border-right: 2px solid #474A59;
+        border-left: 2px solid #474A59;
+    }
+
+    .cont {
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        width: 320px;
+    }
+
+    .page {
+        height: auto;
+        padding-bottom: 20px;
+        margin-top: 1%;
+    }
+}
