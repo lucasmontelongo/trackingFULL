@@ -28,6 +28,14 @@
           <Property Name="tipoDocumento" Type="varchar" MaxLength="50" />
           <Property Name="borrado" Type="bit" />
         </EntityType>
+        <EntityType Name="Domicilio">
+          <Key>
+            <PropertyRef Name="idPaquete" />
+          </Key>
+          <Property Name="idPaquete" Type="int" Nullable="false" />
+          <Property Name="hora" Type="datetime" />
+          <Property Name="envio" Type="bit" />
+        </EntityType>
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="id" />
@@ -206,6 +214,7 @@
         <EntityContainer Name="trackingFULLModelStoreContainer">
           <EntitySet Name="Agencia" EntityType="Self.Agencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Domicilio" EntityType="Self.Domicilio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paquete" EntityType="Self.Paquete" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaquetePuntoControl" EntityType="Self.PaquetePuntoControl" Schema="dbo" store:Type="Tables" />
@@ -514,7 +523,16 @@
             <End Role="Trayecto" EntitySet="Trayecto" />
             <End Role="PuntoControl" EntitySet="PuntoControl" />
           </AssociationSet>
+          <EntitySet Name="Domicilio" EntityType="trackingFULLModel.Domicilio" />
         </EntityContainer>
+        <EntityType Name="Domicilio">
+          <Key>
+            <PropertyRef Name="idPaquete" />
+          </Key>
+          <Property Name="idPaquete" Type="Int32" Nullable="false" />
+          <Property Name="envio" Type="Boolean" />
+          <Property Name="hora" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -616,6 +634,15 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="rol" ColumnName="rol" />
                 <ScalarProperty Name="borrado" ColumnName="borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Domicilio">
+            <EntityTypeMapping TypeName="trackingFULLModel.Domicilio">
+              <MappingFragment StoreEntitySet="Domicilio">
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="envio" ColumnName="envio" />
+                <ScalarProperty Name="idPaquete" ColumnName="idPaquete" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

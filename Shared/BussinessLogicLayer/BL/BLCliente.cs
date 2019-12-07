@@ -79,12 +79,18 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                _dal.existe(c);
-                if(c.TipoDocumento != "CI" && c.TipoDocumento != "Pasaporte")
+                if (!_dal.existe(c))
                 {
-                    throw new ECliente("El tipo de documento indicado no es valido");
-                }    
-                return true;
+                    if (c.NumeroDocumento != null)
+                    {
+                        if (c.TipoDocumento != "CI" && c.TipoDocumento != "Pasaporte")
+                        {
+                            throw new ECliente("El tipo de documento indicado no es valido");
+                        }
+                    }
+                    return true;
+                }
+                throw new ECliente("El email o el numero de documento ya esta registrado en el sistema");
             }
             catch (Exception)
             {
@@ -102,6 +108,48 @@ namespace BussinessLogicLayer.BL
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public List<SCliente> nuevoPaquete(List<SCliente> clientes)
+        {
+            List<SCliente> clientesRespuesta = new List<SCliente>();
+            try
+            {
+                clientes.ForEach(x =>
+                {
+                    x.Borrado = false;
+                    x.Id = 0;
+                    if (!_dal.existe(x))
+                    {
+                        clientesRespuesta.Add(_dal.addCliente(x));
+                    }
+                    else
+                    {
+                        SCliente c = _dal.getClienteByEmail(x.Email);
+                        c.NombreCompleto = x.NombreCompleto;
+                        c.Telefono = x.Telefono;
+                        c.Borrado = x.Borrado;
+                        if (x.TipoDocumento != null)
+                        {
+                            if (x.TipoDocumento == "CI" || x.NumeroDocumento == "Pasaporte")
+                            {
+                                c.NumeroDocumento = x.NumeroDocumento;
+                                c.TipoDocumento = x.TipoDocumento;
+                            }
+                            else
+                            {
+                                throw new ECliente("El tipo de documento indicado no es valido");
+                            }
+                        }
+                        clientesRespuesta.Add(_dal.updateCliente(c));
+                    }
+                });
+                return clientesRespuesta;
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }

@@ -1,0 +1,55 @@
+﻿@model WEBLayer2.Models.PaqueteDTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PaqueteDTO</h4>
+    <hr />
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Orden</th>
+            <th>Fecha llegada</th>
+            <th>Retraso</th>
+        </tr>
+        @foreach(var item in Model.Trayecto.ListaPuntosControl)
+        {
+        <tr>
+            <td>@item.Nombre</td>
+            <td>@item.Orden</td>
+            @if (Model.PaquetePuntoControl.FirstOrDefault(x => x.IdPuntoControl == item.Id) != null)
+            {
+                <td>@Model.PaquetePuntoControl.First(x => x.IdPuntoControl == item.Id).FechaLlegada</td>
+                <td>@Model.PaquetePuntoControl.First(x => x.IdPuntoControl == item.Id).Retraso</td>
+            }
+            else
+            {
+                <td>-</td>
+                <td>-</td>
+            }
+            </tr>
+        }
+    </table>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Destinatario</h4>
+            <p>Nombre: @Model.Destinatario.NombreCompleto</p>
+            <p>Email: @Model.Destinatario.Email</p>
+        </div>
+        <div class="col-md-6">
+            <h4>Remitente</h4>
+            <p>Nombre: @Model.Remitente.NombreCompleto</p>
+            <p>Email: @Model.Remitente.Email</p>
+        </div>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

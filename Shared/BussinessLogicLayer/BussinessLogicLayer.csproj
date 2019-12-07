@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\BLAdmin.cs" />
     <Compile Include="BL\BLAgencia.cs" />
     <Compile Include="BL\BLCliente.cs" />
     <Compile Include="BL\BLEmail.cs" />
