@@ -134,5 +134,49 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        [Route("estadopaquete")]
+        [HttpGet]
+        public ActionResult EstadoPaquete()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return View();
+            }
+        }
+
+        [Route("estadopaquete")]
+        [HttpPost]
+        public ActionResult EstadoPaquete(string codigo)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "paquete/consultarestado");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddQueryParameter("codigo", codigo);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                     ViewBag.OK = response.Content;
+                }
+                else
+                {
+                    ViewBag.Error = response.Content;
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return View();
+            }
+        }
+
     }
 }

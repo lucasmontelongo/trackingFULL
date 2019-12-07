@@ -1,4 +1,5 @@
 ﻿using Shared.Entities;
+using Shared.Exceptions;
 using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -180,6 +181,27 @@ namespace DataAccessLayer.DAL
                         return true;
                     }
                     return false;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public SPaquete consultaEstado(int idCliente, string codigo)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Paquete dom = en.Paquete.Where(x => x.idDestinatario == idCliente && x.codigoConfirmacion == codigo).FirstOrDefault();
+                    if (dom != null)
+                    {
+                        return _conv.modeloAEntidad(dom);
+                    }
+                    throw new ECompartida("No se encontro ningun paquete para tu usuario con el codigo dado");
                 }
                 catch (Exception)
                 {

@@ -11,11 +11,10 @@ using WEBLayer2.Models;
 
 namespace WEBLayer2.Controllers
 {
-    [Authorize]
     public class PaqueteController : Controller
     {
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Cliente")]
         public ActionResult Index()
         {
             try
@@ -114,7 +113,9 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        
         [HttpGet]
+        [Route("Details")]
         public ActionResult Details(int id)
         {
             try
