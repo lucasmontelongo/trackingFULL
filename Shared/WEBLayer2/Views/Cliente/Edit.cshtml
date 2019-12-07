@@ -8,15 +8,16 @@
 {
     <p>@ViewBag.ERROR</p>
 }
-
-<h2>Edit</h2>
-
+<div>
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Cliente</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -69,6 +70,4 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

@@ -256,7 +256,6 @@
     <Content Include="Scripts\pagintaionAgencia.js" />
     <Content Include="Scripts\perfect-scrollbar.min.js" />
     <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Web.config" />
