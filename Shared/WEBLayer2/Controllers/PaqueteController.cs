@@ -290,5 +290,54 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        [Authorize(Roles = "Funcionario, Encargado")]
+        [HttpGet]
+        public ActionResult Manejar()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return View();
+            }
+        }
+
+        [Authorize(Roles = "Funcionario, Encargado")]
+        [HttpPost]
+        public ActionResult Manejar(int idPaquete, string accion)
+        {
+            try
+            {
+                var client = new RestClient();
+                if (accion == "avanzar")
+                {
+                    client = new RestClient(Direcciones.ApiRest + "paquete/avanzar");
+                }
+                else
+                {
+                    client = new RestClient(Direcciones.ApiRest + "paquete/retroceder");
+                }
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddJsonBody(new Paquete() { Id = idPaquete });
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    ViewBag.OK = "Operacion realizada correctamente";
+                    return Manejar();
+                }
+                throw new ECompartida(response.Content);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e.Message;
+                return Manejar();
+            }
+        }
+
     }
 }
