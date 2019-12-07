@@ -371,7 +371,7 @@ namespace DataAccessLayer.DAL
             {
                 idPaquete = e.IdPaquete,
                 envio = e.Envio,
-                hora = e.Hora
+                hora = (DateTime)e.Hora
             };
             return empresa;
         }
