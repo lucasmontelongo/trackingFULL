@@ -23,83 +23,85 @@
 <script type="text/javascript" charset="utf8" src="~/Scripts/paginationPaquete.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
-<button class="nuevo" style="margin: 2% 2% 2% 0">
-    <i class="fas fa-plus-square"></i> @Html.ActionLink("Nuevo paquete", "Create")
-</button>
+<body style=" background-image: url(../../img/trayecto.PNG); background-size: cover;">
+    <button class="nuevo" style="margin: 2% 2% 2% 0">
+        <i class="fas fa-plus-square"></i> @Html.ActionLink("Nuevo paquete", "Create")
+    </button>
 
-<div>
-    <div class="container-table100">
-        <div class="wrap-table100">
-            <div class="table100 ver1 m-b-110">
-                <table id="paquete" class="table display" data-vertable="ver1">
-                    <thead>
-                        <tr class="row100 head">
-                            <th class="column100 column1" data-column="column1">
-                                @Html.DisplayNameFor(model => model.FechaIngreso)
-                            </th>
-                            <th class="column100 column2" data-column="column2">
-                                @Html.DisplayNameFor(model => model.FechaEntrega)
-                            </th>
-                            <th class="column100 column3" data-column="column3">
-                                @Html.DisplayNameFor(model => model.IdTrayecto)
-                            </th>
-                            <th class="column100 column4" data-column="column4">
-                                @Html.DisplayNameFor(model => model.IdRemitente)
-                            </th>
-                            <th class="column100 column5" data-column="column5">
-                                @Html.DisplayNameFor(model => model.IdDestinatario)
-                            </th>
-                            <th class="column100 column6" data-column="column6"></th>
-                            <th class="column100 column7" data-column="column7"></th>
-                            <th class="column100 column8" data-column="column8"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr class="row100">
-                                <td class="column100 column1" data-column="column1">
-                                    @Html.DisplayFor(modelItem => item.FechaIngreso)
-                                </td>
-                                <td class="column100 column2" data-column="column2">
-                                    @if (item.FechaIngreso != item.FechaEntrega)
-                                    {
-                                        @Html.DisplayFor(modelItem => item.FechaEntrega)
-                                    }
-                                    else
-                                    {
-                                        <span>En viaje</span>
-                                    }
-                                </td>
-                                <td class="column100 column3" data-column="column3">
-                                    @Html.DisplayFor(modelItem => item.IdTrayecto)
-                                </td>
-                                <td class="column100 column4" data-column="column4">
-                                    @Html.DisplayFor(modelItem => item.IdRemitente)
-                                </td>
-                                <td class="column100 column5" data-column="column5">
-                                    @Html.DisplayFor(modelItem => item.IdDestinatario)
-                                </td>
-                                <td class="column100 column6" data-column="column6">
-                                    <button class="editar">
-                                        <i class="fas fa-edit"></i> @Html.ActionLink("Editar", "Edit", new { id = item.Id })
-                                    </button>
-                                </td>
-                                <td class="column100 column7" data-column="column7">
-                                    <button class="detalles">
-                                        <i class="fas fa-info-circle"></i> @Html.ActionLink("Detalles", "Details", new { id = item.Id })
-                                    </button>
-                                </td>
-                                <td class="column100 column8" data-column="column8">
-                                    <button class="borrar">
-                                        <i class="fas fa-trash-alt"></i> @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-                                    </button>
-                                </td>
+    <div>
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <table id="paquete" class="table display" data-vertable="ver1">
+                        <thead>
+                            <tr class="row100 head">
+                                <th class="column100 column1" data-column="column1">
+                                    @Html.DisplayNameFor(model => model.FechaIngreso)
+                                </th>
+                                <th class="column100 column2" data-column="column2">
+                                    @Html.DisplayNameFor(model => model.FechaEntrega)
+                                </th>
+                                <th class="column100 column3" data-column="column3">
+                                    @Html.DisplayNameFor(model => model.IdTrayecto)
+                                </th>
+                                <th class="column100 column4" data-column="column4">
+                                    @Html.DisplayNameFor(model => model.IdRemitente)
+                                </th>
+                                <th class="column100 column5" data-column="column5">
+                                    @Html.DisplayNameFor(model => model.IdDestinatario)
+                                </th>
+                                <th class="column100 column6" data-column="column6"></th>
+                                <th class="column100 column7" data-column="column7"></th>
+                                <th class="column100 column8" data-column="column8"></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="row100">
+                                    <td class="column100 column1" data-column="column1">
+                                        @Html.DisplayFor(modelItem => item.FechaIngreso)
+                                    </td>
+                                    <td class="column100 column2" data-column="column2">
+                                        @if (item.FechaIngreso != item.FechaEntrega)
+                                        {
+                                            @Html.DisplayFor(modelItem => item.FechaEntrega)
+                                        }
+                                        else
+                                        {
+                                            <span>En viaje</span>
+                                        }
+                                    </td>
+                                    <td class="column100 column3" data-column="column3">
+                                        @Html.DisplayFor(modelItem => item.IdTrayecto)
+                                    </td>
+                                    <td class="column100 column4" data-column="column4">
+                                        @Html.DisplayFor(modelItem => item.IdRemitente)
+                                    </td>
+                                    <td class="column100 column5" data-column="column5">
+                                        @Html.DisplayFor(modelItem => item.IdDestinatario)
+                                    </td>
+                                    <td class="column100 column6" data-column="column6">
+                                        <button class="editar">
+                                            <i class="fas fa-edit"></i> @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                                        </button>
+                                    </td>
+                                    <td class="column100 column7" data-column="column7">
+                                        <button class="detalles">
+                                            <i class="fas fa-info-circle"></i> @Html.ActionLink("Detalles", "Details", new { id = item.Id })
+                                        </button>
+                                    </td>
+                                    <td class="column100 column8" data-column="column8">
+                                        <button class="borrar">
+                                            <i class="fas fa-trash-alt"></i> @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
