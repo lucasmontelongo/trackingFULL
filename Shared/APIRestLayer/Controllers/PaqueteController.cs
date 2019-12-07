@@ -13,7 +13,7 @@ namespace APIRestLayer.Controllers
     [RoutePrefix("api/paquete")]
     public class PaqueteController : ApiController
     {
-        [Authorize]
+        [Authorize(Roles = "Admin, Funcionario, Encargado, Cliente")]
         [HttpGet]
         public IHttpActionResult GetId(int id)
         {
@@ -74,7 +74,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
@@ -111,15 +111,12 @@ namespace APIRestLayer.Controllers
         [Authorize(Roles = "Encargado, Funcionario, Admin")]
         [HttpPost]
         [Route("avanzar")]
-        public IHttpActionResult avanzar(SPaquete es)
+        public IHttpActionResult avanzar(SPaquetePuntoControl a)
         {
             try
             {
-                string email = TokenInfo.getClaim(Request, "email");
-                BLUsuario _blU = new BLUsuario();
-                SUsuario u = _blU.getUsuarioByEmail(email);
                 BLPaquete bl = new BLPaquete();
-                return Ok(bl.avanzar(new SPaquetePuntoControl() { IdPaquete = es.Id, IdEmpleado = u.Id}));
+                return Ok(bl.avanzar(a));
             }
             catch (Exception e)
             {
@@ -130,15 +127,12 @@ namespace APIRestLayer.Controllers
         [Authorize(Roles = "Encargado, Funcionario, Admin")]
         [HttpPost]
         [Route("retroceder")]
-        public IHttpActionResult retroceder(SPaquete es)
+        public IHttpActionResult retroceder(SPaquetePuntoControl a)
         {
             try
             {
-                string email = TokenInfo.getClaim(Request, "email");
-                BLUsuario _blU = new BLUsuario();
-                SUsuario u = _blU.getUsuarioByEmail(email);
                 BLPaquete bl = new BLPaquete();
-                return Ok(bl.retroceder(new SPaquetePuntoControl() { IdPaquete = es.Id, IdEmpleado = u.Id }));
+                return Ok(bl.retroceder(a));
             }
             catch (Exception e)
             {
@@ -146,7 +140,7 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin, Cliente")]
         [HttpGet]
         [Route("puntoscontrol")]
         public IHttpActionResult puntoscontrol(int id)
@@ -155,82 +149,6 @@ namespace APIRestLayer.Controllers
             {
                 BLPaquetePuntoControl bl = new BLPaquetePuntoControl();
                 return Ok(bl.puntosControlDeUnPaquete(id));
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
-            }
-        }
-
-        [Authorize]
-        [HttpGet]
-        [Route("detalle")]
-        public IHttpActionResult detalle(int id)
-        {
-            try
-            {
-                BLPaquete bl = new BLPaquete();
-                return Ok(bl.detallesPaquete(TokenInfo.getClaim(Request, "email"), TokenInfo.getClaim(Request, "role"), id));
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
-            }
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        [Route("filtro")]
-        public IHttpActionResult filtro(PaqueteFiltroDTO filtro)
-        {
-            try
-            {
-                BLPaquete bl = new BLPaquete();
-                return Ok(bl.filtro(filtro));
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
-            }
-        }
-
-        [Authorize(Roles = "Admin, Funcionario, Encargado")]
-        [HttpGet]
-        [Route("entregacliente")]
-        public IHttpActionResult entregaCliente(int IdEmpleado, int IdPaquete, string codigo)
-        {
-            try
-            {
-                BLPaquete bl = new BLPaquete();
-                SPaquetePuntoControl ppc = new SPaquetePuntoControl()
-                {
-                    IdEmpleado = IdEmpleado,
-                    IdPaquete = IdPaquete
-                };
-                return Ok(bl.entregaCliente(ppc, codigo));
-            }
-            catch (Exception e)
-            {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
-            }
-        }
-
-        [Authorize]
-        [HttpGet]
-        [Route("updateenviodomicilio")]
-        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio, DateTime Hora)
-        {
-            try
-            {
-                string email = TokenInfo.getClaim(Request, "email");
-                SDomicilio d = new SDomicilio()
-                {
-                    Envio = Envio,
-                    IdPaquete = Int32.Parse(IdPaquete),
-                    Hora = Hora
-                };
-                BLPaquete bl = new BLPaquete();
-                return Ok(bl.updateEnvioDomicilio(d, email));
             }
             catch (Exception e)
             {
