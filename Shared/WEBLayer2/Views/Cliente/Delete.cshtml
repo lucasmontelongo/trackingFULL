@@ -4,61 +4,89 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<link rel="stylesheet" href="~/Content/style.css">
+@section Styles
+{
+    <style type="text/css">
+        input {
+            border-bottom: 2px solid #87B7F1;
+        }
+    </style>
+}
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NombreCompleto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NombreCompleto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumeroDocumento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumeroDocumento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoDocumento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TipoDocumento)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+</div>
+<div class="page">
+    <div class="cont">
+        <div class="izq">
+            <div class="titulo">Eliminar Cliente</div>
+            <div id="texto" class="eula">Eliminar cliente del sistema</div>
         </div>
-    }
+        <div class="der">
+            <div class="form">
+                <div class="form-horizontal">
+                    <ul class="form-list">
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email)
+
+
+                                <div>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NombreCompleto)
+
+
+                                <div>
+                                    @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Telefono)
+                                <div>
+                                    @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NumeroDocumento)
+                                <div>
+                                    @Html.EditorFor(model => model.NumeroDocumento, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoDocumento)
+                                <div>
+                                    @Html.EditorFor(model => model.TipoDocumento, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-gruop">
+                        <div class="col-md-offset-2 col-md-8">
+                            <input type="submit" value="Eliminar" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>

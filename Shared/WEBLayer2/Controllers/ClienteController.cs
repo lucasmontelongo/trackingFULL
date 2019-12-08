@@ -82,7 +82,7 @@ namespace WEBLayer2.Controllers
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {
-                    ViewBag.OK = "La agencia fue dada de alta correctamente";
+                    ViewBag.OK = "El cliente fue dado de alta correctamente";
                     return RedirectToAction("index", "cliente");
                 }
                 ViewBag.ERROR = "Hubo un problema al dar de alta el cliente: " + response.Content.ToString() + ". Por favor revise todos los datos y vuelva a intentarlo";
