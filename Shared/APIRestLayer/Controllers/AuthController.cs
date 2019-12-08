@@ -9,6 +9,8 @@ using System.Threading;
 using System.Web.Http;
 using BussinessLogicLayer.BL;
 using System.Dynamic;
+using Shared.Exceptions;
+using Shared.Utilidades;
 
 namespace APIRestLayer.Controllers
 {
@@ -97,6 +99,38 @@ namespace APIRestLayer.Controllers
             catch (Exception e)
             {
                 return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
+        [HttpPost]
+        [Route("externallogin")]
+        public IHttpActionResult ExternalLogin(ExternalLoginDTO login)
+        {
+            try
+            {
+                if (login.Validacion == Direcciones.PassLoginExterno)
+                {
+                    if (login == null)
+                        throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+                    BLUsuario blusuario = new BLUsuario();
+                    SUsuario usuario = blusuario.externalLogin(new SUsuario() { Email = login.Email });
+                    if (usuario != null)
+                    {
+                        dynamic res = new ExpandoObject();
+                        res.Token = TokenGenerator.GenerateTokenJwt(login.Email); ;
+                        res.Email = usuario.Email;
+                        res.Rol = usuario.Rol;
+                        res.Id = usuario.Id;
+                        return Ok(res);
+                    }
+                    throw new ECompartida("Esto no deberia haber llegado a este punto");
+                }
+                throw new ECompartida("La clave de validacion no es correcta");
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
