@@ -29,17 +29,17 @@ namespace BussinessLogicLayer.BL
             }
         }
 
-        //public bool estadisticas(string estadistica)
-        //{
-        //    try
-        //    {
-        //        return _dal.add(email, role);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        public List<EstadisticaDTO> trayectoPaquete()
+        {
+            try
+            {
+                return _dal.trayectoPaquete();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }

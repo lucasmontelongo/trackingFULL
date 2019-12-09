@@ -100,5 +100,75 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult TrayectoPaquete(string token)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "admin/estadistica/trayectopaquete");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + token);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    List<Shared.Entities.EstadisticaDTO> estadisticas = JsonConvert.DeserializeObject<List<Shared.Entities.EstadisticaDTO>>(response.Content);
+                    List<string> ejeX = new List<string>();
+                    List<int> ejeY = new List<int>();
+                    estadisticas.ForEach(x =>
+                    {
+                        ejeX.Add(x.x);
+                        ejeY.Add(x.y);
+                    });
+                    ViewBag.EJEX = ejeX;
+                    ViewBag.EJEY = ejeY;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e;
+                return View();
+            }
+        }
+
+        public ActionResult Estadisticas()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Estadisticas(string tipo)
+        {
+            try
+            {
+                if (tipo == "trayectoPaquete")
+                {
+                    return RedirectToAction("TrayectoPaquete", new { token = Request.Cookies["Token"].Value });
+                }
+                return Estadisticas();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e;
+                return View();
+            }
+        }
+
+        
+
     }
 }

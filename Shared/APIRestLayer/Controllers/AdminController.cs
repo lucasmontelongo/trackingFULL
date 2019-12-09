@@ -43,5 +43,20 @@ namespace APIRestLayer.Controllers
         //    }
         //}
 
+        [HttpGet]
+        [Route("estadistica/trayectopaquete")]
+        public IHttpActionResult trayectoPaquete()
+        {
+            try
+            {
+                BLAdmin bl = new BLAdmin();
+                return Ok(bl.trayectoPaquete());
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
     }
 }

@@ -1,7 +1,19 @@
 ﻿@model WEBLayer2.Models.PaqueteDTO
 
-@{ 
+@{
     Layout = null;
+}
+
+@if (ViewBag.OK != null || ViewBag.ERROR != null)
+{
+    if (ViewBag.OK != null)
+    {
+        <p>@ViewBag.OK</p>
+    }
+    if (ViewBag.ERROR != null)
+    {
+        <p>@ViewBag.ERROR</p>
+    }
 }
 
 <h2>Datos de envío</h2>

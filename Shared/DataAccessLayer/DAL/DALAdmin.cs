@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,5 +40,24 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
+
+        public List<EstadisticaDTO> trayectoPaquete()
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    var estadisticas = en.Database
+                       .SqlQuery<EstadisticaDTO>("Select Trayecto.nombre as x, COUNT(Paquete.id) as y from Trayecto left join Paquete on Paquete.fechaIngreso = Paquete.fechaEntrega and Paquete.IdTrayecto = Trayecto.id group by Trayecto.nombre")
+                       .ToList();
+                    return estadisticas; 
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
     }
 }

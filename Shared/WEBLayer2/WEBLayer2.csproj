@@ -197,6 +197,7 @@
     <Compile Include="Models\Agencia.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\EnvioDomicilioDTO.cs" />
+    <Compile Include="Models\EstadisticaDTO.cs" />
     <Compile Include="Models\EtiquetaDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -326,6 +327,8 @@
     <Content Include="Views\Paquete\Manejar.cshtml" />
     <Content Include="Views\Usuario\Entrega.cshtml" />
     <Content Include="Views\Usuario\EstadoPaquete.cshtml" />
+    <Content Include="Views\Admin\Estadisticas.cshtml" />
+    <Content Include="Views\Admin\TrayectoPaquete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
