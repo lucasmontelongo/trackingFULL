@@ -325,6 +325,7 @@
     <Content Include="Views\Paquete\Filtro.cshtml" />
     <Content Include="Views\Paquete\Manejar.cshtml" />
     <Content Include="Views\Usuario\Entrega.cshtml" />
+    <Content Include="Views\Usuario\EstadoPaquete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

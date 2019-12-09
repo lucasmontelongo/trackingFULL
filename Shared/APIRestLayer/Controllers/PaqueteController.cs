@@ -238,5 +238,22 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("consultarestado")]
+        public IHttpActionResult consultarEstado(string codigo)
+        {
+            try
+            {
+                string email = TokenInfo.getClaim(Request, "email");
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.consultarEstado(codigo, email));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

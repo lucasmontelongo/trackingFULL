@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\EstadisticaDTO.cs" />
+    <Compile Include="Entities\ExternalLoginDTO.cs" />
     <Compile Include="Entities\PaqueteFiltroDTO.cs" />
     <Compile Include="Entities\SAgencia.cs" />
     <Compile Include="Entities\SCliente.cs" />
