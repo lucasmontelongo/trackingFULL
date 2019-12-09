@@ -27,10 +27,17 @@
 
     <div class="form-group">
         <div class="col-md-10">
-            <select name="accion">
+            <select id="accion" name="accion" onchange="cliente()">
                 <option value="avanzar">Avanzar</option>
                 <option value="retroceder">Retroceder</option>
+                <option value="entrega">Entrega al cliente</option>
             </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input id="codigo" name="codigo" placeholder="Codigo dado por el cliente" type="text" hidden/>
         </div>
     </div>
 
@@ -40,3 +47,15 @@
         </div>
     </div>
 }
+
+<script>
+    function cliente() {
+        var x = document.getElementById("accion").value;
+        if (x == "entrega") {
+            document.getElementById("codigo").hidden = false;
+        } else {
+            document.getElementById("codigo").hidden = true;
+        }
+        
+    }
+</script>

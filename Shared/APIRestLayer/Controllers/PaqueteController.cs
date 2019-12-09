@@ -197,14 +197,17 @@ namespace APIRestLayer.Controllers
         [Authorize(Roles = "Admin, Funcionario, Encargado")]
         [HttpGet]
         [Route("entregacliente")]
-        public IHttpActionResult entregaCliente(int IdEmpleado, int IdPaquete, string codigo)
+        public IHttpActionResult entregaCliente(int IdPaquete, string codigo)
         {
             try
             {
+                string email = TokenInfo.getClaim(Request, "email");
+                BLUsuario _blU = new BLUsuario();
+                SUsuario u = _blU.getUsuarioByEmail(email);
                 BLPaquete bl = new BLPaquete();
                 SPaquetePuntoControl ppc = new SPaquetePuntoControl()
                 {
-                    IdEmpleado = IdEmpleado,
+                    IdEmpleado = u.Id,
                     IdPaquete = IdPaquete
                 };
                 return Ok(bl.entregaCliente(ppc, codigo));

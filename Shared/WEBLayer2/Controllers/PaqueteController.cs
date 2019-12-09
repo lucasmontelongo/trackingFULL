@@ -291,7 +291,7 @@ namespace WEBLayer2.Controllers
             }
         }
 
-        [Authorize(Roles = "Funcionario, Encargado")]
+        [Authorize(Roles = "Admin, Funcionario, Encargado")]
         [HttpGet]
         public ActionResult Manejar()
         {
@@ -306,9 +306,9 @@ namespace WEBLayer2.Controllers
             }
         }
 
-        [Authorize(Roles = "Funcionario, Encargado")]
+        [Authorize(Roles = "Admin, Funcionario, Encargado")]
         [HttpPost]
-        public ActionResult Manejar(int idPaquete, string accion)
+        public ActionResult Manejar(int idPaquete, string accion, string codigo)
         {
             try
             {
@@ -317,14 +317,26 @@ namespace WEBLayer2.Controllers
                 {
                     client = new RestClient(Direcciones.ApiRest + "paquete/avanzar");
                 }
-                else
+                else if (accion == "retroceder")
                 {
                     client = new RestClient(Direcciones.ApiRest + "paquete/retroceder");
+                }
+                else
+                {
+                    client = new RestClient(Direcciones.ApiRest + "paquete/entregacliente");
                 }
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("content-type", "application/json");
                 request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
-                request.AddJsonBody(new Paquete() { Id = idPaquete });
+                if (accion == "entrega")
+                {
+                    request.AddQueryParameter("idPaquete", idPaquete.ToString());
+                    request.AddQueryParameter("codigo", codigo);
+                }
+                else
+                {
+                    request.AddJsonBody(new Paquete() { Id = idPaquete });
+                }
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {

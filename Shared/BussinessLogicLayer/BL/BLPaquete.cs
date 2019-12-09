@@ -362,6 +362,10 @@ namespace BussinessLogicLayer.BL
                             throw new ECompartida("El paquete ya fue entregado al cliente anteriormente");
                         }
                     });
+                    if (ppcList.Count != (pclist.Count - 1))
+                    {
+                        throw new ECompartida("Aun falta avanzar pasos antes de poder entregar al cliente");
+                    }
                     int tiempoEstimado = 0;
                     pclist.ForEach(x =>
                     {
