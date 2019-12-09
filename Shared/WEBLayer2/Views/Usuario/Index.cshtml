@@ -67,18 +67,13 @@
             <div><i class="fas fa-shipping-fast"></i></div>
             <div id="titulo">Mis envíos</div>
             <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            @Html.ActionLink("VER", "PaquetesEnviados")
         </div>
         <div id="envios">
             <div><i class="fas fa-box-open"></i></div>
             <div id="titulo">Paquetes recibidos</div>
             <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
-        </div>
-    </div>
-    <div>
-        <div id="perfil" class="perf">
-            <div><i class="fas fa-user-alt"></i></div>
-            <div id="titulo">Mi perfil</div>
-            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            @Html.ActionLink("VER", "PaquetesRecibidos")
         </div>
     </div>
     <div>
@@ -86,11 +81,7 @@
             <div><i class="fas fa-search"></i></div>
             <div id="titulo">Seguir paquete</div>
             <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
-        </div>
-        <div id="envios">
-            <div><i class="far fa-clipboard"></i></div>
-            <div id="titulo">Informes</div>
-            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            @Html.ActionLink("VER", "estadoPaquete")
         </div>
     </div>
 </div>

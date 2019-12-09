@@ -34,7 +34,7 @@ namespace WEBLayer2.Controllers
             try
             {
                 var client = new RestClient(Direcciones.ApiRest + "admin/addpermisos");
-                var request = new RestRequest(Method.GET);
+                var request = new RestRequest(Method.POST);
                 request.AddHeader("content-type", "application/json");
                 request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
                 request.AddQueryParameter("email", email);

@@ -27,6 +27,12 @@
     <button class="nuevo" style="margin: 2% 2% 2% 0">
         <i class="fas fa-plus-square"></i> @Html.ActionLink("Nuevo paquete", "Create")
     </button>
+    <button class="nuevo" style="margin: 2% 2% 2% 0">
+        <i class="fas fa-plus-square"></i> @Html.ActionLink("Filtro avanzado", "Filtro")
+    </button>
+    <button class="nuevo" style="margin: 2% 2% 2% 0">
+        <i class="fas fa-plus-square"></i> @Html.ActionLink("Manejar paquete", "Manejar")
+    </button>
 
     <div>
         <div class="container-table100">
@@ -53,6 +59,7 @@
                                 <th class="column100 column6" data-column="column6"></th>
                                 <th class="column100 column7" data-column="column7"></th>
                                 <th class="column100 column8" data-column="column8"></th>
+                                <th class="column100 column9" data-column="column9"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,6 +102,9 @@
                                         <button class="borrar">
                                             <i class="fas fa-trash-alt"></i> @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
                                         </button>
+                                    </td>
+                                    <td class="column100 column9" data-column="column9">
+                                        @Html.ActionLink("Etiqueta PDF", "imprimirpdf", "Admin", new { id = item.Id }, null)
                                     </td>
                                 </tr>
                             }

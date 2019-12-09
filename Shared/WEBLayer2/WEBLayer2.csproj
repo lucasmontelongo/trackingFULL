@@ -315,7 +315,7 @@
     <Content Include="Views\Paquete\Create.cshtml" />
     <Content Include="Views\Paquete\Details.cshtml" />
     <Content Include="Views\Paquete\Edit.cshtml" />
-    <Content Include="Views\Admin\nuevoAdministrador.cshtml" />
+    <Content Include="Views\Admin\addPermisos.cshtml" />
     <Content Include="Views\Trayecto\Create.cshtml" />
     <Content Include="Views\Trayecto\Edit.cshtml" />
     <Content Include="Views\Trayecto\CreatePC.cshtml" />
