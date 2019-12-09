@@ -328,8 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-Shared/BussinessLogicLayer/App.config
-Shared/BussinessLogicLayer/App.config
-Shared/DataAccessLayer/App.Config
-Shared/DataAccessLayer/App.Config
-Shared/ApiRESTLayer/Web.config
+
+*.config

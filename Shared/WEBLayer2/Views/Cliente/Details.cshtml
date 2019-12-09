@@ -7,55 +7,78 @@
 {
     <p>@ViewBag.ERROR</p>
 }
-<h2>Details</h2>
+
+<link rel="stylesheet" href="~/Content/style.css">
+@section Styles
+{
+    <style type="text/css">
+        input {
+            border-bottom: 2px solid #87B7F1;
+        }
+    </style>
+}
 
 <div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NombreCompleto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NombreCompleto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumeroDocumento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumeroDocumento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoDocumento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TipoDocumento)
-        </dd>
-
-    </dl>
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index") 
+    </button>
+    <button id="volver">
+        @Html.ActionLink("Editar Datos", "Edit", new { id = Model.Id })
+    </button>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="page">
+    <div class="cont">
+        <div id="editDer" class="der">
+            <div class="form">
+                <div class="form-horizontal">
+                    <ul class="form-list">
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email)
+                                <div>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NombreCompleto)
+                                <div>
+                                    @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Telefono)
+                                <div>
+                                    @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NumeroDocumento)
+                                <div>
+                                    @Html.EditorFor(model => model.NumeroDocumento, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TipoDocumento)
+                                <div>
+                                    @Html.EditorFor(model => model.TipoDocumento, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="edit">
+            <div class="titulo">Datos Cliente</div>
+            <div id="texto" class="eula">Ver datos de cliente</div>
+        </div>
+    </div>
+</div>

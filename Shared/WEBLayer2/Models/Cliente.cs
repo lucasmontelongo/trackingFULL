@@ -11,7 +11,7 @@ namespace WEBLayer2.Models
     {
         public int Id { get; set; }
         public string Email { get; set; }
-        [Display(Name = "Nombre Completo")]
+        [Display(Name = "Nombre")]
         public string NombreCompleto { get; set; }
         [Display(Name = "Teléfono")]
 
