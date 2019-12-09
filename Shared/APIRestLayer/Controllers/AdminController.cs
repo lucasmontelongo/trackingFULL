@@ -28,21 +28,6 @@ namespace APIRestLayer.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("estadisticas")]
-        //public IHttpActionResult estadisticas(string estadistica)
-        //{
-        //    try
-        //    {
-        //        BLAdmin bl = new BLAdmin();
-        //        return Ok(bl.estadisticas(estadistica));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Content(HttpStatusCode.InternalServerError, e.Message);
-        //    }
-        //}
-
         [HttpGet]
         [Route("estadistica/trayectopaquete")]
         public IHttpActionResult trayectoPaquete()
@@ -51,6 +36,21 @@ namespace APIRestLayer.Controllers
             {
                 BLAdmin bl = new BLAdmin();
                 return Ok(bl.trayectoPaquete());
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("estadistica/paquetesingresados")]
+        public IHttpActionResult paquetesIngresados(string tipo)
+        {
+            try
+            {
+                BLAdmin bl = new BLAdmin();
+                return Ok(bl.paquetesIngresadosEntregados(tipo));
             }
             catch (Exception e)
             {

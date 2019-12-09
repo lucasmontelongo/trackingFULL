@@ -6,8 +6,10 @@
 }
 
 @{
-    ViewBag.Title = "TrayectoPaquete";
+    ViewBag.Title = "PaquetesIngresados";
 }
+
+<h2>PaquetesIngresados</h2>
 
 @if (ViewBag.OK != null || ViewBag.ERROR != null)
 {
@@ -21,13 +23,13 @@
     }
 }
 
- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
-<h2>Cantidad de paquetes en transito por trayecto</h2>
+<h2>Cantidad de paquetes ingresados en los ultimos 7 dias</h2>
 
 <div class="container">
-    <h5>Total de paquetes en transito: @cantidadTotal</h5>
+    <h5>Total de paquetes ingresados en la ultima semana: @cantidadTotal</h5>
     <div class="col-sm-12">
         <canvas id="myChart"></canvas>
     </div>
@@ -51,7 +53,7 @@
         data: {
             labels: colX,
             datasets: [{
-                label: "Paquetes en transito",
+                label: "Cantidad de paquetes",
                 data: colY
             }]
         },

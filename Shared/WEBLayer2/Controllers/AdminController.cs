@@ -137,6 +137,82 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult PaquetesIngresados(string token)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "admin/estadistica/paquetesingresados");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + token);
+                request.AddQueryParameter("tipo", "ingresado");
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    List<Shared.Entities.EstadisticaDTO> estadisticas = JsonConvert.DeserializeObject<List<Shared.Entities.EstadisticaDTO>>(response.Content);
+                    List<string> ejeX = new List<string>();
+                    List<int> ejeY = new List<int>();
+                    estadisticas.ForEach(x =>
+                    {
+                        ejeX.Add(x.x);
+                        ejeY.Add(x.y);
+                    });
+                    ViewBag.EJEX = ejeX;
+                    ViewBag.EJEY = ejeY;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e;
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult PaquetesEntregados(string token)
+        {
+            try
+            {
+                var client = new RestClient(Direcciones.ApiRest + "admin/estadistica/paquetesingresados");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + token);
+                request.AddQueryParameter("tipo", "entregado");
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    List<Shared.Entities.EstadisticaDTO> estadisticas = JsonConvert.DeserializeObject<List<Shared.Entities.EstadisticaDTO>>(response.Content);
+                    List<string> ejeX = new List<string>();
+                    List<int> ejeY = new List<int>();
+                    estadisticas.ForEach(x =>
+                    {
+                        ejeX.Add(x.x);
+                        ejeY.Add(x.y);
+                    });
+                    ViewBag.EJEX = ejeX;
+                    ViewBag.EJEY = ejeY;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.ERROR = response.Content;
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.ERROR = e;
+                return View();
+            }
+        }
+
         public ActionResult Estadisticas()
         {
             try
@@ -158,6 +234,14 @@ namespace WEBLayer2.Controllers
                 if (tipo == "trayectoPaquete")
                 {
                     return RedirectToAction("TrayectoPaquete", new { token = Request.Cookies["Token"].Value });
+                }
+                if (tipo == "paquetesIngresados")
+                {
+                    return RedirectToAction("PaquetesIngresados", new { token = Request.Cookies["Token"].Value });
+                }
+                if (tipo == "paquetesEntregados")
+                {
+                    return RedirectToAction("PaquetesEntregados", new { token = Request.Cookies["Token"].Value });
                 }
                 return Estadisticas();
             }

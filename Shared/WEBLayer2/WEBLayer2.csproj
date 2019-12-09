@@ -329,6 +329,8 @@
     <Content Include="Views\Usuario\EstadoPaquete.cshtml" />
     <Content Include="Views\Admin\Estadisticas.cshtml" />
     <Content Include="Views\Admin\TrayectoPaquete.cshtml" />
+    <Content Include="Views\Admin\PaquetesIngresados.cshtml" />
+    <Content Include="Views\Admin\PaquetesEntregados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

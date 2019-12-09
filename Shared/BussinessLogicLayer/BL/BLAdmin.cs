@@ -41,5 +41,17 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public List<EstadisticaDTO> paquetesIngresadosEntregados(string tipo)
+        {
+            try
+            {
+                return _dal.paquetesIngresadosEntregados(tipo);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
