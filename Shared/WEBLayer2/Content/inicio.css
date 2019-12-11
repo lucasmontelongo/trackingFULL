@@ -1,7 +1,7 @@
 ﻿body {
     font-family: 'Open Sans', sans-serif;
     color: #1a1a1a;
-    background-image: url('https://image.freepik.com/foto-gratis/repartidor-sonriendo-sosteniendo-caja-carton_1150-8869.jpg');
+    background: url('https://image.freepik.com/foto-gratis/repartidor-sonriendo-sosteniendo-caja-carton_1150-8869.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -26,6 +26,8 @@ h5 {
     outline: 0;
     box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
     transition: all .2s;
+    display: block;
+    margin: auto;
 }
 
     .button:hover, .button:active, .button:focus {
@@ -204,3 +206,34 @@ input {
     text-align: center;
 }
 
+.label {
+    display: flex !important;
+    align-items: center;
+}
+
+
+@@media (max-width: 600px) {
+    .modal__container {
+        flex-direction: column;
+        width: 100%;
+        border-radius: 0
+    }
+
+    .modal__featured {
+        min-height: 200px;
+    }
+
+    .modal__circle {
+        transform: translateX(-25%) translateY(-50%);
+    }
+
+    .modal__product {
+        height: 142px;
+    }
+
+    .modal__container input[type=text],
+    .modal__container input[type=password] {
+        max-width: 100%;
+        width: 100%;
+    }
+}

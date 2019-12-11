@@ -1,31 +1,391 @@
 ﻿@{
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
     ViewBag.Title = "Home Page";
 }
+<style>
+    * {
+        font-family: Roboto;
+    }
+    body {
+        padding-top: 50px;
+        padding-bottom: 0px;
+}
+    .input-send {
+        padding: 10px 10px 10px 24px;
+        background: #fff;
+        border-radius: 3px;
+        display: flex;
+        padding: 0;
+        overflow: hidden;
+        margin-top: 20px;
+        box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+    }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+        .input-send input {
+            font-size: 2em;
+            font-weight: 200;
+            padding-left: 0;
+            border: none;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+            width: 100%;
+            max-width: 100%;
+            padding: 10px;
+        }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        .input-send button {
+            color: #ffffff;
+            background-color: #24cf5f;
+            padding: 12px 25px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 0;
+            border-radius: 2px;
+            outline: 0;
+            box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+            transition: all .2s;
+            margin: 10px 10px 10px 0px;
+        }
+
+    .jumbotron {
+        background: url(https://image.freepik.com/foto-gratis/repartidor-sonriendo-sosteniendo-caja-carton_1150-8869.jpg) no-repeat center center fixed;
+        background-size: cover;
+        box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        position: relative;
+        height: 100vh;
+        min-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+        .jumbotron:before {
+            background: rgba(0,0,0,.8);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: "";
+            z-index: 0;
+        }
+
+        .jumbotron .container {
+            z-index: 100;
+            position: relative;
+        }
+
+    .titulo {
+        color: #fff !important;
+        margin: 0;
+    }
+
+    .jumbotron p {
+        color: #eee;
+        margin-bottom: 64px;
+    }
+
+    body {
+        padding-top: 0px;
+    }
+
+    .header .navbar {
+        background-color: transparent !important;
+    }
+
+    .navbar {
+        position: absolute;
+        Z-INDEX: 100;
+        width: 100%;
+    }
+
+        .navbar a {
+            margin: 10px 5px 10px 0px;
+            padding: 10px;
+            border-radius: 3px;
+            color: #aaa !important;
+        }
+            .navbar a:not(:first-child) {
+                margin: 10px 5px;
+            }
+            .navbar a:hover {
+                background: rgba(250,250,250,.08) !important;
+                color: #fff !important;
+            }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .h-250px {
+        min-height: 250px;
+    }
+
+    .h-min-400px {
+        min-height: 400px;
+    }
+
+    .h-200px {
+        height: 200px;
+    }
+
+    .d-flex {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .justify-content-center {
+        justify-content: center;
+    }
+
+    .justify-content-flex-end {
+        justify-content: flex-end;
+    }
+
+    .align-items-center {
+        align-items: center;
+    }
+
+    section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        min-height: 400px;
+    }
+
+    .color {
+        background: rgba(0,0,0,.8);
+        padding-bottom: 0px;
+        position: relative;
+    }
+
+        .color * {
+            text-align: center;
+            color: #fff;
+        }
+
+        .color:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: "";
+            z-index: -1;
+            background: url(https://demos.creative-tim.com/gaia-bootstrap-template/assets/img/office-1.jpeg) no-repeat center center fixed;
+            background-size: cover;
+        }
+
+    h2 {
+        margin: 0;
+        color: #343434;
+        font-size: 42px;
+        line-height: 50px;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        font-weight: 600;
+        position: relative;
+    }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            margin: auto;
+            bottom: 0;
+            left: 0;
+            width: 40%;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.125);
+        }
+
+        h2.text-right:after {
+            left: auto;
+            right: 0;
+        }
+
+    p {
+        line-height: 26px;
+        color: #848484;
+        font-weight: 400;
+    }
+
+    .border-bottom {
+        border-bottom: solid 1px #ddd;
+    }
+
+    .border-top {
+        border-top: solid 1px #ddd;
+    }
+
+    .mouse {
+        display: block;
+        position: absolute;
+        height: 45px;
+        width: 25px;
+        border-radius: 20px;
+        border: 2px solid #fff;
+        bottom: 60px;
+        left: 50%;
+        z-index: 2;
+        transform: translateX(-50%);
+        animation: mouse alternate 0.8s infinite;
+    }
+
+        .mouse:after {
+            position: absolute;
+            border-radius: 2px;
+            width: 2px;
+            height: 0px;
+            content: '';
+            background: #fff;
+            margin-left: 10px;
+            margin-top: 5px;
+            animation: mouse-bola alternate 0.8s infinite;
+        }
+
+    @@keyframes mouse-bola {
+        0% {
+            height: 0px;
+        }
+
+        100% {
+            height: 10px;
+        }
+    }
+
+    @@keyframes mouse {
+        0% {
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        100% {
+            -webkit-transform: translate(-50%, calc(-50% + 20px));
+            transform: translate(-50%, calc(-50% + 20px));
+        }
+    }
+
+    #Contact, #About {
+        padding: 30px;
+    }
+
+        #Contact h3, #About h3 {
+            color: #22313F;
+            font-weight: 700;
+            line-height: 1.5;
+            margin: 0 0 1em 0;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+        .footer {
+            padding: 2.5rem 0;
+            color: #999;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-top: .05rem solid #e5e5e5;
+        }
+    @@media (max-width: 992px) {
+        .d-sm-none {
+            display: none !important;
+        }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+<div class="jumbotron border-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="display-3 titulo">TrakingFull</h1>
+                <p class="dis-none d-lg-block d-md-block">Ingrese su codigo de rastreo</p>
+                <form class="input-send">
+                    <input type="text" placeholder="Codigo de seguiminto" />
+                    <button>Enviar</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <div class="mouse"></div>
 </div>
+<section style="background:rgb(242, 242, 242);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 h-min-400px d-flex justify-content-center">
+                <h2>Getting started</h2>
+                <p>
+                    ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                    enables a clean separation of concerns and gives you full control over markup
+                    for enjoyable, agile development.
+                </p>
+            </div>
+            <div class="col-md-4 col-md-offset-2 h-min-400px d-flex align-items-center justify-content-center d-sm-none">
+                <img class="w-100 " src="https://images.vexels.com/media/users/3/131770/isolated/preview/9d615c923d10e51af4424ffdb17181dd-mapa-del-mundo-punteado-pixel-by-vexels.png" />
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="col-md-4 h-min-400px d-flex align-items-center justify-content-center d-sm-none ">
+            <img class="w-100 h-200px" src="https://image.flaticon.com/icons/svg/1554/1554118.svg" />
+        </div>
+        <div class="col-md-6 col-md-offset-2 h-min-400px d-flex justify-content-center">
+            <h2 class="text-right">API</h2>
+            <p class="text-right">
+                Pensando en esos clintes que tieen su sistema, poder complementarlos con el servicio de trackinFull es una exelente opcion, con solo un llamado puedes obtener los servicios y la confiabilidad de nuestra marca
+            </p>
+        </div>
+    </div>
+</section>
+<section class="color border-bottom border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8 h-min-400px d-flex justify-content-center">
+                <h2 class="text-center">Getting started</h2>
+                <p class="text-center">
+                    ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                    enables a clean separation of concerns and gives you full control over markup
+                    for enjoyable, agile development.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class=" border-bottom border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" id="About">
+                <h3>Acerca de nosotros</h3>
+                <p>
+                    Mus sed interdum nunc dictum rutrum scelerisque erat a parturient condimentum potenti dapibus vestibulum condimentum per tristique porta. Torquent a ut consectetur a vel ullamcorper a commodo a mattis ipsum class quam sed eros vestibulum quisque a eu nulla scelerisque a elementum vestibulum.
+                    <br /> <br />
+                    Aliquet dolor ultricies sem rhoncus dolor ullamcorper pharetra dis condimentum ullamcorper rutrum vehicula id nisi vel aptent orci litora hendrerit penatibus erat ad sit. In a semper velit eleifend a viverra adipiscing a phasellus urna praesent parturient integer ultrices montes parturient suscipit posuere quis aenean. Parturient euismod ultricies commodo arcu elementum suspendisse id dictumst at ut vestibulum conubia quisque a himenaeos dictum proin dis purus integer mollis parturient eros scelerisque dis libero parturient magnis.
+                </p>
+            </div>
+            <div class="col-md-6" id="Contact">
+                <h3>Contacto</h3>
+                <address>
+                    One Microsoft Way<br />
+                    Redmond, WA 98052-6399<br />
+                    <abbr title="Phone">P:</abbr>
+                    425.555.0100
+                </address>
+                <address>
+                    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+                    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+                </address>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <p>Tecnologo Grupo G3</p>
+    <p>
+        <a href="#">Subir</a>
+    </p>
+</footer>

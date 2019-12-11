@@ -85,8 +85,14 @@ namespace WEBLayer2.Controllers
             request.AddHeader("content-type", "application/json");
             request.AddParameter("application/json", "{\"Email\":\"" + user.Email + "\",\"Password\":\"" + user.Password + "\"}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-
-            user = JsonConvert.DeserializeObject<Usuario>(response.Content);
+            try {
+                user = JsonConvert.DeserializeObject<Usuario>(response.Content);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+                return View(model);
+            }
 
             if (user != null)
             {

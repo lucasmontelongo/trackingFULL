@@ -63,16 +63,21 @@ namespace WEBLayer2.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Se ha quitado su número de teléfono."
                 : "";
 
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var userId = User.Identity.GetUserId();//[0]
+            if (userId != null)
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
-            return View(model);
+                var model = new IndexViewModel
+                {
+                    HasPassword = HasPassword(),
+                    PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                    Logins = await UserManager.GetLoginsAsync(userId),
+                    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                };
+                return View(model);
+            } else {
+                return RedirectToAction("ManageLogins", new { Message = message });
+            }
         }
 
         //

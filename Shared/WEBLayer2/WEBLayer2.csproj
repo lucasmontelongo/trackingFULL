@@ -219,6 +219,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\inicio.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\msg.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\select2.min.css" />
@@ -325,6 +326,7 @@
     <Content Include="Views\Paquete\Filtro.cshtml" />
     <Content Include="Views\Paquete\Manejar.cshtml" />
     <Content Include="Views\Usuario\Entrega.cshtml" />
+    <Content Include="Views\Shared\_LayoutIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
