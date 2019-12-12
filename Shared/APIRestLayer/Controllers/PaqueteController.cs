@@ -258,5 +258,22 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("pruebaemail")]
+        public IHttpActionResult emailprueba(int id)
+        {
+            try
+            {
+                string email = TokenInfo.getClaim(Request, "email");
+                BLPaquete bl = new BLPaquete();
+                return Ok(BLEmail.actualizacionEstado(bl.getPaquete(id)));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

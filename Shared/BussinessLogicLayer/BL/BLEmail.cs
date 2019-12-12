@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
+using Shared.Entities;
 using Shared.Exceptions;
 
 namespace BussinessLogicLayer.BL
@@ -49,7 +50,7 @@ namespace BussinessLogicLayer.BL
             }
         }
 
-        static public string confirmacionDeEmail(string email, string codigoConfirmacion)
+        static public string confirmacionDeEmail(string email, string codigoConfirmacion) //blusuario, linea 48
         {
             try
             {
@@ -58,6 +59,91 @@ namespace BussinessLogicLayer.BL
                 request.AddParameter("application/json", "{\"sender\":{\"email\":\"tuxlukz@gmail.com\"},\"to\":[{\"email\":\"" + email + "\"}],\"replyTo\":{\"email\":\"tuxlukz@gmail.com\"},\"templateId\":1,\"params\":{\"LINKCONFIRMACION\":\"http://localhost:52917/auth/confirmaremail?email=" + email + "&codigoConfirmacion=" + codigoConfirmacion + "\"}}", ParameterType.RequestBody);
                 IRestResponse response = client.Execute(request);
                 return response.ToString();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        static public string nuevoPaquete(SPaquete paquete) //blpaquete linea 61
+        {
+            try
+            {
+                var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
+                var request = setRequest("post");
+                BLTrayecto _blT = new BLTrayecto();
+                BLPaquete _blP = new BLPaquete();
+                var dp = _blP.detallesPaquete("","Admin",paquete.Id);
+                DateTime tiempoEstimado = DateTime.Now;
+                string paquetePuntoControl = "";
+                SPaquetePuntoControl ppcActual = new SPaquetePuntoControl() { Id = 0 };
+                foreach (var item in dp.PaquetePuntoControl)
+                {
+                    if (item.Id > ppcActual.Id)
+                    {
+                        ppcActual = item;
+                    }
+                }
+                foreach (var item in dp.Trayecto.ListaPuntosControl)
+                {
+                    tiempoEstimado = tiempoEstimado.AddSeconds(item.Tiempo);
+                    if (item.Id == ppcActual.IdPuntoControl)
+                    {
+                        paquetePuntoControl += "<li>" + item.Nombre + " | Tu paquete se encuentra aquí actualmente</li>";
+                    }
+                    else
+                    {
+                        paquetePuntoControl += "<li>" + item.Nombre + "</li>";
+                    }
+                }
+                request.AddParameter("application/json", "{\"sender\":{\"email\":\"tuxlukz@gmail.com\"},\"to\":[{\"email\":\"" + dp.Destinatario.Email + "\"}],\"replyTo\":{\"email\":\"tuxlukz@gmail.com\"},\"templateId\":2,\"params\":{\"remitenteNombre\":\"" + dp.Remitente.NombreCompleto + "\",\"remitenteEmail\":\"" + dp.Remitente.Email + "\",\"remitenteTelefono\":\"" + dp.Remitente.Telefono + "\",\"codigoEntrega\":\"" + paquete.CodigoConfirmacion + "\",\"puntoControlPaquete\":\"" + paquetePuntoControl + "\",\"fechaEntregaEstimada\":\"" + tiempoEstimado.ToString() + "\"}}", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+                return response.Content;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        static public string actualizacionEstado(SPaquete paquete) //blpaquete linea 133, 176
+        {
+            try
+            {
+                var client = new RestClient("https://api.sendinblue.com/v3/smtp/email");
+                var request = setRequest("post");
+                BLTrayecto _blT = new BLTrayecto();
+                BLPaquete _blP = new BLPaquete();
+                var dp = _blP.detallesPaquete("", "Admin", paquete.Id);
+                DateTime tiempoEstimado = DateTime.Now;
+                string paquetePuntoControl = "";
+                SPaquetePuntoControl ppcActual = new SPaquetePuntoControl() { Id = 0 };
+                foreach (var item in dp.PaquetePuntoControl)
+                {
+                    if (item.Id > ppcActual.Id)
+                    {
+                        ppcActual = item;
+                    }
+                }
+                foreach (var item in dp.Trayecto.ListaPuntosControl)
+                {
+                    if (item.Id > ppcActual.Id)
+                    {
+                        tiempoEstimado = tiempoEstimado.AddSeconds(item.Tiempo);
+                    }
+                    if (item.Id == ppcActual.IdPuntoControl)
+                    {
+                        paquetePuntoControl += "<li>" + item.Nombre + " | Tu paquete se encuentra aquí actualmente</li>";
+                    }
+                    else
+                    {
+                        paquetePuntoControl += "<li>" + item.Nombre + "</li>";
+                    }
+                }
+                request.AddParameter("application/json", "{\"sender\":{\"email\":\"tuxlukz@gmail.com\"},\"to\":[{\"email\":\"" + dp.Destinatario.Email + "\"}],\"replyTo\":{\"email\":\"tuxlukz@gmail.com\"},\"templateId\":3,\"params\":{\"remitenteNombre\":\"" + dp.Remitente.NombreCompleto + "\",\"remitenteEmail\":\"" + dp.Remitente.Email + "\",\"remitenteTelefono\":\"" + dp.Remitente.Telefono + "\",\"codigoEntrega\":\"" + paquete.CodigoConfirmacion + "\",\"puntoControlPaquete\":\"" + paquetePuntoControl + "\",\"fechaEntregaEstimada\":\"" + tiempoEstimado.ToString() + "\"}}", ParameterType.RequestBody);
+                IRestResponse response = client.Execute(request);
+                return response.Content;
             }
             catch (Exception)
             {
