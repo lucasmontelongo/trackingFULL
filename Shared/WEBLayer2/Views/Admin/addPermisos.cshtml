@@ -17,7 +17,8 @@
     }
 }
 
-@Html.BeginForm("nuevoadministrador", "Admin", FormMethod.Post){
+@using (Html.BeginForm("addPermisos", "Admin", FormMethod.Post))
+{
 
     @Html.AntiForgeryToken()
 

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "EstadoPaquete";
+}
+
+@if (ViewBag.ERROR != null)
+{
+    <p>@ViewBag.ERROR</p>
+}
+@if (ViewBag.OK != null)
+{
+    <p>@ViewBag.OK</p>
+}
+
+<h2>EstadoPaquete</h2>
+
+@using (Html.BeginForm()){
+
+@Html.AntiForgeryToken()
+
+<div class="form-group">
+    <input type="text" name="codigo" placeholder="Codigo de paquete" />
+</div>
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</div>
+}
+

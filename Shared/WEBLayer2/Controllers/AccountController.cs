@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using RestSharp;
+using Shared.Entities;
 using Shared.Utilidades;
 using WEBLayer2.DAL;
 using WEBLayer2.Models;
@@ -368,22 +370,52 @@ namespace WEBLayer2.Controllers
             }
 
             // Si el usuario ya tiene un inicio de sesión, iniciar sesión del usuario con este proveedor de inicio de sesión externo
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
+            //var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        //return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        // Si el usuario no tiene ninguna cuenta, solicitar que cree una
+            //        ViewBag.ReturnUrl = returnUrl;
+            //        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+            //        return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+            //}
+            var user = new Usuario() { Email = loginInfo.Email };
+            var client = new RestClient(Direcciones.ApiRest + "auth/externallogin");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("content-type", "application/json");
+            request.AddJsonBody(new ExternalLoginDTO() { Email = user.Email, Validacion = Direcciones.PassLoginExterno });
+            IRestResponse response = client.Execute(request);
+            if (response.StatusCode.ToString() == "OK")
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // Si el usuario no tiene ninguna cuenta, solicitar que cree una
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                user = JsonConvert.DeserializeObject<Usuario>(response.Content);
+
+                if (user != null)
+                {
+                    FormsAuthentication.SetAuthCookie(user.Email, false);
+
+                    var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(120), false, user.Rol);
+                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    var authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    HttpContext.Response.Cookies.Add(authCookie);
+                    Response.Cookies.Add(new System.Web.HttpCookie("Token", user.Token));
+                    Response.Cookies.Add(new System.Web.HttpCookie("IdUsuario", user.Id.ToString()));
+                    return RedirectToAction("Index", "Home");
+                }
+
+                else
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return RedirectToAction("Login", "Account");
+                }
             }
+            return RedirectToAction("Error", "Home");
         }
 
         //
@@ -406,18 +438,47 @@ namespace WEBLayer2.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //var result = await UserManager.CreateAsync(user);
+                //if (result.Succeeded)
+                //{
+                //    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                //    if (result.Succeeded)
+                //    {
+                //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //        return RedirectToLocal(returnUrl);
+                //    }
+                //}
+                //AddErrors(result);
+                var user = new Usuario() { Email = model.Email };
+                var client = new RestClient(Direcciones.ApiRest + "auth/externallogin");
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("content-type", "application/json");
+                request.AddJsonBody(new ExternalLoginDTO() { Email = user.Email, Validacion = Direcciones.PassLoginExterno });
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
+                    user = JsonConvert.DeserializeObject<Usuario>(response.Content);
+
+                    if (user != null)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        FormsAuthentication.SetAuthCookie(model.Email, false);
+
+                        var authTicket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(120), false, user.Rol);
+                        string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                        var authCookie = new System.Web.HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                        HttpContext.Response.Cookies.Add(authCookie);
+                        Response.Cookies.Add(new System.Web.HttpCookie("Token", user.Token));
+                        Response.Cookies.Add(new System.Web.HttpCookie("IdUsuario", user.Id.ToString()));
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
                     }
                 }
-                AddErrors(result);
             }
 
             ViewBag.ReturnUrl = returnUrl;

@@ -235,5 +235,29 @@ namespace DataAccessLayer.DAL
             }
         }
 
+        public SUsuario addUsuarioExternalLogin(SUsuario u)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.email = u.Email;
+                    usuario.rol = "Cliente";
+                    usuario.password = null;
+                    usuario.codigoConfirmacion = "none";
+                    usuario.emailValido = true;
+                    usuario.borrado = false;
+                    en.Usuario.Add(usuario);
+                    en.SaveChanges();
+                    return _conv.modeloAEntidad(usuario);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
     }
 }

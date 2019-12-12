@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shared.Entities
 {
-    public class EstadisticaDTO
+    public class ExternalLoginDTO
     {
-        public string x { get; set; }
-        public int y { get; set; }
+        public string Email { get; set; }
+        public string Validacion { get; set; }
     }
 }

@@ -133,31 +133,28 @@
     }
 </style>
 
-<div id="cont">
-    <a id="envio" class="celda" href="~/Usuario/Envios">
-        <div><i class="fas fa-shipping-fast"></i></div>
-        <div id="titulo">Mis envíos</div>
-        <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
-    </a>
-    <a id="recibido" class="celda" href="~/Usuario/Recibidos">
-        <div><i class="fas fa-box-open"></i></div>
-        <div id="titulo">Paquetes recibidos</div>
-        <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
-    </a>
-    <a id="perfil" class="celda perf" href="~/Usuario/Perfil">
-        <div><i class="fas fa-user-alt"></i></div>
-        <div id="titulo">Mi perfil</div>
-        <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
-    </a>
-    <a id="seguir" class="celda" href="~/Usuario/SeguirPaquete">
-        <div><i class="fas fa-search"></i></div>
-        <div id="titulo">Seguir paquete</div>
-        <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
-    </a>
-    <a id="informes" class="celda">
-        <div><i class="far fa-clipboard"></i></div>
-        <div id="titulo">Informes</div>
-        <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
-    </a>
+<div id="cont" class="container">
+    <div>
+        <div id="envios">
+            <div><i class="fas fa-shipping-fast"></i></div>
+            <div id="titulo">Mis envíos</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            @Html.ActionLink("VER", "PaquetesEnviados")
+        </div>
+        <div id="envios">
+            <div><i class="fas fa-box-open"></i></div>
+            <div id="titulo">Paquetes recibidos</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            @Html.ActionLink("VER", "PaquetesRecibidos")
+        </div>
+    </div>
+    <div>
+        <div id="envios">
+            <div><i class="fas fa-search"></i></div>
+            <div id="titulo">Seguir paquete</div>
+            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            @Html.ActionLink("VER", "estadoPaquete")
+        </div>
+    </div>
 </div>
 

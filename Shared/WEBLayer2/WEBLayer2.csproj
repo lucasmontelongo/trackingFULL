@@ -197,6 +197,7 @@
     <Compile Include="Models\Agencia.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\EnvioDomicilioDTO.cs" />
+    <Compile Include="Models\EstadisticaDTO.cs" />
     <Compile Include="Models\EtiquetaDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -217,6 +218,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fontawesome.css" />
     <Content Include="Content\inicio.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\msg.css" />
@@ -240,6 +242,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\detallePaquete.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -257,7 +260,6 @@
     <Content Include="Scripts\pagintaionAgencia.js" />
     <Content Include="Scripts\perfect-scrollbar.min.js" />
     <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Web.config" />
@@ -315,7 +317,7 @@
     <Content Include="Views\Paquete\Create.cshtml" />
     <Content Include="Views\Paquete\Details.cshtml" />
     <Content Include="Views\Paquete\Edit.cshtml" />
-    <Content Include="Views\Admin\nuevoAdministrador.cshtml" />
+    <Content Include="Views\Admin\addPermisos.cshtml" />
     <Content Include="Views\Trayecto\Create.cshtml" />
     <Content Include="Views\Trayecto\Edit.cshtml" />
     <Content Include="Views\Trayecto\CreatePC.cshtml" />
@@ -327,6 +329,11 @@
     <Content Include="Views\Paquete\Manejar.cshtml" />
     <Content Include="Views\Usuario\Entrega.cshtml" />
     <Content Include="Views\Shared\_LayoutIndex.cshtml" />
+    <Content Include="Views\Usuario\EstadoPaquete.cshtml" />
+    <Content Include="Views\Admin\Estadisticas.cshtml" />
+    <Content Include="Views\Admin\TrayectoPaquete.cshtml" />
+    <Content Include="Views\Admin\PaquetesIngresados.cshtml" />
+    <Content Include="Views\Admin\PaquetesEntregados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

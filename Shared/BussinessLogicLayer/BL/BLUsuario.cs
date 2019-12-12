@@ -182,5 +182,22 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public SUsuario externalLogin(SUsuario login)
+        {
+            try
+            {
+                SUsuario u = _dal.getUsuarioByEmail(login.Email);
+                if(u == null)
+                {
+                    u = _dal.addUsuarioExternalLogin(login);
+                }
+                return u;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

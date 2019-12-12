@@ -35,9 +35,24 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Mis paquetes", "Index", "Usuario")</li>
                         <li>@Html.ActionLink("Paquetes", "Index", "Paquete")</li>
-                        <li>@Html.ActionLink("Clientes", "Index", "Cliente")</li>
-                        <li>@Html.ActionLink("Trayectos", "Index", "Trayecto")</li>
-                        <li>@Html.ActionLink("Agencias", "Index", "Agencia")</li>
+                        @if (User.IsInRole("Funcionario") || User.IsInRole("Encargado") || User.IsInRole("Admin")) //el admin ahi que quitarselo luego
+                        {
+                            <li>@Html.ActionLink("Clientes", "Index", "Cliente")</li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Trayectos", "Index", "Trayecto")</li>
+                            <li>@Html.ActionLink("Agencias", "Index", "Agencia")</li>
+                            <li>
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Administracion</button>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Estadisticas", "Estadisticas", "Admin")</li>
+                                        <li>@Html.ActionLink("Gestion de permisos", "addPermisos", "Admin")</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -58,13 +73,14 @@
     <div class="container body-content">
         @RenderBody()
         @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - TrackingFULL</p>
-        </footer>*@
+            <footer>
+                <p>&copy; @DateTime.Now.Year - TrackingFULL</p>
+            </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @RenderSection("styles", required: false);
 </body>
 </html>

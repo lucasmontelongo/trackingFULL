@@ -1,0 +1,68 @@
+﻿@{ var cantidadTotal = 0;
+    foreach (var item in ViewBag.EJEY)
+    {
+        cantidadTotal += item;
+    }
+}
+
+@{
+    ViewBag.Title = "TrayectoPaquete";
+}
+
+@if (ViewBag.OK != null || ViewBag.ERROR != null)
+{
+    if (ViewBag.OK != null)
+    {
+        <p>@ViewBag.OK</p>
+    }
+    if (ViewBag.ERROR != null)
+    {
+        <p>@ViewBag.ERROR</p>
+    }
+}
+
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+<h2>Cantidad de paquetes en transito por trayecto</h2>
+
+<div class="container">
+    <h5>Total de paquetes en transito: @cantidadTotal</h5>
+    <div class="col-sm-12">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+
+<script>
+    var colY = [];
+    var colX = [];
+    @foreach (var item in ViewBag.EJEY)
+    {
+        <text>colY.push(@item)</text>
+    }
+    @foreach (var item in ViewBag.EJEX)
+    {
+        <text>colX.push("@item")</text>
+    }
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx,{
+        type: "bar",
+        data: {
+            labels: colX,
+            datasets: [{
+                label: "Paquetes en transito",
+                data: colY
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>

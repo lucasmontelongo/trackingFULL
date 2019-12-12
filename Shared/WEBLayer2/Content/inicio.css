@@ -30,16 +30,37 @@ h5 {
     margin: auto;
 }
 
-    .button:hover, .button:active, .button:focus {
-        transform: scale(1.1);
-    }
+.button.face {
+    box-shadow: none;
+    color: #333;
+    background-color: transparent;
+}
+.button.face:hover, .button.face:active, .button.face:focus {
+    background: #4267b2;
+    color: #ffffff;
+}
 
+.button:hover, .button:active, .button:focus {
+    transform: scale(1.1);
+}
+.mb-5 {
+    margin-bottom: 5px!important;
+}
+.titlulo {
+    margin-top: 23px;
+}
 .button--transparent {
     background: transparent;
     border: 0;
     outline: 0;
 }
-
+.text-danger field-validation-error {
+    display: block;
+    font-size: 12px;
+}
+.pr-10 {
+    padding-right: 10px;
+}
 .button--close {
     position: absolute;
     top: 10px;
@@ -236,4 +257,13 @@ input {
         max-width: 100%;
         width: 100%;
     }
+}
+.checkbox {
+    display: flex;
+    align-items: center;
+}
+.checkbox * {
+    padding: 5px !important;
+    margin: 0 !important;
+    position: relative !important;
 }

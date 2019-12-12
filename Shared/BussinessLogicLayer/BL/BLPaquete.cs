@@ -227,7 +227,10 @@ namespace BussinessLogicLayer.BL
                             throw new ECompartida("No tienes acceso a la informacion de este paquete");
                         }
                     }
-                    throw new ECompartida("El email enviado en la solicitud no pertenece a un cliente del sistema");
+                    else
+                    {
+                        throw new ECompartida("El email enviado en la solicitud no pertenece a un cliente del sistema");
+                    }
                 }
                 SCliente Remitente = blCliente.getCliente(paquete.IdRemitente);
                 SCliente Destinatario = blCliente.getCliente(paquete.IdDestinatario);
@@ -359,6 +362,10 @@ namespace BussinessLogicLayer.BL
                             throw new ECompartida("El paquete ya fue entregado al cliente anteriormente");
                         }
                     });
+                    if (ppcList.Count != (pclist.Count - 1))
+                    {
+                        throw new ECompartida("Aun falta avanzar pasos antes de poder entregar al cliente");
+                    }
                     int tiempoEstimado = 0;
                     pclist.ForEach(x =>
                     {
@@ -398,6 +405,25 @@ namespace BussinessLogicLayer.BL
                     return _dal.updateEnvioDomicilio(d);
                 }
                 throw new ECompartida("No tienes permisos para realizar esta accion");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public string consultarEstado(string codigo, string email)
+        {
+            try
+            {
+                BLCliente _blC = new BLCliente();
+                SCliente c = _blC.getClienteByEmail(email);
+                SPaquete p = _dal.consultaEstado(c.Id, codigo);
+                if (p.FechaEntrega == p.FechaIngreso)
+                {
+                    return "El paquete se encuentra en viaje actualmente, para mas detalles: " + Direcciones.Web + "paquete/details/" + p.Id;
+                }
+                return "El paquete ya fue entregado, para mas detalles: " + Direcciones.Web + "paquete/details/" + p.Id;
             }
             catch (Exception)
             {

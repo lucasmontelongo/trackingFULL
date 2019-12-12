@@ -20,7 +20,7 @@ namespace WEBLayer2.Models
         [Required(ErrorMessage = "El campo es necesario")]
         [MaxLength(250, ErrorMessage = "No se puede ingresar más de 250 caracteres")]
         [MinLength(5, ErrorMessage = "Debe ingresar al meno 5 caracteres")]
-        [Display(Name = "Nombre Completo")]
+        [Display(Name = "Nombre")]
         public string NombreCompleto { get; set; }
 
         [Required(ErrorMessage = "El campo es necesario")]

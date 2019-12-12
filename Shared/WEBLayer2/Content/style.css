@@ -8,6 +8,11 @@ a {
     color: #fff;
 }
 
+.tipoDoc{
+    color: red;
+    background-color: yellow;
+}
+
     a:hover {
         color: #fff;
     }
@@ -45,6 +50,11 @@ a {
     border-top: 2px solid #474A59;
     border-bottom: 2px solid #474A59;
     border-left: 2px solid #474A59;
+    background-color: #EAEAEA;
+    height: calc(100%);
+    top: 17%;
+    position: relative;
+    width: 50%;
 }
 
 .form-list {
@@ -53,8 +63,7 @@ a {
 }
 
 input {
-    width: calc(100% - 10px);
-    min-height: 30px;
+    min-width: 100%;
     padding-left: 5px;
     padding-right: 5px;
     letter-spacing: .5px;
@@ -79,15 +88,7 @@ input {
     width: 640px;
 }
 
-.izq {
-    background-color: #EAEAEA;
-    height: calc(100%);
-    top: 17%;
-    position: relative;
-    width: 50%;
-}
-
-.login {
+.titulo {
     font-size: 50px;
     font-weight: 900;
     margin: 50px 40px 40px;
@@ -110,8 +111,7 @@ input {
 }
 
 .form {
-    margin: 40px;
-    position: absolute;
+    margin: 40px; 
 }
 
 #submit {
@@ -128,7 +128,35 @@ input {
         color: #d0d0d2;
     }
 
+
+/*================== Id de vista editar cliente y detalle cliente ==========================*/
+#edit {
+    border-top: 2px solid #474A59;
+    border-bottom: 2px solid #474A59;
+    border-right: 2px solid #474A59;
+    background-color: #EAEAEA;
+    height: calc(100%);
+    top: 17%;
+    position: relative;
+    width: 50%;
+}
+/*=========================================================================================*/
+
 @media (max-width: 767px) {
+
+    /*================== Id de vista editar cliente y detalle cliente ==========================*/    
+    
+    #edit {
+        top: 1%;
+        height: 100%;
+        left: 20px;
+        width: calc(100% - 38px);
+        max-height: 320px;
+        border-top: 2px solid #474A59;
+        border-right: 2px solid #474A59;
+        border-left: 2px solid #474A59;
+    }
+/*=============================================================================================*/
 
     #texto {
         display: none
