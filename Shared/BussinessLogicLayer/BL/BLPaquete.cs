@@ -57,7 +57,9 @@ namespace BussinessLogicLayer.BL
                     QRCodeData qrCodeData = qrGenerator.CreateQrCode(p.Id.ToString(), QRCodeGenerator.ECCLevel.Q);
                     Base64QRCode qrCode = new Base64QRCode(qrCodeData);
                     p.Codigo = qrCode.GetGraphic(20);
-                    return _dal.updatePaquete(p);
+                    SPaquete pr = _dal.updatePaquete(p);
+                    BLEmail.nuevoPaquete(pr);
+                    return pr;
                 }
                 throw new ECompartida("Algun error raro en a;adir el paquete"); 
             }
@@ -128,6 +130,7 @@ namespace BussinessLogicLayer.BL
                             {
                                 ppc.Retraso += (tiempoViaje - tiempoEstimado);
                             }
+                            //BLEmail.actualizacionEstado(new BLPaquete().getPaquete(ppc.IdPaquete));
                             return _dalPPC.addPaquetePuntoControl(ppc);
                         }
                         else if(t.ListaPuntosControl.Max(x => x.Orden) == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1)
@@ -170,6 +173,7 @@ namespace BussinessLogicLayer.BL
                         SUsuario empleado = _dalU.getUsuario(ppc.IdEmpleado);
                         if ((empleado.Rol == "Funcionario" && empleado.Id == ppcAEliminar.IdEmpleado) || empleado.Rol == "Encargado" || empleado.Rol == "Admin")
                         {
+                            BLEmail.actualizacionEstado(new BLPaquete().getPaquete(ppc.IdPaquete));
                             return _dalPPC.deletePaquetePuntoControl(ppcAEliminar.Id);
                         }
                         else
