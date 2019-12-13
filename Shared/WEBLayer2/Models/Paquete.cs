@@ -17,7 +17,7 @@ namespace WEBLayer2.Models
         public DateTime FechaIngreso { get; set; }
         [DataType(DataType.Date), Required]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha de entrega")]
+        [Display(Name = "Entrega")]
         public DateTime FechaEntrega { get; set; }
         [Display(Name = "Id trayecto")]
         public int IdTrayecto { get; set; }

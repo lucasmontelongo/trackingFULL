@@ -19,11 +19,11 @@
 <script src="~/Scripts/select2.min.js" type="text/javascript"></script>
 <script src="~/Scripts/main.js" type="text/javascript"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<script type="text/javascript" charset="utf8" src="~/Scripts/paginationPaquete.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.dataTables.min.css">
+<script type="text/javascript" charset="utf-8" src="~/Scripts/paginationPaquete.js"></script>
+<script type="text/javascript" charset="utf8" src="~/Scripts/jquery.dataTables.js"></script>
 
-<body style=" background-image: url(../../img/trayecto.PNG); background-size: cover;">
+<body style=" background-image: url(../../img/trackingFULL.PNG); background-size: cover;">
     <button class="nuevo" style="margin: 2% 2% 2% 0">
         <i class="fas fa-plus-square"></i> @Html.ActionLink("Nuevo paquete", "Create")
     </button>
@@ -59,7 +59,7 @@
                                 <th class="column100 column6" data-column="column6"></th>
                                 <th class="column100 column7" data-column="column7"></th>
                                 <th class="column100 column8" data-column="column8"></th>
-                                <th class="column100 column9" data-column="column9"></th>
+                                <th class="column100 column9" data-column="column9">PDF</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,7 +104,9 @@
                                         </button>
                                     </td>
                                     <td class="column100 column9" data-column="column9">
-                                        @Html.ActionLink("Etiqueta PDF", "imprimirpdf", "Admin", new { id = item.Id }, null)
+                                        <button class="borrar">
+                                            <i class="far fa-file-pdf"></i> @Html.ActionLink("Etiqueta PDF", "imprimirpdf", "Admin", new { id = item.Id }, null)
+                                        </button>
                                     </td>
                                 </tr>
                             }
