@@ -9,7 +9,7 @@ namespace Shared.Entities
 {
     public class STrayecto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nombre { get; set; }
         public int Version { get; set; }
         public bool Borrado { get; set; }

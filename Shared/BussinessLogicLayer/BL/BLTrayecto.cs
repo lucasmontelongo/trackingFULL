@@ -70,5 +70,18 @@ namespace BussinessLogicLayer.BL
                 throw;
             }
         }
+
+        public int paquetesTransito(STrayecto a)
+        {
+            try
+            {
+                return _dal.paquetesTransito((int)a.Id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        
     }
 }

@@ -81,7 +81,7 @@ namespace DataAccessLayer.DAL
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
                     throw;
@@ -142,7 +142,24 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
-
+        
+        public int paquetesTransito(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    var total = en.Database
+                      .SqlQuery<int>("Select COUNT(Paquete.id) from Trayecto left join Paquete on Paquete.IdTrayecto = Trayecto.id")
+                      .ToList().First();
+                    return total;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
         public bool isActive(int id)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())

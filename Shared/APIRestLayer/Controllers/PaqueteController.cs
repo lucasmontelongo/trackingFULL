@@ -119,7 +119,7 @@ namespace APIRestLayer.Controllers
                 BLUsuario _blU = new BLUsuario();
                 SUsuario u = _blU.getUsuarioByEmail(email);
                 BLPaquete bl = new BLPaquete();
-                return Ok(bl.avanzar(new SPaquetePuntoControl() { IdPaquete = es.Id, IdEmpleado = u.Id}));
+                return Ok(bl.avanzar(new SPaquetePuntoControl() { IdPaquete = (int)es.Id, IdEmpleado = u.Id}));
             }
             catch (Exception e)
             {
@@ -138,7 +138,7 @@ namespace APIRestLayer.Controllers
                 BLUsuario _blU = new BLUsuario();
                 SUsuario u = _blU.getUsuarioByEmail(email);
                 BLPaquete bl = new BLPaquete();
-                return Ok(bl.retroceder(new SPaquetePuntoControl() { IdPaquete = es.Id, IdEmpleado = u.Id }));
+                return Ok(bl.retroceder(new SPaquetePuntoControl() { IdPaquete = (int)es.Id, IdEmpleado = u.Id }));
             }
             catch (Exception e)
             {

@@ -43,7 +43,7 @@ namespace BussinessLogicLayer.BL
                 {
                     throw new ECompartida("El orden debe ser mayor a cero");
                 }
-                List<SPuntoControl> pclist = puntosControlDeUnTrayecto(a.IdTrayecto);
+                List<SPuntoControl> pclist = puntosControlDeUnTrayecto((int)a.IdTrayecto);
                 pclist.ForEach(x =>
                 {
                     if (x.Orden == a.Orden)
@@ -67,7 +67,7 @@ namespace BussinessLogicLayer.BL
                 {
                     throw new ECompartida("El orden debe ser mayor a cero");
                 }
-                List<SPuntoControl> pclist = puntosControlDeUnTrayecto(a.IdTrayecto);
+                List<SPuntoControl> pclist = puntosControlDeUnTrayecto((int)a.IdTrayecto);
                 pclist.ForEach(x =>
                 {
                     if (x.Orden == a.Orden)

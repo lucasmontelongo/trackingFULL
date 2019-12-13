@@ -101,8 +101,8 @@ namespace BussinessLogicLayer.BL
                 SPaquete p = _dal.getPaquete(ppc.IdPaquete);
                 if (p != null && p.Borrado == false)
                 {
-                    STrayecto t = _dalT.getTrayecto(p.IdTrayecto);
-                    List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(p.Id);
+                    STrayecto t = _dalT.getTrayecto((int)p.IdTrayecto);
+                    List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete((int)p.Id);
                     ppc.FechaLlegada = DateTime.Now;
                     ppc.Borrado = false;
                     if (ppcList.Count > 0)
@@ -110,7 +110,7 @@ namespace BussinessLogicLayer.BL
                         if (t.ListaPuntosControl.Max(x => x.Orden) > ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden)+1)
                         {
                             SPuntoControl pcActual = t.ListaPuntosControl.First(x => x.Orden == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1);
-                            ppc.IdPuntoControl = t.ListaPuntosControl.First(x => x.Orden == pcActual.Orden).Id;
+                            ppc.IdPuntoControl = (int)t.ListaPuntosControl.First(x => x.Orden == pcActual.Orden).Id;
                             int tiempoEstimado = 0;
                             t.ListaPuntosControl.ForEach(x =>
                             {
@@ -141,7 +141,7 @@ namespace BussinessLogicLayer.BL
                     }
                     else
                     {
-                        ppc.IdPuntoControl = t.ListaPuntosControl.First(x => x.Orden == 1).Id;
+                        ppc.IdPuntoControl = (int)t.ListaPuntosControl.First(x => x.Orden == 1).Id;
                         return _dalPPC.addPaquetePuntoControl(ppc);
                     }
                 }
@@ -235,11 +235,11 @@ namespace BussinessLogicLayer.BL
                 SCliente Remitente = blCliente.getCliente(paquete.IdRemitente);
                 SCliente Destinatario = blCliente.getCliente(paquete.IdDestinatario);
                 BLTrayecto bLTrayecto = new BLTrayecto();
-                STrayecto Trayecto = bLTrayecto.getTrayecto(paquete.IdTrayecto);
+                STrayecto Trayecto = bLTrayecto.getTrayecto((int)paquete.IdTrayecto);
                 BLPuntoControl bLPuntoControl = new BLPuntoControl();
-                Trayecto.ListaPuntosControl = bLPuntoControl.puntosControlDeUnTrayecto(paquete.IdTrayecto);
+                Trayecto.ListaPuntosControl = bLPuntoControl.puntosControlDeUnTrayecto((int)paquete.IdTrayecto);
                 BLPaquetePuntoControl bLPaquetePuntoControl = new BLPaquetePuntoControl();
-                List<SPaquetePuntoControl> PaquetePuntosControl = bLPaquetePuntoControl.puntosControlDeUnPaquete(paquete.Id);
+                List<SPaquetePuntoControl> PaquetePuntosControl = bLPaquetePuntoControl.puntosControlDeUnPaquete((int)paquete.Id);
                 dynamic respuesta = new ExpandoObject();
                 respuesta.IdTrayecto = paquete.Id;
                 respuesta.Qr = paquete.Codigo;
@@ -352,9 +352,9 @@ namespace BussinessLogicLayer.BL
                     var _dalT = new DALTrayecto();
                     ppc.FechaLlegada = DateTime.Now;
                     ppc.Borrado = false;
-                    var pclist = _dalPC.puntosControlDeUnTrayecto(p.IdTrayecto);
-                    ppc.IdPuntoControl = pclist.Max(x => x.Id);
-                    List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete(p.Id);
+                    var pclist = _dalPC.puntosControlDeUnTrayecto((int)p.IdTrayecto);
+                    ppc.IdPuntoControl = pclist.Max(x => (int)x.Id);
+                    List<SPaquetePuntoControl> ppcList = _dalPPC.getAllByPaquete((int)p.Id);
                     ppcList.ForEach(x =>
                     {
                         if (x.IdPuntoControl == ppc.IdPuntoControl)

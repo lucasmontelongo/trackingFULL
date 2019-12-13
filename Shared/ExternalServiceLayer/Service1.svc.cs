@@ -6,6 +6,10 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
+using Shared.Utilidades;
+using Newtonsoft.Json;
+using RestSharp;
+
 namespace ExternalServiceLayer
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código, en svc y en el archivo de configuración.
@@ -14,7 +18,13 @@ namespace ExternalServiceLayer
     {
         public string Greeting(string value)
         {
-            return string.Format("Hello: {0}", value);
+
+            var client = new RestClient(Direcciones.ApiRest + "completo");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("content-type", "application/json");
+            request.AddParameter("application/json", "{\"Email\":\"asdsadsadasd\"}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            return response.Content;
         }
     }
 }

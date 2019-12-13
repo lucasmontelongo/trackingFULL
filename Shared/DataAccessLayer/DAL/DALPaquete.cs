@@ -67,7 +67,7 @@ namespace DataAccessLayer.DAL
                     Paquete ag = en.Paquete.Add(_conv.entidadAModelo(a));
                     en.SaveChanges();
                     SPaquete p = _conv.modeloAEntidad(ag);
-                    en.Domicilio.Add(new Domicilio() { idPaquete = p.Id, envio = false });
+                    en.Domicilio.Add(new Domicilio() { idPaquete = (int)p.Id, envio = false });
                     en.SaveChanges();
                     return p;
                 }
