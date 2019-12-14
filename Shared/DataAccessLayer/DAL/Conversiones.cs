@@ -93,6 +93,7 @@ namespace DataAccessLayer.DAL
 
         public SCliente modeloAEntidad(Cliente c)
         {
+            if (c == null) return null;
             SCliente cliente = new SCliente()
             {
                 Id = c.id,
@@ -137,6 +138,7 @@ namespace DataAccessLayer.DAL
 
         public SPaquete modeloAEntidad(Paquete p)
         {
+            if (p == null) return null;
             SPaquete paquete = new SPaquete()
             {
                 Id = p.id,
@@ -187,6 +189,7 @@ namespace DataAccessLayer.DAL
 
         public STrayecto modeloAEntidad(Trayecto t)
         {
+            if (t == null) return null;
             STrayecto trayecto = new STrayecto()
             {
                 Id = t.id,
@@ -197,7 +200,10 @@ namespace DataAccessLayer.DAL
             };
             t.PuntoControl.ToList().ForEach(x =>
             {
-                trayecto.ListaPuntosControl.Add(modeloAEntidad(x));
+                if (x.borrado == false || x.borrado == null)
+                {
+                    trayecto.ListaPuntosControl.Add(modeloAEntidad(x));
+                }
             });
             return trayecto;
         }
@@ -230,6 +236,7 @@ namespace DataAccessLayer.DAL
 
         public SPuntoControl modeloAEntidad(PuntoControl p)
         {
+            if (p == null) return null;
             SPuntoControl puntoControl = new SPuntoControl()
             {
                 Id = p.id,
@@ -287,6 +294,7 @@ namespace DataAccessLayer.DAL
 
         public SPaquetePuntoControl modeloAEntidad(PaquetePuntoControl p)
         {
+            if (p == null) return null;
             SPaquetePuntoControl paquetePuntoControl = new SPaquetePuntoControl()
             {
                 Id = p.id,
@@ -331,6 +339,7 @@ namespace DataAccessLayer.DAL
 
         public SEmpresa modeloAEntidad(Empresa e)
         {
+            if (e == null) return null;
             SEmpresa empresa = new SEmpresa()
             {
                 Id = e.id,
@@ -363,6 +372,7 @@ namespace DataAccessLayer.DAL
 
         public SDomicilio modeloAEntidad(Domicilio e)
         {
+            if (e == null) return null;
             SDomicilio empresa = new SDomicilio()
             {
                 IdPaquete = e.idPaquete,

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer.DAL
 {
@@ -95,6 +96,15 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
+                    List<string> ids = new List<string>();
+                    foreach (SEAPuntoControlAgencia p in a.ListaPuntosControl)
+                    {
+                        if(p.Id != null) ids.Add(((int)p.Id).ToString() );
+                    }
+                    SqlParameter id = new SqlParameter("@id", string.Join(", ", ids));
+                    string s = en.Database
+                    .ExecuteSqlCommand("UPDATE PuntoControl SET PuntoControl.borrado = 1 WHERE id NOT IN (@id)", id).ToString();
+
                     Trayecto ag = en.Trayecto.Find(a.Id);
                     ag = _conv.entidadAModelo(a, ag);
                     DALPuntoControl dalp = new DALPuntoControl();
@@ -102,6 +112,7 @@ namespace DataAccessLayer.DAL
                     {
                         a.ListaPuntosControl.ToList().ForEach(x =>
                         {
+                            x.IdTrayecto = ag.id;
                             if (x.Id > 0)
                             {
                                 dalp.updatePuntoControl(x);
@@ -150,7 +161,7 @@ namespace DataAccessLayer.DAL
                 try
                 {
                     var total = en.Database
-                      .SqlQuery<int>("Select COUNT(Paquete.id) from Trayecto left join Paquete on Paquete.IdTrayecto = Trayecto.id")
+                      .SqlQuery<int>("Select COUNT(Paquete.id) from Trayecto left join Paquete on Paquete.IdTrayecto = Trayecto.id where Trayecto.id="+ id)
                       .ToList().First();
                     return total;
                 }

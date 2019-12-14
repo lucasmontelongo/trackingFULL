@@ -232,8 +232,8 @@ namespace BussinessLogicLayer.BL
                         throw new ECompartida("El email enviado en la solicitud no pertenece a un cliente del sistema");
                     }
                 }
-                SCliente Remitente = blCliente.getCliente(paquete.IdRemitente);
-                SCliente Destinatario = blCliente.getCliente(paquete.IdDestinatario);
+                SCliente Remitente = blCliente.getCliente((int)paquete.IdRemitente);
+                SCliente Destinatario = blCliente.getCliente((int)paquete.IdDestinatario);
                 BLTrayecto bLTrayecto = new BLTrayecto();
                 STrayecto Trayecto = bLTrayecto.getTrayecto((int)paquete.IdTrayecto);
                 BLPuntoControl bLPuntoControl = new BLPuntoControl();
@@ -399,7 +399,7 @@ namespace BussinessLogicLayer.BL
             {
                 SPaquete p = getPaquete(d.IdPaquete);
                 BLCliente _blC = new BLCliente();
-                SCliente c = _blC.getCliente(p.IdDestinatario);
+                SCliente c = _blC.getCliente((int)p.IdDestinatario);
                 if (c.Email == email)
                 {
                     return _dal.updateEnvioDomicilio(d);

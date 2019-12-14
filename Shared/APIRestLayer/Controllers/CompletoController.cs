@@ -19,14 +19,14 @@ namespace APIRestLayer.Controllers
         {
             BLAgencia blAgencia = new BLAgencia();
             List<SPuntoControl> ListaPuntosControl = new List<SPuntoControl>();
-            trayecto.ListaPuntosControl.ForEach(x =>
+            trayecto.ListaPuntosControlAgencia.ForEach(x =>
             {
                 if (x.Agencia != null)
                 {
                     if (x.IdAgencia == null)
                     {
                         x.Agencia = blAgencia.addAgencia(x.Agencia);
-                        x.IdAgencia = x.Id;
+                        x.IdAgencia = x.Agencia.Id;
                     }
                     else
                     {
@@ -45,59 +45,12 @@ namespace APIRestLayer.Controllers
         {
             try
             {
-                /*
-                SAEData d = new SAEData()
-                {
-                    usuario = new SUsuario()
-                    {
-                        Email = "lucasmontelongo@outlook.com",
-                        Password = "123456"
-                    },
-                    trayecto = new SEATrayecto()
-                    {
-                        //   Id = 1,
-                        Nombre = "Trayecto2",
-                        ListaPuntosControl = new List<SEAPuntoControlAgencia>()
-                        {
-                            new SEAPuntoControlAgencia()
-                            {
-                                Orden = 1,
-                                Tiempo = 0,
-                                IdAgencia = 1,
-                                IdTrayecto = 1,
-                                Borrado = false,
-                                Nombre = "Recibido en origen"
-                            },
-                            new SEAPuntoControlAgencia()
-                            {
-                                Orden = 2,
-                                Tiempo = 10,
-                                IdAgencia = null,
-                                IdTrayecto = 3,
-                                Borrado = false,
-                                Nombre = "Recibido en origen",
-                                Agencia = new SAgencia()
-                            }
-                        }
-                    },
-                    paquete = new SPaquete()
-                    {
-                        //    Id = 0,
-                        Codigo = "codigo",
-                        CodigoConfirmacion = "codigo",
-                        FechaIngreso = new DateTime(),
-                        FechaEntrega = new DateTime(),
-                        IdTrayecto = 0,
-                        IdRemitente = 6,
-                        IdDestinatario = 5,
-                        Borrado = false
-                    }
-                };
-                */
                 SUsuario usuario = d.usuario;
                 SEATrayecto trayecto = d.trayecto;
-                SPaquete p = d.paquete;
 
+                SAEPaquete p = d.paquete;
+
+                BLCliente bl = new BLCliente();
                 BLUsuario blusuario = new BLUsuario();
                 SUsuario oUsuario = blusuario.login(usuario);
                 if (usuario == null)
@@ -106,53 +59,117 @@ namespace APIRestLayer.Controllers
                 }
 
                 STrayecto t = trayecto;
-
-                if (p.IdTrayecto != null && p.IdTrayecto != t.Id)
+                if ((p.IdDestinatario == p.IdRemitente && p.IdRemitente != null) || 
+                    (p.Remitente != null && p.Destinatario != null && p.Destinatario.NumeroDocumento == p.Remitente.NumeroDocumento))
                 {
-                    return Content(HttpStatusCode.NotFound, "Error en el paquete, no pertenece al trayecto enviado");
-
+                    return Content(HttpStatusCode.NotFound, "Error en el paquete, el destinatario no puede ser el remitente");
                 }
-                else if (trayecto != null)
+                string sMsg = p.validacion();
+                if (sMsg != "")
                 {
-                    BLTrayecto blTrayecto = new BLTrayecto();
-                    string sMsgTrayecto = trayecto.validasionCrearAgencias();
-                    if (sMsgTrayecto != "")
+                    return Content(HttpStatusCode.NotFound, sMsg);
+                }else
+                {
+                    SCliente cActualDestinatario = null;
+                    SCliente cActualRemitente = null;
+                    if (p.IdDestinatario != null)
                     {
-                        return Content(HttpStatusCode.NotFound, sMsgTrayecto);
+                        cActualDestinatario = bl.getCliente((int)p.IdDestinatario);
                     }
-                    else if (trayecto.Id == null)
+                    if (p.IdRemitente != null)
                     {
-                        t = blTrayecto.addTrayecto(creaAgencias(trayecto));
-                    } 
+                        cActualRemitente = bl.getCliente((int)p.IdRemitente);
+                    }
+
+
+                    if (cActualDestinatario == null && p.Destinatario == null)
+                    {
+                        return Content(HttpStatusCode.NotFound, "Error en el paquete, el destinatario no existe en el sistema");
+                    }
+                    if (cActualRemitente == null && p.Remitente == null)
+                    {
+                        return Content(HttpStatusCode.NotFound, "Error en el paquete, el remitente no existe en el sistema");
+                    }
+
+                    if (p.IdTrayecto != null && p.IdTrayecto != t.Id)
+                    {
+                        return Content(HttpStatusCode.NotFound, "Error en el paquete, no pertenece al trayecto enviado");
+                    }
+                    else if (trayecto != null)
+                    {
+                        BLTrayecto blTrayecto = new BLTrayecto();
+                        STrayecto ActualTrayecto = null;
+
+                        if (trayecto.Id != null)
+                        {
+                            ActualTrayecto = blTrayecto.getTrayecto((int)trayecto.Id);
+                        }
+
+                        string sMsgTrayecto = trayecto.validasionCrearAgencias();
+                        if (sMsgTrayecto != "")
+                        {
+                            return Content(HttpStatusCode.NotFound, sMsgTrayecto);
+                        }
+                        else if (trayecto.Id == null)
+                        {
+                            t = blTrayecto.addTrayecto(creaAgencias(trayecto));
+                        }
+                        else if (trayecto.compara(ActualTrayecto))
+                        {
+                            if (blTrayecto.paquetesTransito(trayecto) != 0)
+                            {
+                                return Content(HttpStatusCode.NotFound, "Hay paquetes en transito");
+                            }
+                            else
+                            {
+                                t = blTrayecto.updateTrayecto(creaAgencias(trayecto));
+                            }
+
+                        }
+                    }
+
+                    BLPaquete blPaquete = new BLPaquete();
+                    if (p.IdTrayecto == null)
+                    {
+                        p.IdTrayecto = t.Id;
+                    }
+
+                    if (p.Destinatario != null && cActualDestinatario != null)
+                    {
+                        cActualDestinatario = bl.updateCliente(p.Destinatario);
+                    }
+                    else if (p.Destinatario != null && cActualDestinatario == null)
+                    {
+                        p.Destinatario.Id = 0;
+                        cActualDestinatario = bl.addCliente(p.Destinatario);
+                    }
+                    if (p.Remitente != null && cActualRemitente != null)
+                    {
+                        cActualRemitente = bl.updateCliente(p.Remitente);
+                    }
+                    else if (p.Remitente != null && cActualRemitente == null)
+                    {
+                        p.Remitente.Id = 0;
+                        cActualRemitente = bl.addCliente(p.Remitente);
+                    }
+                    p.IdDestinatario = cActualDestinatario.Id;
+                    p.IdRemitente = cActualRemitente.Id;
+                    SPaquete np = null;
+                    if (p.Id == null)
+                    {
+                        np = blPaquete.addPaquete(p);
+                    }
                     else
                     {
-                        if (blTrayecto.paquetesTransito(trayecto) != 0)
-                        {
-                            return Content(HttpStatusCode.NotFound, "Hay paquetes en transito");
-                        }
-                        else
-                        {
-                            t = blTrayecto.updateTrayecto(creaAgencias(trayecto));
-                        }
-
+                        np = blPaquete.updatePaquete(p);
                     }
-                }
-
-                BLPaquete blPaquete = new BLPaquete();
-                if (p.IdTrayecto == null)
-                {
-                    p.IdTrayecto = t.Id;
-                }
-                if (p.Id == null)
-                {
-                    p = blPaquete.addPaquete(p);
-                }
-                else
-                {
-                    p = blPaquete.updatePaquete(p);
-                }
-
-                return Ok();
+                    return Ok(new SAEData()
+                    {
+                        paquete = (SAEPaquete)np,
+                        trayecto = trayecto,
+                        usuario = usuario
+                    });
+                } 
             }
             catch (Exception e)
             {

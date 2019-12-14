@@ -10,6 +10,6 @@ namespace Shared.Entities
     {
         public SUsuario usuario { get; set; }
         public SEATrayecto trayecto { get; set; }
-        public SPaquete paquete { get; set; }
+        public SAEPaquete paquete { get; set; }
     }
 }

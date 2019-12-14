@@ -7,8 +7,11 @@ using System.ServiceModel.Web;
 using System.Text;
 
 using Shared.Utilidades;
+using Shared.Exceptions;
 using Newtonsoft.Json;
 using RestSharp;
+
+using Shared.Entities;
 
 namespace ExternalServiceLayer
 {
@@ -16,11 +19,11 @@ namespace ExternalServiceLayer
     // NOTE: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione Service1.svc o Service1.svc.cs en el Explorador de soluciones e inicie la depuración.
     public class Service1 : IService1
     {
-        public string Greeting(string value)
+        public string Greeting(SEATrayecto trayecto)
         {
 
             var client = new RestClient(Direcciones.ApiRest + "completo");
-            var request = new RestRequest(Method.GET);
+            var request = new RestRequest(Method.POST);
             request.AddHeader("content-type", "application/json");
             request.AddParameter("application/json", "{\"Email\":\"asdsadsadasd\"}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);

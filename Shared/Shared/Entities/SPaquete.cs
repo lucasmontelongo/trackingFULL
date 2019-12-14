@@ -14,8 +14,8 @@ namespace Shared.Entities
         public DateTime FechaIngreso { get; set; }
         public DateTime FechaEntrega { get; set; }
         public int? IdTrayecto { get; set; }
-        public int IdRemitente { get; set; }
-        public int IdDestinatario { get; set; }
+        public int? IdRemitente { get; set; }
+        public int? IdDestinatario { get; set; }
         public bool Borrado { get; set; }
 
         //Coleccion de los puntos de control por los que ha pasado el paquete

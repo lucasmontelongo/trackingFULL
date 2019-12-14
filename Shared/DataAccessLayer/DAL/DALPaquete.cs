@@ -71,7 +71,7 @@ namespace DataAccessLayer.DAL
                     en.SaveChanges();
                     return p;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
                     throw;

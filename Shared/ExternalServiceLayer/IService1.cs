@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using Shared.Entities;
 
 namespace ExternalServiceLayer
 {
@@ -15,11 +16,11 @@ namespace ExternalServiceLayer
 
         [OperationContract]
         [WebInvoke(
-            Method = "GET",
-            UriTemplate = "/Greeting/{value}",
+            Method = "POST",
+            UriTemplate = "/Greeting",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json)]
-        string Greeting(string value);
+        string Greeting(SEATrayecto trayecto);
 
         // TODO: agregue aquí sus operaciones de servicio
     }
