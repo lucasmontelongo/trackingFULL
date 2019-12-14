@@ -221,7 +221,7 @@ namespace WEBLayer2.Controllers
                 var request = new RestRequest(Method.DELETE);
                 request.AddHeader("content-type", "application/json");
                 request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
-                request.AddHeader("id", id.ToString());
+                request.AddQueryParameter("id", id.ToString());
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {
