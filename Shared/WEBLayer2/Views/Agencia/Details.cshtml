@@ -4,47 +4,86 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<link rel="stylesheet" href="~/Content/style.css">
+
+@section Styles
+{
+    <style type="text/css">
+        .der {
+            background: #474A59;
+            box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
+            color: #F1F1F2;
+            position: relative;
+            width: 50%;
+            height: 420px;
+        }
+
+        li{
+            line-height: 2.0;
+        }
+
+        @@media (max-width: 767px) {
+            #edit {
+                order: -1;
+            }
+        }
+    </style>
+}
 
 <div>
-    <h4>Agencia</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ubicacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ubicacion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EnvioDomicilio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EnvioDomicilio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IdEmpresa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IdEmpresa)
-        </dd>
-
-    </dl>
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+    <button id="volver">
+        @Html.ActionLink("Editar Datos", "Edit", new { id = Model.Id })
+    </button>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<<div class="page">
+    <div class="cont">
+        <div id="editDer" class="der">
+            <div class="form">
+                <div class="form-horizontal">
+                    <ul class="form-list">
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nombre)
+                                <div>
+                                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Ubicacion)
+                                <div>
+                                    @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EnvioDomicilio)
+                                <div>
+                                    @Html.EditorFor(model => model.EnvioDomicilio, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdEmpresa)
+                                <div>
+                                    @Html.EditorFor(model => model.IdEmpresa, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="edit">
+            <div class="titulo">Datos Agencia</div>
+            <div id="texto" class="eula">Ver datos de agencia</div>
+        </div>
+    </div>
+</div>
+

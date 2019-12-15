@@ -4,65 +4,99 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+
 
 @if (ViewBag.ERROR != null)
 {
     <p>@ViewBag.ERROR["Nombre"]</p>
 }
 
-@using (Html.BeginForm())
+<link rel="stylesheet" href="~/Content/style.css">
+@section Styles
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Agencia</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+    <style type="text/css">
+       li {
+            line-height: 2.2;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @@media (max-width: 767px) {
+            #edit {
+                order: -1;
+            }
+        }
+    </style>
+}
+<div style="margin-bottom: 2%;">
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ubicacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="page">
+    <div class="cont">
+        <div id="editDer" class="der">
+            <div class="form">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EnvioDomicilio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.EnvioDomicilio)
-                    @Html.ValidationMessageFor(model => model.EnvioDomicilio, "", new { @class = "text-danger" })
+                <div class="form-horizontal">
+                    <ul class="form-list">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Ubicacion, htmlAttributes: new { @class = "col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.EnvioDomicilio, htmlAttributes: new { @class = "col-md-12" })
+                                <div class="col-md-12">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.EnvioDomicilio)
+                                        @Html.ValidationMessageFor(model => model.EnvioDomicilio, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdEmpresa, htmlAttributes: new { @class = "col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.IdEmpresa, new { htmlAttributes = new { @class = "col-md-12" } })
+                                    @Html.ValidationMessageFor(model => model.IdEmpresa, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-8">
+                                    <input type="submit" value="Modificar" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
+                }
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdEmpresa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdEmpresa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdEmpresa, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        <div id="edit">
+            <div class="titulo">Editar Agencia</div>
+            <div id="texto" class="eula">Modificar datos de agencia</div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
