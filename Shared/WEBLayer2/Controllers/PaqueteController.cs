@@ -46,6 +46,19 @@ namespace WEBLayer2.Controllers
         {
             try
             {
+                var client = new RestClient(Direcciones.ApiRest + "trayecto");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    ViewBag.LISTATRAYECTOS = JsonConvert.DeserializeObject<List<Models.Trayecto>>(response.Content);
+                }
+                else
+                {
+                    throw new ECompartida(response.Content);
+                }
                 return View();
             }
             catch (Exception e)
