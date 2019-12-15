@@ -4,6 +4,35 @@
     ViewBag.Title = "Index";
 }
 
+@section Styles{
+    <style>
+        .crearTrayecto {
+            min-width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            letter-spacing: .5px;
+            border: 0;
+            border-bottom: 2px solid #f0f0f0;
+            background-color: transparent;
+        }
+
+            .crearTrayecto:valid {
+                border-color: #87B7F1;
+            }
+       
+            .modal-header{
+                background-color: #36304a;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+
+            h4{
+                color: white;
+                font-weight: bold;
+            }
+    </style>
+}
+
 <link rel="stylesheet" href="~/Content/tabla_clientes.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/animate.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/select2.min.css" type="text/css" />
@@ -24,8 +53,8 @@
 <script type="text/javascript" charset="utf8" src="~/Scripts/jquery.dataTables.js"></script>
 
 <body style=" background-image: url(../../img/trackingFULL.PNG); background-size: cover;">
-    <button class="nuevo" style="margin: 2% 2% 2% 0">
-        <i class="fas fa-plus-square"></i> @Html.ActionLink("Nuevo trayecto", "Create")
+    <button class="nuevo" data-toggle="modal" data-target="#crearTrayecto" style="margin: 2% 2% 2% 0">
+        <i class="fas fa-plus-square"></i> Nuevo trayecto
     </button>
 
     <div>
@@ -73,4 +102,33 @@
             </div>
         </div>
     </div>
+
+    @using (Html.BeginForm("Create", "Trayecto", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="modal fade" id="crearTrayecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">Crear trayecto</h4>                      
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <label>Nombre</label>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="crearTrayecto" id="nombre" name="nombre" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Crear trayecto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </body>
