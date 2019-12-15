@@ -47,6 +47,7 @@
     <Compile Include="Entities\PaqueteFiltroDTO.cs" />
     <Compile Include="Entities\SAEData.cs" />
     <Compile Include="Entities\SAEPaquete.cs" />
+    <Compile Include="Entities\SAERespuesta.cs" />
     <Compile Include="Entities\SAgencia.cs" />
     <Compile Include="Entities\SCliente.cs" />
     <Compile Include="Entities\SDomicilio.cs" />

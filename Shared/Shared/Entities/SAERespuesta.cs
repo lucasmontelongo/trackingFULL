@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Shared.Entities
 {
-    public class SAEData
+    public class SAERespuesta
     {
         public SUsuario usuario { get; set; }
-        public SEATrayecto trayecto { get; set; }
-        public int? IdTrayecto { get; set; }
-        public SAEPaquete paquete { get; set; }
+        public STrayecto trayecto { get; set; }
+        public SPaquete paquete { get; set; }
     }
 }

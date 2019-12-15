@@ -10,6 +10,12 @@ namespace Shared.Entities
     {
         public SCliente Remitente { get; set; }
         public SCliente Destinatario { get; set; }
+        public bool? adelanta { get; set; }
+        public bool? atrasa { get; set; }
+        public bool? entrega { get; set; }
+        public string code { get; set; }
+
+
         public string validacion()
         {
             string ret = "";

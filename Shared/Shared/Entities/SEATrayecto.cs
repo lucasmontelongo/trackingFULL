@@ -13,12 +13,16 @@ namespace Shared.Entities
         {
             int faltaDatosAgencia = 0;
             int errorDatosTrayecto = 0;
+            List<string> ret = new List<string>();
+            if (ListaPuntosControlAgencia == null)
+            {
+                return "Error no se recibieron puntos de control";
+            }
             this.ListaPuntosControlAgencia.ForEach(x =>
             {
                 if (x.IdAgencia == null && x.Agencia == null) faltaDatosAgencia++;
                 if ((x.IdTrayecto != null && Id != null && x.IdTrayecto != Id) || (x.IdTrayecto != null && Id == null)) errorDatosTrayecto++;
             });
-            List<string> ret = new List<string>();
 
 
             if (faltaDatosAgencia != 0)
@@ -39,15 +43,20 @@ namespace Shared.Entities
             if (t.Nombre != Nombre) return true;
             if (t.Version != Version) return true;
             if (t.Borrado != Borrado) return true;
-            if (t.ListaPuntosControl.Count != this.ListaPuntosControl.Count) return true;
-            for (int i = 0; i < t.ListaPuntosControl.Count; i++)
+
+
+            List<SPuntoControl> actu = t.ListaPuntosControl.OrderBy(o => o.Orden).ToList();
+            List<SEAPuntoControlAgencia> news = ListaPuntosControlAgencia.OrderBy(o => o.Orden).ToList();
+            if (actu.Count != news.Count) return true;
+
+            for (int i = 0; i < actu.Count; i++)
             {
-                if (t.ListaPuntosControl[i].Id != ListaPuntosControl[i].Id) return true;
-                if (t.ListaPuntosControl[i].Orden != ListaPuntosControl[i].Orden) return true;
-                if (t.ListaPuntosControl[i].IdAgencia != ListaPuntosControl[i].IdAgencia) return true;
-                if (t.ListaPuntosControl[i].Tiempo != ListaPuntosControl[i].Tiempo) return true;
-                if (t.ListaPuntosControl[i].Borrado != ListaPuntosControl[i].Borrado) return true;
-                if (t.ListaPuntosControl[i].Nombre != ListaPuntosControl[i].Nombre) return true;
+                if (actu[i].Id != news[i].Id) return true;
+                if (actu[i].Orden != news[i].Orden) return true;
+                if (actu[i].IdAgencia != news[i].IdAgencia) return true;
+                if (actu[i].Tiempo != news[i].Tiempo) return true;
+                if (actu[i].Borrado != news[i].Borrado) return true;
+                if (actu[i].Nombre != news[i].Nombre) return true;
             }
             return false;
 

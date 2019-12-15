@@ -47,16 +47,67 @@ namespace APIRestLayer.Controllers
             {
                 SUsuario usuario = d.usuario;
                 SEATrayecto trayecto = d.trayecto;
+                STrayecto ActualTrayecto = null;
 
                 SAEPaquete p = d.paquete;
 
                 BLCliente bl = new BLCliente();
                 BLUsuario blusuario = new BLUsuario();
                 SUsuario oUsuario = blusuario.login(usuario);
+                BLPaquete blPaquete = new BLPaquete();
+
                 if (usuario == null)
                 {
                     return Content(HttpStatusCode.Unauthorized, "El usuario no existe");
                 }
+                else if (oUsuario.Rol != "Admin" && oUsuario.Rol != "Funcionario" && oUsuario.Rol != "Encargado")
+                {
+                    return Content(HttpStatusCode.Unauthorized, "El usuario no esta autorisado para usar elte servicio");
+                }
+
+                if (p.adelanta != null)
+                {
+                    if (p.Id == null)
+                    {
+                        return Content(HttpStatusCode.Unauthorized, "Error en paquete, se intento adelantar pero no se recibio el identificador");
+                    }
+                    else
+                    {
+                        return Ok(blPaquete.avanzar(new SPaquetePuntoControl() { IdPaquete = (int)p.Id, IdEmpleado = oUsuario.Id }));
+                    }
+                }
+                if (p.atrasa != null)
+                {
+                    if (p.Id == null)
+                    {
+                        return Content(HttpStatusCode.Unauthorized, "Error en paquete, se intento retroceder pero no se recibio el identificador");
+                    } 
+                    else
+                    {
+
+                        return Ok(blPaquete.retroceder(new SPaquetePuntoControl() { IdPaquete = (int)p.Id, IdEmpleado = oUsuario.Id }));
+                    }
+                }
+                if (p.entrega != null)
+                {
+                    if (p.Id == null)
+                    {
+                        return Content(HttpStatusCode.Unauthorized, "Error en paquete, se intento entregar pero no se recibio el identificador");
+                    }
+                    else if (p.code == null)
+                    {
+                        return Content(HttpStatusCode.Unauthorized, "Error en paquete, se intento entregar pero no se recibio el codigo");
+                    }
+                    else
+                    {
+                        return Ok(blPaquete.entregaCliente(new SPaquetePuntoControl()
+                        {
+                            IdEmpleado = oUsuario.Id,
+                            IdPaquete = (int)p.Id
+                        }, p.code));
+                    }
+                }
+
 
                 STrayecto t = trayecto;
                 if ((p.IdDestinatario == p.IdRemitente && p.IdRemitente != null) || 
@@ -76,9 +127,17 @@ namespace APIRestLayer.Controllers
                     {
                         cActualDestinatario = bl.getCliente((int)p.IdDestinatario);
                     }
+                    else
+                    {
+                        bl.validacion(p.Destinatario);
+                    }
                     if (p.IdRemitente != null)
                     {
                         cActualRemitente = bl.getCliente((int)p.IdRemitente);
+                    }
+                    else
+                    {
+                        bl.validacion(p.Remitente);
                     }
 
 
@@ -95,16 +154,23 @@ namespace APIRestLayer.Controllers
                     {
                         return Content(HttpStatusCode.NotFound, "Error en el paquete, no pertenece al trayecto enviado");
                     }
+                    else if (trayecto == null && d.IdTrayecto == null)
+                    {
+                        return Content(HttpStatusCode.NotFound, "Error en el trayecto, faltan los datos");
+                    }
+                    else if (d.IdTrayecto != null)
+                    {
+                        BLTrayecto blTrayecto = new BLTrayecto();
+                        ActualTrayecto = blTrayecto.getTrayecto((int)d.IdTrayecto);
+                        if (ActualTrayecto == null)
+                        {
+                            return Content(HttpStatusCode.NotFound, "El trayecto no existe.");
+                        }
+                    }
                     else if (trayecto != null)
                     {
                         BLTrayecto blTrayecto = new BLTrayecto();
-                        STrayecto ActualTrayecto = null;
-
-                        if (trayecto.Id != null)
-                        {
-                            ActualTrayecto = blTrayecto.getTrayecto((int)trayecto.Id);
-                        }
-
+                        
                         string sMsgTrayecto = trayecto.validasionCrearAgencias();
                         if (sMsgTrayecto != "")
                         {
@@ -112,9 +178,9 @@ namespace APIRestLayer.Controllers
                         }
                         else if (trayecto.Id == null)
                         {
-                            t = blTrayecto.addTrayecto(creaAgencias(trayecto));
+                            ActualTrayecto = blTrayecto.addTrayecto(creaAgencias(trayecto));
                         }
-                        else if (trayecto.compara(ActualTrayecto))
+                        else
                         {
                             if (blTrayecto.paquetesTransito(trayecto) != 0)
                             {
@@ -122,18 +188,16 @@ namespace APIRestLayer.Controllers
                             }
                             else
                             {
-                                t = blTrayecto.updateTrayecto(creaAgencias(trayecto));
+                                ActualTrayecto = blTrayecto.updateTrayecto(creaAgencias(trayecto));
                             }
 
                         }
                     }
 
-                    BLPaquete blPaquete = new BLPaquete();
                     if (p.IdTrayecto == null)
                     {
-                        p.IdTrayecto = t.Id;
+                        p.IdTrayecto = ActualTrayecto.Id;
                     }
-
                     if (p.Destinatario != null && cActualDestinatario != null)
                     {
                         cActualDestinatario = bl.updateCliente(p.Destinatario);
@@ -163,11 +227,10 @@ namespace APIRestLayer.Controllers
                     {
                         np = blPaquete.updatePaquete(p);
                     }
-                    return Ok(new SAEData()
-                    {
-                        paquete = (SAEPaquete)np,
-                        trayecto = trayecto,
-                        usuario = usuario
+                    return Ok(new SAERespuesta() {
+                        usuario = usuario,
+                        trayecto = t,
+                        paquete = np
                     });
                 } 
             }
@@ -176,85 +239,5 @@ namespace APIRestLayer.Controllers
                 return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
-
     }
 }
-
-/*
- 
-//TRAYECTOS
-    {
-        "Nombre": "Trayecto4",
-        "ListaPuntosControl": [
-            {
-                "Orden": 1,
-                "Tiempo": 0,
-                "IdAgencia": 1,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "Recibido en origen"
-            },
-            {
-                "Orden": 2,
-                "Tiempo": 6550,
-                "IdAgencia": 1,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "Esperando en origen"
-            },
-            {
-                "Orden": 3,
-                "Tiempo": 5699,
-                "IdAgencia": null,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "En viaje"
-            },
-            {
-                "Orden": 4,
-                "Tiempo": 4566,
-                "IdAgencia": 3,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "Recibido en agencia"
-            },
-            {
-                "Orden": 5,
-                "Tiempo": 0,
-                "IdAgencia": 3,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "Esperando en agencia"
-            },
-            {
-                "Orden": 6,
-                "Tiempo": 0,
-                "IdAgencia": null,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "En viaje"
-            },
-            {
-                "Orden": 7,
-                "Tiempo": 0,
-                "IdAgencia": 2,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "Recibido en destino"
-            },
-            {
-                "Orden": 8,
-                "Tiempo": 0,
-                "IdAgencia": null,
-                "IdTrayecto": 1,
-                "Borrado": false,
-                "Nombre": "Entregado al cliente"
-            }
-        ]
-    }
-
-
-//USUARIOS
-
-     
-*/

@@ -101,9 +101,16 @@ namespace DataAccessLayer.DAL
                     {
                         if(p.Id != null) ids.Add(((int)p.Id).ToString() );
                     }
-                    SqlParameter id = new SqlParameter("@id", string.Join(", ", ids));
-                    string s = en.Database
-                    .ExecuteSqlCommand("UPDATE PuntoControl SET PuntoControl.borrado = 1 WHERE id NOT IN (@id)", id).ToString();
+                    String query = "Select * from PuntoControl WHERE PuntoControl.borrado = 0 and PuntoControl.idTrayecto = " + a.Id;
+                    if (ids.Count > 0)
+                    {
+                        query += " and id NOT IN(" + string.Join(", ", ids) + ")";
+                    }
+                    en.Database.SqlQuery<SPuntoControl>(query).ToList().ForEach(x =>
+                    {
+                        x.Borrado = true;
+                        en.SaveChanges();
+                    });
 
                     Trayecto ag = en.Trayecto.Find(a.Id);
                     ag = _conv.entidadAModelo(a, ag);
@@ -161,7 +168,17 @@ namespace DataAccessLayer.DAL
                 try
                 {
                     var total = en.Database
-                      .SqlQuery<int>("Select COUNT(Paquete.id) from Trayecto left join Paquete on Paquete.IdTrayecto = Trayecto.id where Trayecto.id="+ id)
+                      .SqlQuery<int>("Select SUM(CASE WHEN PuntoControl.orden = a.max THEN 1 ELSE 0 END) as counts from Paquete "  
+                        + "LEFT join Trayecto on Paquete.IdTrayecto = Trayecto.id "
+                        + "LEFT join PaquetePuntoControl on Paquete.id = PaquetePuntoControl.idPaquete "
+                        + "LEFT join PuntoControl on PuntoControl.id = PaquetePuntoControl.idPuntoControl "
+                        + "left join("
+                        + "Select PaquetePuntoControl.idPaquete as idPaquete, MAX(PuntoControl.orden) as max from PaquetePuntoControl "
+                        + "join PuntoControl on PuntoControl.id = PaquetePuntoControl.idPuntoControl "
+                        + "WHERE PuntoControl.borrado = 0 AND PaquetePuntoControl.borrado = 0 "
+                        + "Group by PaquetePuntoControl.idPaquete "
+                        + ") AS a on a.idPaquete = Paquete.id "
+                        + "WHERE Paquete.borrado = 0 and Trayecto.id = " + id )
                       .ToList().First();
                     return total;
                 }

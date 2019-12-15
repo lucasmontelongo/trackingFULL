@@ -1,0 +1,449 @@
+Post 
+    http://localhost:52357/Service1.svc/Rest
+
+//Crea todo 
+{
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	},
+    "trayecto": {
+		"Nombre": "Trayecto4",
+		"ListaPuntosControlAgencia": [
+			{
+				"Orden": 1,
+				"Tiempo": 0,
+				"Nombre": "Recibido en origen",
+				"Agencia": 
+                {
+                    "Nombre": "salida",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 2,
+				"Tiempo": 6550,
+				"Nombre": "Esperando en origen",
+				"Agencia": 
+                {
+                    "Nombre": "agen 0",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 3,
+				"Tiempo": 5699,
+				"Nombre": "En viaje",
+				"Agencia": 
+                {
+                    "Nombre": "agen 1",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 4,
+				"Tiempo": 4566,
+				"Nombre": "Recibido en agencia",
+				"Agencia": 
+                {
+                    "Nombre": "agen 3",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 5,
+				"Tiempo": 0,
+				"Nombre": "Esperando en agencia",
+				"Agencia": 
+                {
+                    "Nombre": "agen 4",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 6,
+				"Tiempo": 0,
+				"Nombre": "En viaje",
+				"Agencia": 
+                {
+                    "Nombre": "agen 5",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 7,
+				"Tiempo": 0,
+				"Nombre": "Recibido en destino",
+				"Agencia": 
+                {
+                    "Nombre": "agen 6",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 8,
+				"Tiempo": 0,
+				"Nombre": "Entregado al cliente",
+				"Agencia": 
+                {
+                    "Nombre": "agen 7",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			}
+		]
+    },
+    "paquete": {
+        "Remitente" :
+        {
+            "Email": "pecaalta5@gmail.com",
+            "NombreCompleto": "mauro piston",
+            "Telefono": "123123",
+            "NumeroDocumento": "1253111",
+            "TipoDocumento": "ci"
+        },
+        "Destinatario" :
+        {
+            "Email": "pecaalta@gmail.com",
+            "NombreCompleto": "mauro piston",
+            "Telefono": "123123",
+            "NumeroDocumento": "123111",
+            "TipoDocumento": "ci"
+        }
+	}
+}
+
+//Crea todo con usuarios ya existentes
+{
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	},
+    "trayecto": {
+		"Nombre": "Trayecto4",
+		"ListaPuntosControlAgencia": [
+			{
+				"Orden": 1,
+				"Tiempo": 0,
+				"Nombre": "Recibido en origen",
+				"Agencia": 
+                {
+                    "Nombre": "salida",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 2,
+				"Tiempo": 6550,
+				"Nombre": "Esperando en origen",
+				"Agencia": 
+                {
+                    "Nombre": "agen 0",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 3,
+				"Tiempo": 5699,
+				"Nombre": "En viaje",
+				"Agencia": 
+                {
+                    "Nombre": "agen 1",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 4,
+				"Tiempo": 4566,
+				"Nombre": "Recibido en agencia",
+				"Agencia": 
+                {
+                    "Nombre": "agen 3",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 5,
+				"Tiempo": 0,
+				"Nombre": "Esperando en agencia",
+				"Agencia": 
+                {
+                    "Nombre": "agen 4",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 6,
+				"Tiempo": 0,
+				"Nombre": "En viaje",
+				"Agencia": 
+                {
+                    "Nombre": "agen 5",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 7,
+				"Tiempo": 0,
+				"Nombre": "Recibido en destino",
+				"Agencia": 
+                {
+                    "Nombre": "agen 6",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			},
+			{
+				"Orden": 8,
+				"Tiempo": 0,
+				"Nombre": "Entregado al cliente",
+				"Agencia": 
+                {
+                    "Nombre": "agen 7",
+                    "Ubicacion": "san jose",
+                    "EnvioDomicilio": true,
+                    "IdEmpresa": 2
+                }
+			}
+		]
+    },
+    "paquete": {
+        "IdRemitente" : 3,
+        "IdDestinatario": 4
+	}
+}
+
+//Crea trayecto sin crear agencias
+{
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	},
+    "trayecto": {
+		"Nombre": "Trayecto4",
+		"ListaPuntosControlAgencia": [
+			{
+				"Orden": 1,
+				"Tiempo": 0,
+				"Nombre": "Recibido en origen",
+				"IdAgencia": 218
+			},
+			{
+				"Orden": 2,
+				"Tiempo": 6550,
+				"Nombre": "Esperando en origen",
+				"IdAgencia": 219
+			},
+			{
+				"Orden": 3,
+				"Tiempo": 5699,
+				"Nombre": "En viaje",
+				"IdAgencia": 220
+			},
+			{
+				"Orden": 4,
+				"Tiempo": 4566,
+				"Nombre": "Recibido en agencia",
+				"IdAgencia": 221
+			},
+			{
+				"Orden": 5,
+				"Tiempo": 0,
+				"Nombre": "Esperando en agencia",
+				"IdAgencia": 222
+			},
+			{
+				"Orden": 6,
+				"Tiempo": 0,
+				"Nombre": "En viaje",
+				"IdAgencia": 223
+			},
+			{
+				"Orden": 7,
+				"Tiempo": 0,
+				"Nombre": "Recibido en destino",
+				"IdAgencia": 224
+			},
+			{
+				"Orden": 8,
+				"Tiempo": 0,
+				"Nombre": "Entregado al cliente",
+				"IdAgencia": 225
+			}
+		]
+    },
+    "paquete": {
+        "IdRemitente" : 3,
+        "IdDestinatario": 4
+	}
+}
+
+//Edita trayecto sin crear agencias
+{
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	},
+    "trayecto": {
+		"Id": 26,
+		"Nombre": "Trayecto4",
+		"ListaPuntosControlAgencia": [
+			{
+				"Orden": 1,
+				"Tiempo": 0,
+				"Nombre": "Recibido en origen",
+				"IdAgencia": 218
+			},
+			{
+				"Orden": 2,
+				"Tiempo": 6550,
+				"Nombre": "Esperando en origen",
+				"IdAgencia": 219
+			},
+			{
+				"Orden": 3,
+				"Tiempo": 5699,
+				"Nombre": "En viaje",
+				"IdAgencia": 220
+			},
+			{
+				"Orden": 4,
+				"Tiempo": 4566,
+				"Nombre": "Recibido en agencia",
+				"IdAgencia": 221
+			},
+			{
+				"Orden": 5,
+				"Tiempo": 0,
+				"Nombre": "Esperando en agencia",
+				"IdAgencia": 222
+			},
+			{
+				"Orden": 6,
+				"Tiempo": 0,
+				"Nombre": "En viaje",
+				"IdAgencia": 223
+			},
+			{
+				"Orden": 7,
+				"Tiempo": 0,
+				"Nombre": "Recibido en destino",
+				"IdAgencia": 224
+			},
+			{
+				"Orden": 8,
+				"Tiempo": 0,
+				"Nombre": "Entregado al cliente",
+				"IdAgencia": 225
+			}
+		]
+    },
+    "paquete": {
+        "IdRemitente" : 3,
+        "IdDestinatario": 4
+	}
+}
+
+//Crea paquete con trayecto existentes
+{
+    "paquete": {
+        "IdRemitente" : 3,
+        "IdDestinatario": 4
+	},
+    "IdTrayecto": 26,
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	}
+}
+
+//Adelata paquete
+{
+    "paquete": {
+        "Id" : 23,
+        "adelanta": 1
+	},
+    "IdTrayecto": 26,
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	}
+}
+
+//Atrasa paquete
+{
+    "paquete": {
+        "Id" : 23,
+        "atrasa": 1
+	},
+    "IdTrayecto": 26,
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	}
+}
+//entrega paquete
+{
+    "paquete": {
+        "Id" : 23,
+        "entrega": 1,
+        "code": "xGR669"
+	},
+    "IdTrayecto": 26,
+    "usuario": {
+		"Email": "pecaalta@gmail.com",
+		"Password": "123"
+	}
+}
+
+
+
+Soap
+http://localhost:52357/Service1.svc?wsdl
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:shar="http://schemas.datacontract.org/2004/07/Shared.Entities">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:Greeting>
+         <tem:trayecto>
+            <shar:paquete>
+               <shar:IdDestinatario>1</shar:IdDestinatario>
+               <shar:IdRemitente>2</shar:IdRemitente>
+            </shar:paquete>
+            <shar:IdTrayecto>17</shar:IdTrayecto>
+            <shar:usuario>
+               <shar:Email>pecaalta@gmail.com</shar:Email>
+               <shar:Password>123</shar:Password>
+            </shar:usuario>
+         </tem:trayecto>
+      </tem:Greeting>
+   </soapenv:Body>
+</soapenv:Envelope>
