@@ -42,10 +42,6 @@ a {
     margin-top: 4%;
 }
 
-.der {
-    height: 450px;
-}
-
 .izq {
     border-top: 2px solid #474A59;
     border-bottom: 2px solid #474A59;
@@ -108,6 +104,7 @@ input {
     color: #F1F1F2;
     position: relative;
     width: 50%;
+    height: 450px;
 }
 
 .form {
@@ -127,8 +124,6 @@ input {
     #submit:active {
         color: #d0d0d2;
     }
-
-
 /*================== Id de vista editar cliente y detalle cliente ==========================*/
 #edit {
     border-top: 2px solid #474A59;

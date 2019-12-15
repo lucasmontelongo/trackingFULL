@@ -4,7 +4,9 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,800,400' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="~/Content/borrarTrayecto.css">
 
 @using (Html.BeginForm("Delete", "Trayecto", FormMethod.Post))
 {
@@ -29,7 +31,7 @@
         idPC = "idPC" + lineas;
         idTrayectoPC = "idTrayectoPC" + lineas;
         borradoPC = "borradoPC" + lineas;
-        <div class="form-group">
+        <!---<div class="form-group">
             <label for="@idPC">Id:</label>
             <input type="number" class="form-control" id="@idPC" name="@idPC" value="@item.Id" readonly />
         </div>
@@ -56,12 +58,43 @@
         <div class="form-group">
             <label for="@borradoPC">Borrar:</label>
             <input type="checkbox" class="form-control" id="@borradoPC" name="@borradoPC" value="1" />
+        </div>-->
+
+        <div class="slider--teams">
+            <div class="slider--teams__team">
+                <ul id="list" class="cf">
+
+                    <li>
+                        <figure class="active">
+                            
+                            <figcaption>
+                                <div class="form-group">
+                                    <label for="@idPC">Id:</label>
+                                    <input type="number" id="@idPC" name="@idPC" value="@item.Id" readonly />
+                                    <label for="@idTrayectoPC">Id Trayecto:</label>
+                                    <input type="number" id="@idTrayectoPC" name="@idTrayectoPC" value="@item.IdTrayecto" readonly />
+                                    <label for="@nombrePC">Nombre:</label>
+                                    <input type="text" id="@nombrePC" name="@nombrePC" value="@item.Nombre" />
+                                    <label for="@ordenPC">Orden:</label>
+                                    <input type="number" id="@ordenPC" name="@ordenPC" value="@item.Orden" />
+                                    <label for="@tiempoPC">Tiempo:</label>
+                                    <input type="number" id="@tiempoPC" name="@tiempoPC" value="@item.Tiempo" />
+                                    <label for="@idAgenciaPC">IdAgencia:</label>
+                                    <input type="number" id="@idAgenciaPC" name="@idAgenciaPC" value="@item.IdAgencia" />
+                                    <label for="@borradoPC">Borrar:</label>
+                                    <input type="checkbox" id="@borradoPC" name="@borradoPC" value="1" />
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            </div>
         </div>
     }
-    <br />
+  
     <button type="submit" class="btn btn-default">Borrar</button>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js'></script>
+<script src="~/Scripts/borrarTrayecto.js"></script>
