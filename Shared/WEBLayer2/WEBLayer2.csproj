@@ -223,6 +223,7 @@
     <Content Include="Content\inicio.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\msg.css" />
     <Content Include="Content\perfect-scrollbar.css" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\select2.min.css" />
@@ -241,6 +242,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\borrarTrayecto.js" />
     <Content Include="Scripts\detallePaquete.js" />
@@ -332,6 +334,7 @@
     <Content Include="Views\Paquete\Filtro.cshtml" />
     <Content Include="Views\Paquete\Manejar.cshtml" />
     <Content Include="Views\Usuario\Entrega.cshtml" />
+    <Content Include="Views\Shared\_LayoutIndex.cshtml" />
     <Content Include="Views\Usuario\EstadoPaquete.cshtml" />
     <Content Include="Views\Admin\Estadisticas.cshtml" />
     <Content Include="Views\Admin\TrayectoPaquete.cshtml" />

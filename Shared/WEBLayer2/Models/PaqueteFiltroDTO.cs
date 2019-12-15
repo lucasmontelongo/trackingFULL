@@ -11,11 +11,16 @@ namespace WEBLayer2.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaInicio { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? FechaFinal { get; set; }
+
+        [MaxLength(50)]
         public string Remitente { get; set; }
+        
         public string Destinatario { get; set; }
+        
         public string Estado { get; set; }
     }
 }

@@ -83,7 +83,7 @@ namespace APIRestLayer.Controllers
         public IHttpActionResult AuthenticateGoogle(string token)
         {
             //Algun dia se hara esto
-
+            token = "";
             return null;
         }
 

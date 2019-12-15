@@ -87,3 +87,91 @@
 	"NumeroDocumento": "47429413"
 	
 }
+
+// Externo
+{
+    "usuario": {
+		"Email": "lucasmontelongo@outlook.com",
+		"Password": "123456"
+	},
+    "trayecto": {
+		"Nombre": "Trayecto4",
+		"ListaPuntosControl": [
+			{
+				"Orden": 1,
+				"Tiempo": 0,
+				"IdAgencia": 1,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "Recibido en origen"
+			},
+			{
+				"Orden": 2,
+				"Tiempo": 6550,
+				"IdAgencia": 1,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "Esperando en origen"
+			},
+			{
+				"Orden": 3,
+				"Tiempo": 5699,
+				"IdAgencia": null,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "En viaje"
+			},
+			{
+				"Orden": 4,
+				"Tiempo": 4566,
+				"IdAgencia": 3,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "Recibido en agencia"
+			},
+			{
+				"Orden": 5,
+				"Tiempo": 0,
+				"IdAgencia": 3,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "Esperando en agencia"
+			},
+			{
+				"Orden": 6,
+				"Tiempo": 0,
+				"IdAgencia": null,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "En viaje"
+			},
+			{
+				"Orden": 7,
+				"Tiempo": 0,
+				"IdAgencia": 2,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "Recibido en destino"
+			},
+			{
+				"Orden": 8,
+				"Tiempo": 0,
+				"IdAgencia": null,
+				"IdTrayecto": 1,
+				"Borrado": false,
+				"Nombre": "Entregado al cliente"
+			}
+		]
+    },
+    "paquete": {
+        //    Id = 0,
+        "Codigo" : "codigo",
+        "CodigoConfirmacion" : "codigo",
+        "FechaIngreso" : new DateTime(),
+        "FechaEntrega" : new DateTime(),
+        //"IdTrayecto" : 0,
+        "IdRemitente" : 6,
+        "IdDestinatario" : 5,
+        "Borrado" : false
+	},
+}

@@ -45,9 +45,14 @@
     <Compile Include="Entities\EstadisticaDTO.cs" />
     <Compile Include="Entities\ExternalLoginDTO.cs" />
     <Compile Include="Entities\PaqueteFiltroDTO.cs" />
+    <Compile Include="Entities\SAEData.cs" />
+    <Compile Include="Entities\SAEPaquete.cs" />
+    <Compile Include="Entities\SAERespuesta.cs" />
     <Compile Include="Entities\SAgencia.cs" />
     <Compile Include="Entities\SCliente.cs" />
     <Compile Include="Entities\SDomicilio.cs" />
+    <Compile Include="Entities\SEAPuntoControlAgencia.cs" />
+    <Compile Include="Entities\SEATrayecto.cs" />
     <Compile Include="Entities\SEmpresa.cs" />
     <Compile Include="Entities\SPaquete.cs" />
     <Compile Include="Entities\SPaquetePuntoControl.cs" />
