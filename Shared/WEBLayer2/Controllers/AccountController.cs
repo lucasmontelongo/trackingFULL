@@ -178,7 +178,7 @@ namespace WEBLayer2.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new Usuario { Email = model.Email, Password = model.Email };
+                    var user = new Usuario { Email = model.Email, Password = model.Password };
                     var client = new RestClient(Direcciones.ApiRest + "auth/registro");
                     var request = new RestRequest(Method.POST);
                     request.AddHeader("content-type", "application/json");
