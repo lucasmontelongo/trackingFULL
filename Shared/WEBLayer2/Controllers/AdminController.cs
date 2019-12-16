@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using Rotativa;
 using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
