@@ -221,7 +221,8 @@ namespace APIRestLayer.Controllers
                     SPaquete np = null;
                     if (p.Id == null)
                     {
-                        np = blPaquete.addPaquete(p);
+                        //np = blPaquete.addPaquete(p);
+                        np = new SPaquete();
                     }
                     else
                     {

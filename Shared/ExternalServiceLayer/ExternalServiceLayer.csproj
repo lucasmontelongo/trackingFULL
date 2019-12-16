@@ -113,6 +113,9 @@
     </None>
     <Content Include="libman.json" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\TrackingFULLExterno - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\TrackingFULLExterno - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\TrackingFULLExterno - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
