@@ -1,7 +1,12 @@
-﻿@model WEBLayer2.Models.Agencia
+﻿@model WEBLayer2.Models.Paquete
 
 @{
     ViewBag.Title = "Delete";
+}
+
+@if (ViewBag.ERROR != null)
+{
+    <p>@ViewBag.ERROR</p>
 }
 
 <link rel="stylesheet" href="~/Content/style.css">
@@ -14,8 +19,8 @@
 <div class="page">
     <div class="cont">
         <div class="izq">
-            <div class="titulo">Eliminar Agencia</div>
-            <div id="texto" class="eula">Eliminar agencia del sistema</div>
+            <div class="titulo">Eliminar Paquete</div>
+            <div id="texto" class="eula">Eliminar paquete del sistema</div>
         </div>
         <div class="der">
             <div class="form">
@@ -23,58 +28,61 @@
                     <ul class="form-list">
                         <li class="form-list__row">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Nombre)
-                                <div>
-                                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @disabled = "disabled" } })
-                                </div>
-                            </div>
-                        </li>
-                        <li class="form-list__row">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Ubicacion)
-                                <div>
-                                    @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @disabled = "disabled" } })
-                                </div>
-                            </div>
-                        </li>
-                        <li class="form-list__row">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.EnvioDomicilio)
-                                <div>
-                                    @Html.EditorFor(model => model.EnvioDomicilio, new { htmlAttributes = new { @disabled = "disabled" } })
-                                </div>
-                            </div>
-                        </li>
-                        <li class="form-list__row">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.IdEmpresa)
-                                <div>
-                                    @Html.EditorFor(model => model.IdEmpresa, new { htmlAttributes = new { @disabled = "disabled" } })
-                                </div>
-                            </div>
-                        </li>
-                        <li class="form-list__row">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Borrado)
-                                <div>
-                                    @Html.EditorFor(model => model.Borrado, new { htmlAttributes = new { @disabled = "disabled" } })
-                                </div>
-                            </div>
-                        </li>
+                                @Html.LabelFor(model => model.FechaIngreso)
 
+
+                                <div>
+                                    @Html.EditorFor(model => model.FechaIngreso, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaEntrega)
+
+
+                                <div>
+                                    @Html.EditorFor(model => model.FechaEntrega, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdTrayecto)
+                                <div>
+                                    @Html.EditorFor(model => model.IdTrayecto, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdRemitente)
+                                <div>
+                                    @Html.EditorFor(model => model.IdRemitente, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdDestinatario)
+                                <div>
+                                    @Html.EditorFor(model => model.IdDestinatario, new { htmlAttributes = new { @disabled = "disabled" } })
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                
+
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-actions no-color">
-                        <input type="submit" value="Eliminar" class="btn btn-default" />
+                    <div class="form-gruop">
+                        <div class="col-md-offset-2 col-md-8">
+                            <input type="submit" value="Eliminar" class="btn btn-default" />
+                        </div>
                     </div>
-
                 }
-
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@ namespace BussinessLogicLayer.BL
             try
             {
                 SUsuario usuario = _dal.addUsuario(u);
-                BLEmail.confirmacionDeEmail(usuario.Email, getCodigoConfirmacionEmail(usuario.Id));
+                //BLEmail.confirmacionDeEmail(usuario.Email, getCodigoConfirmacionEmail(usuario.Id));
                 return usuario;
             }
             catch (Exception)

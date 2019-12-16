@@ -1,5 +1,8 @@
 ﻿@model WEBLayer2.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0)
@@ -17,12 +20,22 @@
         {
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in loginProviders)
-                    {
-                        <button type="submit" class="btn button face btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Inicie sesión con su cuenta @p.Caption"><i class="fab fa-facebook-f"></i> @p.AuthenticationType</button>
-                    }
-                </p>
+                @foreach (AuthenticationDescription p in loginProviders)
+                {
+                    <button style="color: #ffffff;
+                                    background-color: #4267b2;
+    padding: 5px 8px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 2px;
+    outline: 0;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+    transition: all .2s;" type="submit" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Inicie sesión con su cuenta @p.Caption">
+                        <i style="font-size: 25px;" class="fab fa-facebook"></i>@p.AuthenticationType
+                    </button>
+                }
             </div>
         }
     }

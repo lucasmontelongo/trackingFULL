@@ -9,14 +9,11 @@
 <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-<script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
-<script src="~/Scripts/popper.js" type="text/javascript"></script>
-<script src="~/Scripts/select2.min.js" type="text/javascript"></script>
 <script src="~/Scripts/main.js" type="text/javascript"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="~/Scripts/detallePaquete.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="~/Scripts/jquery.dataTables.js"></script>
 
 <link rel="stylesheet" href="~/Content/style.css">
 
@@ -25,18 +22,15 @@
     <button id="volver">
         @Html.ActionLink("Volver", "Index")
     </button>
-    <button id="volver">
-        @Html.ActionLink("Editar Paquete", "Edit", new { /* id = Model.PrimaryKey */ })
-    </button>
 </div>
 
 <div style="margin: 2% 0 2% 0" class="row">
-    <div style="border-bottom: 1px solid black;" class="col-md-6">
+    <div style="border-bottom: 1px solid white; color: white" class="col-md-6">
         <h4 style="text-align: center"><strong>Destinatario</strong></h4>
         <p style="text-align: center">@Model.Destinatario.NombreCompleto</p>
         <p style="text-align: center"> @Model.Destinatario.Email</p>
     </div>
-    <div style="border-bottom: 1px solid black;" class="col-md-6">
+    <div style="border-bottom: 1px solid white; color: white" class="col-md-6">
         <h4 style="text-align: center"><strong>Remitente</strong></h4>
         <p style="text-align: center">@Model.Remitente.NombreCompleto</p>
         <p style="text-align: center">@Model.Remitente.Email</p>

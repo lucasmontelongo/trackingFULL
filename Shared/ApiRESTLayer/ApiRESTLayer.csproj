@@ -159,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\TrackingFULLAPI2019 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\TrackingFULLAPI2019 - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\TrackingFULLAPI2019 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

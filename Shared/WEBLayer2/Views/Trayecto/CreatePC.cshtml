@@ -4,82 +4,115 @@
     ViewBag.Title = "CreatePC";
 }
 
-@if(ViewBag.ERROR != null)
+@if (ViewBag.ERROR != null)
 {
     <p>@ViewBag.ERROR</p>
 }
 
-<h2>CreatePC</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>PuntoControl</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tiempo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Tiempo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Tiempo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @{ 
-            var lele = new List<SelectListItem>();
-            foreach (var item in ViewBag.AGENCIAS)
-            {
-                lele.Add(new SelectListItem { Text = item.Nombre, Value = item.Id.ToString()});
-            }
+@section Styles{
+    <style>
+        .titulo {
+            font-size: 40px;
         }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdAgencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.IdAgencia, lele, "Elige una agencia", new { @class = "form-control select2_demo_4" })
-            </div>
-        </div>
+        select {
+            color: #fff;
+            font-weight: 200;
+            min-width: 100%;
+            background-color: #474A59;
+            border: 2px solid #87B7F1;
+        }
+    </style>   
+}
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdTrayecto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdTrayecto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdTrayecto, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<link rel="stylesheet" href="~/Content/style.css">
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+<div>
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+</div>
+<div class="page">
+    <div class="cont">
+        <div class="izq">
+            <div class="titulo">Crear Punto de Control</div>
+            <div id="texto" class="eula">Ingreso de nuevo punto de control para el trayecto asociado</div>
+        </div>
+        <div class="der">
+            <div class="form">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <ul class="form-list">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "col-md-12" } })
+                                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "col-md-12" } })
+                                        @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Tiempo, htmlAttributes: new { @class = "col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.Tiempo, new { htmlAttributes = new { @class = "col-md-12" } })
+                                        @Html.ValidationMessageFor(model => model.Tiempo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                @{
+                                    var lele = new List<SelectListItem>();
+                                    foreach (var item in ViewBag.AGENCIAS)
+                                    {
+                                        lele.Add(new SelectListItem { Text = item.Nombre, Value = item.Id.ToString() });
+                                    }
+                                }
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IdAgencia, htmlAttributes: new { @class = "col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.DropDownListFor(model => model.IdAgencia, lele, "Elige una agencia", new { @class = "col-md-12" })
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IdTrayecto, htmlAttributes: new { @class = "col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.IdTrayecto, new { htmlAttributes = new { @class = "col-md-12" } })
+                                        @Html.ValidationMessageFor(model => model.IdTrayecto, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-8">
+                                        <input type="submit" value="Confirmar" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

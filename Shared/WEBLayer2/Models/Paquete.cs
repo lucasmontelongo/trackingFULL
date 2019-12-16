@@ -26,7 +26,7 @@ namespace WEBLayer2.Models
         [Required(ErrorMessage = "El campo es necesario")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha de entrega")]
+        [Display(Name = "Entrega")]
         public DateTime FechaEntrega { get; set; }
 
         [Required(ErrorMessage = "El campo es necesario")]

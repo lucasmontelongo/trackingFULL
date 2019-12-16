@@ -190,6 +190,16 @@ input {
     box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1);
 }
 
+.modal__reg {
+    display: flex;
+    max-width: 525px;
+    min-height: 350px;
+    margin-bottom: 125px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1);
+}
+
 .modal__featured {
     position: relative;
     flex: 1;
@@ -209,6 +219,17 @@ input {
     background-color: #fbcf34;
     border-radius: 50%;
     transform: translateX(-50%) translateY(-25%);
+}
+
+#modal__register {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 200%;
+    width: 200%;
+    background-color: #fbcf34;
+    border-radius: 50%;
+    transform: translateX(0%) translateY(-25%);
 }
 
 .modal__product {

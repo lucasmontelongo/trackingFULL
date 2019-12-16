@@ -1,7 +1,7 @@
 @import url('https://rsms.me/inter/inter-ui.css');
 
 body {
-    background-image: url(../../img/fondo.png);
+    background-image: url(../img/trackingFULL.PNG);
 }
 
 a {
@@ -40,10 +40,6 @@ a {
     display: flex;
     flex-direction: column;
     margin-top: 4%;
-}
-
-.der {
-    height: 450px;
 }
 
 .izq {
@@ -108,6 +104,7 @@ input {
     color: #F1F1F2;
     position: relative;
     width: 50%;
+    height: 450px;
 }
 
 .form {
@@ -127,8 +124,6 @@ input {
     #submit:active {
         color: #d0d0d2;
     }
-
-
 /*================== Id de vista editar cliente y detalle cliente ==========================*/
 #edit {
     border-top: 2px solid #474A59;

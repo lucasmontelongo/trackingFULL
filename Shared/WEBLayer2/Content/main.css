@@ -5,83 +5,82 @@
 
 
 @font-face {
-  font-family: Montserrat-Regular;
-  src: url('../fonts/montserrat/Montserrat-Regular.ttf'); 
+    font-family: Montserrat-Regular;
+    src: url('../fonts/montserrat/Montserrat-Regular.ttf');
 }
 
 @font-face {
-  font-family: Montserrat-Medium;
-  src: url('../fonts/montserrat/Montserrat-Medium.ttf'); 
+    font-family: Montserrat-Medium;
+    src: url('../fonts/montserrat/Montserrat-Medium.ttf');
 }
 
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 * {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
 body, html {
-	height: 100%;
-	font-family: sans-serif;
+    height: 100%;
+    font-family: sans-serif;
 }
 
 /* ------------------------------------ */
 a {
-	margin: 0px;
-	transition: all 0.4s;
+    margin: 0px;
+    transition: all 0.4s;
 }
 
-a:focus {
-	outline: none !important;
-}
+    a:focus {
+        outline: none !important;
+    }
 
-a:hover {
-	text-decoration: none;
-    color: white;
-}
+    a:hover {
+        text-decoration: none;
+        color: white;
+    }
 
 /* ------------------------------------ */
-h1,h2,h3,h4,h5,h6 {margin: 0px;}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0px;
+}
 
-p {margin: 0px;}
+p {
+    margin: 0px;
+}
 
 ul, li {
-	margin: 0px;
-	list-style-type: none;
+    margin: 0px;
+    list-style-type: none;
 }
 
 
 /* ------------------------------------ */
 input {
-  display: block;
-	outline: none;
-	border: none !important;
+    display: block;
+    outline: none;
 }
 
 textarea {
-  display: block;
-  outline: none;
-}
-
-textarea:focus, input:focus {
-  border-color: transparent !important;
+    display: block;
+    outline: none;
 }
 
 /* ------------------------------------ */
 button {
-	outline: none !important;
-	border: none;
-	background: transparent;
+    outline: none !important;
+    border: none;
+    background: transparent;
 }
 
-button:hover {
-	cursor: pointer;
-}
+    button:hover {
+        cursor: pointer;
+    }
 
 iframe {
-	border: none !important;
+    border: none !important;
 }
 
 
@@ -90,55 +89,55 @@ iframe {
 [ Table ]*/
 
 .limiter {
-  width: 100%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .container-table100 {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .wrap-table100 {
-  width: 100%;
+    width: 100%;
 }
 
 /*//////////////////////////////////////////////////////////////////
 [ Table ]*/
 table {
-  width: 100%;
-  background-color: #fff;
+    width: 100%;
+    background-color: #fff;
 }
 
 th, td {
-  font-weight: unset;
-  padding-right: 10px;
+    font-weight: unset;
+    padding-right: 10px;
 }
 
 .column100 {
-  width: 130px;
-  text-align: center;
+    width: 130px;
+    text-align: center;
 }
 
-.column100.column1 {
-  width: 20%;
-}
+    .column100.column1 {
+        width: 20%;
+    }
 
-.column6, .column7, .column8{
+.column6, .column7, .column8 {
     width: 10%;
 }
 
 .row100.head th {
-  padding-top: 24px;
-  padding-bottom: 20px;
+    padding-top: 24px;
+    padding-bottom: 20px;
 }
 
 .row100 td {
-  padding-top: 18px;
-  padding-bottom: 14px;
+    padding-top: 18px;
+    padding-bottom: 14px;
 }
 
 /*==================================================================*/
@@ -159,11 +158,11 @@ th, td {
 }
 
 .table100.ver1 .hov-column-ver1 {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 .table100.ver1 .hov-column-head-ver1 {
-  background-color: #484848 !important;
+    background-color: #484848 !important;
 }
 
 tr:nth-child(odd) {
@@ -173,8 +172,3 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
-
-
-
-

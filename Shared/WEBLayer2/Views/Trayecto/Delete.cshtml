@@ -4,64 +4,138 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<link rel="stylesheet" href="~/Content/style.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/tabla_clientes.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/util.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/main.css" type="text/css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+<script src="~/Scripts/main.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.dataTables.min.css">
+<script type="text/javascript" charset="utf-8" src="~/Scripts/paginationPaquete.js"></script>
+<script type="text/javascript" charset="utf8" src="~/Scripts/jquery.dataTables.js"></script>
+
+@section Styles{
+    <style>
+        #idTrayecto, #nombreTrayecto{
+            border-bottom-color: #87B7F1;
+            color: #fff;
+            padding-top: 1%;                    
+        }
+
+        label{
+            color: #fff;
+            padding-top: 1%;
+        }
+
+        h3{
+            color: #fff;
+            text-align: center;
+            padding-top: 3%;
+        }
+
+        #borrarTrayecto{
+            text-align: center;
+        }
+    </style>
+    }
+
+<div>
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+</div>
 @using (Html.BeginForm("Delete", "Trayecto", FormMethod.Post))
 {
     <div class="form-group">
-        <label for="idTrayecto">Id:</label>
-        <input type="number" class="form-control" id="idTrayecto" name="idTrayecto" value="@ViewBag.TRAYECTO.Id" readonly>
+        <label for="idTrayecto">Id</label>
+        <input type="number" id="idTrayecto" name="idTrayecto" value="@ViewBag.TRAYECTO.Id" disabled>
     </div>
     <div class="form-group">
-        <label for="nombreTrayecto">Nombre del trayecto:</label>
-        <input type="text" class="form-control" id="nombreTrayecto" name="nombreTrayecto" value="@ViewBag.TRAYECTO.Nombre">
+        <label for="nombreTrayecto">Nombre del trayecto</label>
+        <input type="text" id="nombreTrayecto" name="nombreTrayecto" value="@ViewBag.TRAYECTO.Nombre" disabled>
     </div>
 
-    <h6>Puntos de control</h6>
+    <h3>Puntos de control</h3>
+    <div>
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <table id="paquete" class="table display" data-vertable="ver1">
+                        <thead>
+                            <tr class="row100 head">
+                                <th class="column100 column1" data-column="column1">
+                                    Id
+                                </th>
+                                <th class="column100 column2" data-column="column2">
+                                    Id trayecto
+                                </th>
+                                <th class="column100 column3" data-column="column3">
+                                    Nombre
+                                </th>
+                                <th class="column100 column4" data-column="column4">
+                                    Orden
+                                </th>
+                                <th class="column100 column5" data-column="column5">
+                                    Tiempo
+                                </th>
+                                <th class="column100 column6" data-column="column6">
+                                    Id agencia
+                                </th>
+                                <th class="column100 column7" data-column="column7">
+                                    Borrar
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.PUNTOSCONTROL)
+                            {
+                                lineas = lineas + 1;
+                                nombrePC = "nombrePC" + lineas;
+                                ordenPC = "ordenPC" + lineas;
+                                idAgenciaPC = "idAgenciaPC" + lineas;
+                                tiempoPC = "tiempoPC" + lineas;
+                                idPC = "idPC" + lineas;
+                                idTrayectoPC = "idTrayectoPC" + lineas;
+                                borradoPC = "borradoPC" + lineas;
 
-    foreach (var item in ViewBag.PUNTOSCONTROL)
-    {
-        lineas = lineas + 1;
-        nombrePC = "nombrePC" + lineas;
-        ordenPC = "ordenPC" + lineas;
-        idAgenciaPC = "idAgenciaPC" + lineas;
-        tiempoPC = "tiempoPC" + lineas;
-        idPC = "idPC" + lineas;
-        idTrayectoPC = "idTrayectoPC" + lineas;
-        borradoPC = "borradoPC" + lineas;
-        <div class="form-group">
-            <label for="@idPC">Id:</label>
-            <input type="number" class="form-control" id="@idPC" name="@idPC" value="@item.Id" readonly />
+                                <tr class="row100">
+                                    <td class="column100 column1" data-column="column1">
+                                        @item.Id
+                                    </td>
+                                    <td class="column100 column2" data-column="column2">
+                                        @item.IdTrayecto
+                                    </td>
+                                    <td class="column100 column3" data-column="column3">
+                                        @item.Nombre
+                                    </td>
+                                    <td class="column100 column4" data-column="column4">
+                                        @item.Orden
+                                    </td>
+                                    <td class="column100 column5" data-column="column5">
+                                        @item.Tiempo
+                                    </td>
+                                    <td class="column100 column6" data-column="column6">
+                                        @item.IdAgencia
+                                    </td>
+                                    <td class="column100 column7" data-column="column7">
+                                        <input type="checkbox" id="@borradoPC" name="@borradoPC" value="1" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div id="borrarTrayecto" >
+                        <button type="submit" id="volver">Borrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="@idTrayectoPC">Id Trayecto:</label>
-            <input type="number" class="form-control" id="@idTrayectoPC" name="@idTrayectoPC" value="@item.IdTrayecto" readonly />
-        </div>
-        <div class="form-group">
-            <label for="@nombrePC">Nombre:</label>
-            <input type="text" class="form-control" id="@nombrePC" name="@nombrePC" value="@item.Nombre" />
-        </div>
-        <div class="form-group">
-            <label for="@ordenPC">Orden:</label>
-            <input type="number" class="form-control" id="@ordenPC" name="@ordenPC" value="@item.Orden" />
-        </div>
-        <div class="form-group">
-            <label for="@tiempoPC">Tiempo:</label>
-            <input type="number" class="form-control" id="@tiempoPC" name="@tiempoPC" value="@item.Tiempo" />
-        </div>
-        <div class="form-group">
-            <label for="@idAgenciaPC">IdAgencia:</label>
-            <input type="number" class="form-control" id="@idAgenciaPC" name="@idAgenciaPC" value="@item.IdAgencia" />
-        </div>
-        <div class="form-group">
-            <label for="@borradoPC">Borrar:</label>
-            <input type="checkbox" class="form-control" id="@borradoPC" name="@borradoPC" value="1" />
-        </div>
-    }
-    <br />
-    <button type="submit" class="btn btn-default">Borrar</button>
+    </div>
+
+    
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

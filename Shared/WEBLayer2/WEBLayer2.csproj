@@ -218,8 +218,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\fontawesome.css" />
+    <Content Include="Content\borrarTrayec.css" />
+    <Content Include="Content\borrarTrayecto.css" />
     <Content Include="Content\inicio.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\msg.css" />
     <Content Include="Content\perfect-scrollbar.css" />
@@ -232,8 +234,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="img\fondo.png" />
-    <Content Include="img\trayecto.PNG" />
+    <Content Include="img\trackingFULL.PNG" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
@@ -243,18 +244,23 @@
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\borrarTrayecto.js" />
     <Content Include="Scripts\detallePaquete.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\editarTrayecto.js" />
+    <Content Include="Scripts\detalleTrayecto.js" />
+    <Content Include="Scripts\filtro.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\paginationPaquete.js" />
     <Content Include="Scripts\pagination_trayecto.js" />
@@ -319,7 +325,6 @@
     <Content Include="Views\Paquete\Details.cshtml" />
     <Content Include="Views\Paquete\Edit.cshtml" />
     <Content Include="Views\Admin\addPermisos.cshtml" />
-    <Content Include="Views\Trayecto\Create.cshtml" />
     <Content Include="Views\Trayecto\Edit.cshtml" />
     <Content Include="Views\Trayecto\CreatePC.cshtml" />
     <Content Include="Views\Trayecto\EditPC.cshtml" />
@@ -335,6 +340,7 @@
     <Content Include="Views\Admin\TrayectoPaquete.cshtml" />
     <Content Include="Views\Admin\PaquetesIngresados.cshtml" />
     <Content Include="Views\Admin\PaquetesEntregados.cshtml" />
+    <Content Include="Views\Paquete\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

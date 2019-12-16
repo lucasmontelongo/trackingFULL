@@ -3,8 +3,6 @@
     ViewBag.Title = "Nuevo administrador";
 }
 
-<h2>Nuevo administrador</h2>
-
 @if (ViewBag.OK != null || ViewBag.ERROR != null)
 {
     if (ViewBag.OK != null)
@@ -17,26 +15,96 @@
     }
 }
 
-@using (Html.BeginForm("addPermisos", "Admin", FormMethod.Post))
-{
+<link rel="stylesheet" href="~/Content/style.css" type="text/css" />
+@section Styles{
+    <style>
 
-    @Html.AntiForgeryToken()
+        select {
+            color: #fff;
+            font-weight: 200;
+            min-width: 100%;
+            background-color: #474A59;
+            border: 2px solid #87B7F1;
+            margin-bottom: 15%;
+        }
 
-        <div class="form-horizontal">
+        .titulo {
+            font-size: 40px;
+        }
 
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" />
-            </div>
+        li {
+            line-height: 2.5;
+        }
 
-            <div class="form-group">
-                <select name="role">
-                    <option value="Admin">Administrador</option>
-                    <option value="Funcionario">Funcionario</option>
-                    <option value="Encargado">Encargado</option>
-                    <option value="Cliente">Cliente</option>
-                </select>
-            </div>
+        #button{
+            text-align: center;
+        }
 
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
+        .der{
+                height: 430px;
+            }
+
+         @@media (max-width: 767px){
+            .titulo{
+                font-size: 30px;
+            }
+
+            .der{
+                height: 370px;
+            }
+
+            .izq{
+                height: 180px;
+            }
+        }
+    </style>
 }
+
+<div class="page">
+    <div class="cont">
+        <div class="izq">
+            <div class="titulo">Administrar Permisos</div>
+            <div id="texto" class="eula">Otorgar permisos a usuarios</div>
+        </div>
+        <div class="der">
+            <div class="form">
+                @using (Html.BeginForm("addPermisos", "Admin", FormMethod.Post))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <ul class="form-list">
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    
+                                        <input type="email" name="email" />
+                                    
+                                </div>
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    <label>Otorgar permiso</label>
+                                    <select name="role">
+                                        <option value="Admin">Administrador</option>
+                                        <option value="Funcionario">Funcionario</option>
+                                        <option value="Encargado">Encargado</option>
+                                        <option value="Cliente">Cliente</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="form-list__row">
+                                <div class="col-md-12">
+                                    <div id="button" class="col-md-12">
+                                        <button type="submit" class="btn btn-default">Otorgar permiso</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

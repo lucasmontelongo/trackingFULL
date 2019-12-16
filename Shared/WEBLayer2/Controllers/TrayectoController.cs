@@ -96,7 +96,7 @@ namespace WEBLayer2.Controllers
             catch(Exception e)
             {
                 ViewBag.ERROR = e.Message;
-                return View();
+                return RedirectToAction("Index", "Trayecto");
             }
         }
 
