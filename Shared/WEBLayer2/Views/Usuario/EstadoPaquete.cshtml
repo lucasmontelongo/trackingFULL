@@ -12,21 +12,48 @@
     <p>@ViewBag.OK</p>
 }
 
-<h2>EstadoPaquete</h2>
+<link rel="stylesheet" href="~/Content/style.css" type="text/css" />
 
-@using (Html.BeginForm()){
+@section Styles{
+    <style>
+        .der {
+            margin: auto;
+            height: 200px;
+            width: 75%;
+            border-radius: 5px;
+        }
+            
+        h2 {
+            color: #fff;
+            margin: 3% 0 3% 0;
+            text-align: center;
+        }
+    </style>
+}
+<h2>Estado Paquete</h2>
 
-@Html.AntiForgeryToken()
+<div class="page">
+    <div class="cont">
+        <div class="der">
+            <div class="form">
+                @using (Html.BeginForm())
+                {
 
-<div class="form-group">
-    <input type="text" name="codigo" placeholder="Codigo de paquete" />
-</div>
+                    @Html.AntiForgeryToken()
+
+                    <label>Código de paquete</label>
+                    <div class="form-group">
+                        <input type="text" name="codigo" />
+                    </div>
 
 
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Save" class="btn btn-default" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <input type="submit" value="Consultar" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
-}
-
