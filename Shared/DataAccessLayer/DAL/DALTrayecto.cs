@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer.DAL
 {
@@ -81,7 +82,7 @@ namespace DataAccessLayer.DAL
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
                     throw;
@@ -95,6 +96,22 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
+                    List<string> ids = new List<string>();
+                    foreach (SEAPuntoControlAgencia p in a.ListaPuntosControl)
+                    {
+                        if(p.Id != null) ids.Add(((int)p.Id).ToString() );
+                    }
+                    String query = "Select * from PuntoControl WHERE PuntoControl.borrado = 0 and PuntoControl.idTrayecto = " + a.Id;
+                    if (ids.Count > 0)
+                    {
+                        query += " and id NOT IN(" + string.Join(", ", ids) + ")";
+                    }
+                    en.Database.SqlQuery<SPuntoControl>(query).ToList().ForEach(x =>
+                    {
+                        x.Borrado = true;
+                        en.SaveChanges();
+                    });
+
                     Trayecto ag = en.Trayecto.Find(a.Id);
                     ag = _conv.entidadAModelo(a, ag);
                     DALPuntoControl dalp = new DALPuntoControl();
@@ -102,6 +119,7 @@ namespace DataAccessLayer.DAL
                     {
                         a.ListaPuntosControl.ToList().ForEach(x =>
                         {
+                            x.IdTrayecto = ag.id;
                             if (x.Id > 0)
                             {
                                 dalp.updatePuntoControl(x);
@@ -142,7 +160,34 @@ namespace DataAccessLayer.DAL
                 }
             }
         }
-
+        
+        public int paquetesTransito(int id)
+        {
+            using (trackingFULLEntities en = new trackingFULLEntities())
+            {
+                try
+                {
+                    var total = en.Database
+                      .SqlQuery<int>("Select SUM(CASE WHEN PuntoControl.orden = a.max THEN 1 ELSE 0 END) as counts from Paquete "  
+                        + "LEFT join Trayecto on Paquete.IdTrayecto = Trayecto.id "
+                        + "LEFT join PaquetePuntoControl on Paquete.id = PaquetePuntoControl.idPaquete "
+                        + "LEFT join PuntoControl on PuntoControl.id = PaquetePuntoControl.idPuntoControl "
+                        + "left join("
+                        + "Select PaquetePuntoControl.idPaquete as idPaquete, MAX(PuntoControl.orden) as max from PaquetePuntoControl "
+                        + "join PuntoControl on PuntoControl.id = PaquetePuntoControl.idPuntoControl "
+                        + "WHERE PuntoControl.borrado = 0 AND PaquetePuntoControl.borrado = 0 "
+                        + "Group by PaquetePuntoControl.idPaquete "
+                        + ") AS a on a.idPaquete = Paquete.id "
+                        + "WHERE Paquete.borrado = 0 and Trayecto.id = " + id )
+                      .ToList().First();
+                    return total;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
         public bool isActive(int id)
         {
             using (trackingFULLEntities en = new trackingFULLEntities())

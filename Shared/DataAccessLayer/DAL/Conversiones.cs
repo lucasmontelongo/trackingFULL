@@ -93,6 +93,7 @@ namespace DataAccessLayer.DAL
 
         public SCliente modeloAEntidad(Cliente c)
         {
+            if (c == null) return null;
             SCliente cliente = new SCliente()
             {
                 Id = c.id,
@@ -137,6 +138,7 @@ namespace DataAccessLayer.DAL
 
         public SPaquete modeloAEntidad(Paquete p)
         {
+            if (p == null) return null;
             SPaquete paquete = new SPaquete()
             {
                 Id = p.id,
@@ -156,7 +158,7 @@ namespace DataAccessLayer.DAL
         {
             Paquete paquete = new Paquete()
             {
-                id = p.Id,
+                id = (int)p.Id,
                 idDestinatario = p.IdDestinatario,
                 idRemitente = p.IdRemitente,
                 IdTrayecto = p.IdTrayecto,
@@ -187,6 +189,7 @@ namespace DataAccessLayer.DAL
 
         public STrayecto modeloAEntidad(Trayecto t)
         {
+            if (t == null) return null;
             STrayecto trayecto = new STrayecto()
             {
                 Id = t.id,
@@ -197,7 +200,10 @@ namespace DataAccessLayer.DAL
             };
             t.PuntoControl.ToList().ForEach(x =>
             {
-                trayecto.ListaPuntosControl.Add(modeloAEntidad(x));
+                if (x.borrado == false || x.borrado == null)
+                {
+                    trayecto.ListaPuntosControl.Add(modeloAEntidad(x));
+                }
             });
             return trayecto;
         }
@@ -206,11 +212,14 @@ namespace DataAccessLayer.DAL
         {
             Trayecto trayecto = new Trayecto()
             {
-                id = t.Id,
                 nombre = t.Nombre,
                 version = t.Version,
                 borrado = t.Borrado
             };
+            if (t.Id != null)
+            {
+                trayecto.id = (int)t.Id;
+            }
             return trayecto;
         }
 
@@ -227,6 +236,7 @@ namespace DataAccessLayer.DAL
 
         public SPuntoControl modeloAEntidad(PuntoControl p)
         {
+            if (p == null) return null;
             SPuntoControl puntoControl = new SPuntoControl()
             {
                 Id = p.id,
@@ -247,13 +257,17 @@ namespace DataAccessLayer.DAL
         {
             PuntoControl puntoControl = new PuntoControl()
             {
-                id = p.Id,
                 idTrayecto = p.IdTrayecto,
                 orden = p.Orden,
                 tiempo = p.Tiempo,
                 borrado = p.Borrado,
                 nombre = p.Nombre
             };
+
+            if (p.Id != null)
+            {
+                puntoControl.id = (int)p.Id;
+            }
             if (p.IdAgencia != null)
             {
                 puntoControl.idAgencia = p.IdAgencia;
@@ -263,8 +277,8 @@ namespace DataAccessLayer.DAL
 
         public PuntoControl entidadAModelo(SPuntoControl p, PuntoControl pc)
         {
-            pc.id = p.Id;
-            pc.idTrayecto = p.IdTrayecto;
+            pc.id = (int)p.Id;
+            pc.idTrayecto = (int)p.IdTrayecto;
             pc.orden = p.Orden;
             pc.tiempo = p.Tiempo;
             pc.borrado = p.Borrado;
@@ -280,6 +294,7 @@ namespace DataAccessLayer.DAL
 
         public SPaquetePuntoControl modeloAEntidad(PaquetePuntoControl p)
         {
+            if (p == null) return null;
             SPaquetePuntoControl paquetePuntoControl = new SPaquetePuntoControl()
             {
                 Id = p.id,
@@ -324,6 +339,7 @@ namespace DataAccessLayer.DAL
 
         public SEmpresa modeloAEntidad(Empresa e)
         {
+            if (e == null) return null;
             SEmpresa empresa = new SEmpresa()
             {
                 Id = e.id,
@@ -356,6 +372,7 @@ namespace DataAccessLayer.DAL
 
         public SDomicilio modeloAEntidad(Domicilio e)
         {
+            if (e == null) return null;
             SDomicilio empresa = new SDomicilio()
             {
                 IdPaquete = e.idPaquete,

@@ -83,7 +83,7 @@ namespace BussinessLogicLayer.BL
                 {
                     if (c.NumeroDocumento != null)
                     {
-                        if (c.TipoDocumento != "CI" && c.TipoDocumento != "Pasaporte")
+                        if (c.TipoDocumento.ToUpper() != "CI".ToUpper() && c.TipoDocumento.ToUpper() != "Pasaporte".ToUpper())
                         {
                             throw new ECliente("El tipo de documento indicado no es valido");
                         }

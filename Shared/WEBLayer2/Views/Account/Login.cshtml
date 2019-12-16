@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Iniciar sesión";
 }
-
-<link href="~/Content/inicio.css" rel="stylesheet" type="text/css" />
-
+@Styles.Render(
+  "~/Content/inicio.css",
+  "~/Content/fontawesome.css")
 <div class="modal">
     <div class="modal__container">
         <div class="modal__featured">
@@ -17,45 +17,38 @@
                 <div class="modal__content">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
-                        <ul class="form-list">
-                            <li class="form-list__row">
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            </li>
-                            <li class="form-list__row">
-                                <div class="form-group">
-
-                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-12" })
-
-                                    <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "col-md-12" })
-                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                    </div>
+                    <ul class="form-list pr-10">
+                        <li class="form-list__row">
+                            <h2 class="titlulo">@ViewBag.Title</h2>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "col-md-12" })
                                 </div>
-                            </li>
-                            <li class="form-list__row">
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-12" })
-                                    <div class="col-md-10">
-                                        @Html.PasswordFor(m => m.Password, new { @class = "col-md-12" })
-                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                    </div>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-12" })
+                                <div class="col-md-12">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "col-md-12" })
                                 </div>
-                            </li>
-                            <li class="form-list__row form-list__row--agree">
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <div class="checkbox">
-                                            @Html.CheckBoxFor(m => m.RememberMe)
-                                            @Html.LabelFor(m => m.RememberMe)
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="form-list__row">
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <button type="submit" class="button">Ingresar</button>
+                            </div>
+                        </li>
+                        <li class="form-list__row">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </li>
+                        <li class="form-list__row form-list__row--agree">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
                                     </div>
                                 </div>
                             </li>

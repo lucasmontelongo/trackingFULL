@@ -23,6 +23,16 @@
             Value = "Pasaporte",
         }
     };
+
+    var listaTrayectos = new List<SelectListItem>();
+    foreach (var item in ViewBag.LISTATRAYECTOS)
+    {
+        listaTrayectos.Add(new SelectListItem()
+        {
+            Text = item.Nombre,
+            Value = item.Id.ToString()
+        });
+    }
 }
 
 <link rel="stylesheet" href="~/Content/style.css">
@@ -67,7 +77,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.IdTrayecto, htmlAttributes: new { @class = "col-md-12" })
                                     <div class="col-md-12">
-                                        @Html.EditorFor(model => model.IdTrayecto, new { htmlAttributes = new { @class = "col-md-12" } })
+                                        @Html.DropDownListFor(model => model.IdTrayecto, listaTrayectos, new { htmlAttributes = new { @class = "col-md-12" } })
                                         @Html.ValidationMessageFor(model => model.IdTrayecto, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
