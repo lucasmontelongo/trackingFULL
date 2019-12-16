@@ -221,8 +221,7 @@ namespace APIRestLayer.Controllers
                     SPaquete np = null;
                     if (p.Id == null)
                     {
-                        //np = blPaquete.addPaquete(p);
-                        np = new SPaquete();
+                        np = blPaquete.addPaquete(p);
                     }
                     else
                     {
@@ -237,7 +236,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.Message);
+                return Content(HttpStatusCode.InternalServerError, e);
             }
         }
     }

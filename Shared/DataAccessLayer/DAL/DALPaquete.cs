@@ -90,7 +90,7 @@ namespace DataAccessLayer.DAL
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
                     throw;

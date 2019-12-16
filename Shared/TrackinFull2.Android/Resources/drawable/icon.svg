@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>icn-bulk-tracking</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icn-bulk-tracking">
+            <g id="bulk-tracking" transform="translate(5.000000, 3.000000)">
+                <g id="Group-27">
+                    <polygon id="Stroke-1" stroke="#4F5A7A" stroke-width="2" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" points="0 37.6670455 23.5 50 47 37.6670455 47 12.6670455 23.5 0 0 12.5"></polygon>
+                    <polyline id="Stroke-3" stroke="#4F5A7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0 12.9310345 23.5 25.4310345 47 13.0980799"></polyline>
+                    <path d="M32.160406,20.9051724 C32.160406,20.9051724 32.160406,30.5453865 32.160406,30.5453865 L39.9825326,26.6163793 L39.9825326,17.0896584 L16.4890046,4.44827586 L9.44444444,8.38146552 L32.160406,20.9051724 Z" id="Stroke-7" fill="#4F5A7A"></path>
+                    <path d="M23.5,25.9947922 L23.5,50" id="Stroke-6" stroke="#4F5A7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+                <g id="Group" transform="translate(33.000000, 35.000000)">
+                    <circle id="Oval-165" stroke="#4F5A7A" stroke-width="2" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
+                    <path d="M9.66666667,10.000025 C9.66666667,8.71134131 10.7110201,7.66666667 12,7.66666667 C13.2883294,7.66666667 14.3333333,8.71134131 14.3333333,10.000025 C14.3333333,11.2886587 13.2883294,12.3333333 12,12.3333333 C10.7110201,12.3333333 9.66666667,11.2886587 9.66666667,10.000025 Z M7.00004598,10.2147333 C6.98248597,14.1701378 12.0001981,19.6666667 12.0001981,19.6666667 C12.0001981,19.6666667 17.00005,14.1701378 17,10.2147333 C16.99995,7.15780889 14.9314201,5 12.0001981,5 C9.06897611,5 7.01365374,7.15780889 7.00004598,10.2147333 Z" id="Stroke-5" fill="#4F5A7A"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
