@@ -74,7 +74,7 @@ namespace BussinessLogicLayer.BL
                 var request = setRequest("post");
                 BLTrayecto _blT = new BLTrayecto();
                 BLPaquete _blP = new BLPaquete();
-                var dp = _blP.detallesPaquete("","Admin",paquete.Id);
+                var dp = _blP.detallesPaquete("","Admin",(int)paquete.Id);
                 DateTime tiempoEstimado = DateTime.Now;
                 string paquetePuntoControl = "";
                 SPaquetePuntoControl ppcActual = new SPaquetePuntoControl() { Id = 0 };
@@ -115,7 +115,7 @@ namespace BussinessLogicLayer.BL
                 var request = setRequest("post");
                 BLTrayecto _blT = new BLTrayecto();
                 BLPaquete _blP = new BLPaquete();
-                var dp = _blP.detallesPaquete("", "Admin", paquete.Id);
+                var dp = _blP.detallesPaquete("", "Admin", (int)paquete.Id);
                 DateTime tiempoEstimado = DateTime.Now;
                 string paquetePuntoControl = "";
                 SPaquetePuntoControl ppcActual = new SPaquetePuntoControl() { Id = 0 };

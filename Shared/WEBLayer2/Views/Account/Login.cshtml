@@ -13,42 +13,47 @@
             <img src="https://cdn.pixabay.com/photo/2013/07/12/16/51/packages-151372_960_720.png" class="modal__product" />
         </div>
         <div class="col-md-12">
-            <section id="loginForm">
+            <section style="margin-top: 5%;" id="loginForm">
                 <div class="modal__content">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
-                    <ul class="form-list pr-10">
-                        <li class="form-list__row">
-                            <h2 class="titlulo">@ViewBag.Title</h2>
-                        </li>
-                        <li class="form-list__row">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Email, new { @class = "col-md-12" })
-                                <div class="col-md-12">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "col-md-12" })
+                        <ul class="form-list pr-10">                    
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "col-md-12" })
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="form-list__row">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Password, new { @class = "col-md-12" })
-                                <div class="col-md-12">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "col-md-12" })
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-12" })
+                                    <div class="col-md-12">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "col-md-12" })
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="form-list__row">
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </li>
-                        <li class="form-list__row form-list__row--agree">
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <div class="checkbox">
-                                        @Html.CheckBoxFor(m => m.RememberMe)
-                                        @Html.LabelFor(m => m.RememberMe)
+                            </li>
+                            <li class="form-list__row">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </li>
+                            <li class="form-list__row form-list__row--agree">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <div class="checkbox">
+                                            @Html.CheckBoxFor(m => m.RememberMe)
+                                            @Html.LabelFor(m => m.RememberMe)
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="form-list__row">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-8">
+                                        <input type="submit" class="button" value="Iniciar Sesión" />
                                     </div>
                                 </div>
                             </li>
@@ -59,10 +64,11 @@
                                     </label>
                                 </p>
                             </li>
+
                             @* Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña
-                    <p>
-                        @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
-                    </p>*@
+                                <p>
+                                    @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+                                </p>*@
                         </ul>
                     }
                 </div>
@@ -73,7 +79,7 @@
                 </div>
             </section>
         </div>
-        
+
     </div>
 </div>
 
