@@ -4,20 +4,9 @@
 }
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
+<link rel="stylesheet" href="~/Content/style.css" type="text/css" />
 
 <style>
-    html, body {
-        height: 100%;
-    }
-
-    .body-content {
-        min-height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     body {
         background-color: #E9E9E9;
     }
@@ -28,123 +17,63 @@
     }
 
     #cont {
-        padding: 15px 0;
-        height: 600px;
-        /* Mauro si no te gusta borrar
-        display: flex;
-        justify-content: space-between;
-        */
-        display: grid;
-        grid-template-areas: 'envio perfil seguir' 'recibido perfil informes';
-        grid-gap: 10px;
-    }
-
-    #envio {
-        grid-area: envio;
-    }
-
-    #perfil {
-        grid-area: perfil;
-    }
-
-    #seguir {
-        grid-area: seguir;
-    }
-
-    #recibido {
-        grid-area: recibido;
-    }
-
-    #informes {
-        grid-area: informes;
-    }
-
-    .celda {
-        border: hsla(230,7%,75%,0.2);
-        padding: 20px;
-        text-align: center;
-        background-color: white;
-        border-radius: 3px;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-        transition: 0.5s ease-out all;
-        cursor: pointer;
-        text-decoration: none;
+        margin-top: 5%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
 
-        .celda * {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .celda:active,
-        .celda:focus,
-        .celda:hover {
-            text-decoration: none;
-        }
-
-        .celda:hover {
-            box-shadow: 0 7px 16px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.1);
-        }
-
-        .celda i {
-            font-size: 64px;
-            padding-bottom: 15px;
-            color: #007aff;
-        }
+    #envios {
+        padding: 30px;
+        text-align: center;
+        background-color: white;
+        border-radius: 8px;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        -webkit-box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+        -moz-box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+        box-shadow: 4px 6px 7px 0px rgba(150,150,150,1);
+    }
 
     #titulo {
         font-weight: bold;
-        color: rgba(38, 47, 59, 1);
+        font-size: 1.5em;
+        padding: 15px;
     }
 
-    .celda div {
-        font-size: 20px;
-        color: rgba(38, 47, 59,0.5);
+    #cont_1{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
-
-
-    @@media (max-height: 650px) {
-        #cont {
-            grid-template-areas: 'envio seguir' 'perfil perfil' 'recibido informes';
-            grid-gap: 10px;
-            height: auto;
-        }
-        .celda {  
-            padding: 50px 20px;
-        }
+    a{
+        color: black;
+        font-weight: bold;
+        padding: 5%;
     }
 
-    @@media (max-width: 800px) {
-        #cont {
-            grid-template-areas: 'perfil' 'envio' 'seguir' 'recibido' 'informes';
-            grid-gap: 10px;
-            height: auto;
-        }
-        .celda {  
-            padding: 50px 20px;
-        }
+    a:hover{
+        color: black;
+    }
+
+    .cont_1_1, .cont_1_2{
+        flex-grow: 1;
     }
 </style>
 
 <div id="cont" class="container">
-    <div>
-        <div id="envios">
+    <div id="cont_1">
+        <div class="cont_1_1" id="envios">
             <div><i class="fas fa-shipping-fast"></i></div>
             <div id="titulo">Mis envíos</div>
-            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            <div>Paquetes enviados, recibidos por el destinatario</div>
             @Html.ActionLink("VER", "PaquetesEnviados")
         </div>
-        <div id="envios">
+
+        <div class="cont_1_2" id="envios">
             <div><i class="fas fa-box-open"></i></div>
             <div id="titulo">Paquetes recibidos</div>
-            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            <div>Paquetes que le han sido enviados y entregados</div>
             @Html.ActionLink("VER", "PaquetesRecibidos")
         </div>
     </div>
@@ -152,7 +81,7 @@
         <div id="envios">
             <div><i class="fas fa-search"></i></div>
             <div id="titulo">Seguir paquete</div>
-            <div>Paquetes enviados, llegados a destino y recibidos por el destinatario</div>
+            <div>Realizar seguimiento de paquetes a los cuales esté relacionado</div>
             @Html.ActionLink("VER", "estadoPaquete")
         </div>
     </div>
