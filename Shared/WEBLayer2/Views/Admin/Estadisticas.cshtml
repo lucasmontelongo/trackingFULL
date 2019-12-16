@@ -15,23 +15,48 @@
     }
 }
 
-<h2>Estadisticas</h2>
+<link rel="stylesheet" href="~/Content/style.css" type="text/css" />
+@section Styles{
+    <style>
+        .der{
+            margin: auto;
+            height: 200px;
+            width: 75%;
+        }   
+        
+         select {
+            color: #fff;
+            font-weight: 200;
+            min-width: 100%;
+            background-color: #474A59;
+            border: 2px solid #87B7F1;
+            margin-bottom: 15%;
+        }
+    </style>
+    }
 
-@using (Html.BeginForm())
-{ 
-    
-    <div class="form-group">
-        <select name="tipo">
-            <option value="trayectoPaquete">Paquetes activos por trayecto</option>
-            <option value="paquetesIngresados">Paquetes ingresados en la ultima semana</option>
-            <option value="paquetesEntregados">Paquetes entregados en la ultima semana</option>
-        </select>
-    </div>
+<div class="page">
+    <div class="cont">      
+        <div class="der">
+            <div class="form">
+                @using (Html.BeginForm())
+                {
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+                    <div class="form-group">
+                        <select name="tipo" class="col-md-12">
+                            <option value="trayectoPaquete">Paquetes activos por trayecto</option>
+                            <option value="paquetesIngresados">Paquetes ingresados en la ultima semana</option>
+                            <option value="paquetesEntregados">Paquetes entregados en la ultima semana</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <input type="submit" value="Generar gráfica" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-}
-
+</div>

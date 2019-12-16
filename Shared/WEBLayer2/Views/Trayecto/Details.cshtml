@@ -23,11 +23,14 @@
 <script type="text/javascript" charset="utf8" src="~/Scripts/detalleTrayecto.js"></script>
 <script type="text/javascript" charset="utf8" src="~/Scripts/jquery.dataTables.js"></script>
 
-<h2>Trayecto: @ViewBag.TRAYECTO.Nombre</h2>
-<h4>Puntos de control</h4>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div>
+    <button id="volver">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+</div>
+<h2 style="padding: 2% 0 2% 0; color: white">Trayecto @ViewBag.TRAYECTO.Nombre</h2>
+<h3 style="padding: 2% 0 2% 0; color: white; text-align: center">Puntos de control</h3>
+
 <div class="container-table100">
     <div class="wrap-table100">
         <div class="table100 ver1 m-b-110">
@@ -46,9 +49,6 @@
                         <th class="column100 column4" data-column="column4">
                             @Html.DisplayNameFor(model => model.IdAgencia)
                         </th>
-                        <th class="column100 column5" data-column="column5"></th>
-                        <th class="column100 column6" data-column="column6"></th>
-                        <th class="column100 column7" data-column="column7"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,22 +66,7 @@
                             </td>
                             <td class="column100 column4" data-column="column4">
                                 @Html.DisplayFor(modelItem => item.IdAgencia)
-                            </td>
-                            <td>
-                                <button class="editar">
-                                    <i class="fas fa-edit"></i> @Html.ActionLink("Editar", "Edit", new { id = item.Id })
-                                </button>
-                            </td>
-                            <td>
-                                <button class="detalles">
-                                    <i class="fas fa-info-circle"></i> @Html.ActionLink("Detalles", "Details", new { id = item.Id })
-                                </button>
-                            </td>
-                            <td>
-                                <button class="borrar">
-                                    <i class="fas fa-trash-alt"></i> @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-                                </button>
-                            </td>
+                            </td>                        
                         </tr>
                     }
                 </tbody>
