@@ -6,7 +6,7 @@
 
 @if (ViewBag.ERROR != null)
 {
-    <p>@ViewBag.ERROR</p>
+    <h5 style="text-align: center; margin: 2% auto;" class="alert alert-danger">@ViewBag.ERROR</h5>
 }
 
 @{
@@ -35,6 +35,10 @@
             min-width: 100%;
             background-color: #474A59;
             border: 2px solid #87B7F1;
+        }
+
+        .der{
+            height: 480px;
         }
     </style>
 }

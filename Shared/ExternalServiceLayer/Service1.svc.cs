@@ -22,7 +22,7 @@ namespace ExternalServiceLayer
         public string Greeting(SAEData trayecto)
         {
 
-            var client = new RestClient(Direcciones.ApiRest + "completo");
+            var client = new RestClient("http://localhost:52952/completo");
             var request = new RestRequest(Method.POST);
             request.AddHeader("content-type", "application/json");
             request.AddParameter("application/json", JsonConvert.SerializeObject(trayecto), ParameterType.RequestBody);
