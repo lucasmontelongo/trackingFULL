@@ -90,12 +90,36 @@ namespace BussinessLogicLayer.BL
                 BLPaquete _blP = new BLPaquete();
                 foreach (var item in _blP.getAll())
                 {
-                    if (item.FechaIngreso == item.FechaEntrega)
+                    if (item.FechaIngreso == item.FechaEntrega && item.IdTrayecto == id)
                     {
                         return true;
                     }
                 }
                 return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool validarTrayecto(int id)
+        {
+            try
+            {
+                List<SPuntoControl> puntoscontrol = new BLPuntoControl().puntosControlDeUnTrayecto(id);
+                foreach (var item in puntoscontrol)
+                {
+                    if (item.Orden == 1 && item.IdAgencia == null)
+                    {
+                        return false;
+                    }
+                    if (item.Orden == (puntoscontrol.Count - 1) && item.IdAgencia == null)
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
             catch (Exception)
             {

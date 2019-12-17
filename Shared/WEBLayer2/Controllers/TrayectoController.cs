@@ -292,6 +292,7 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        [HandleError]
         [HttpGet]
         public ActionResult EditPC(int id)
         {
@@ -305,7 +306,22 @@ namespace WEBLayer2.Controllers
                 IRestResponse response = client.Execute(request);
                 if (response.StatusCode.ToString() == "OK")
                 {
-                    return View(JsonConvert.DeserializeObject<PuntoControl>(response.Content));
+                    PuntoControl pc = JsonConvert.DeserializeObject<PuntoControl>(response.Content);
+                    client = new RestClient(Direcciones.ApiRest + "agencia");
+                    request = new RestRequest(Method.GET);
+                    request.AddHeader("content-type", "application/json");
+                    request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                    response = client.Execute(request);
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        ViewBag.AGENCIAS = JsonConvert.DeserializeObject<List<Models.Agencia>>(response.Content);
+                        return View(pc);
+                    }
+                    else
+                    {
+                        ViewBag.ERROR = response.Content;
+                    }
+                    return View();
                 }
                 else
                 {
