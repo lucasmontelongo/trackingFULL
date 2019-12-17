@@ -98,7 +98,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -124,9 +124,9 @@ namespace APIRestLayer.Controllers
                         res.Id = usuario.Id;
                         return Ok(res);
                     }
-                    throw new ECompartida("Esto no deberia haber llegado a este punto");
+                    throw new ECompartida("Esto no debería haber llegado a este punto");
                 }
-                throw new ECompartida("La clave de validacion no es correcta");
+                throw new ECompartida("La clave de validación no es correcta");
             }
             catch (Exception e)
             {
