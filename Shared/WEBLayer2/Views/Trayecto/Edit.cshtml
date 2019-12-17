@@ -6,7 +6,7 @@
 
 @if (ViewBag.ERROR != null)
 {
-    <p>@ViewBag.ERROR</p>
+    <h5 style="text-align: center; width: 60%; margin: 2% auto;" class="alert alert-danger">@ViewBag.ERROR</h5>
 }
 <link rel="stylesheet" href="~/Content/util.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/main.css" type="text/css" />
@@ -56,9 +56,9 @@
                     <table id="editarTrayecto" class="table display" data-vertable="ver1">
                         <thead>
                             <tr class="row100 head">
-                                <th class="column100 column1" data-column="column1">Nombre</th>
-                                <th class="column100 column2" data-column="column2">Agencia</th>
-                                <th class="column100 column3" data-column="column3">Orden</th>
+                                <th class="column100 column1" data-column="column1">Orden</th>
+                                <th class="column100 column2" data-column="column2">Nombre</th>
+                                <th class="column100 column3" data-column="column3">Agencia</th>
                                 <th class="column100 column4" data-column="column4">Tiempo</th>
                                 <th class="column100 column5" data-column="column5"></th>
                                 <th class="column100 column6" data-column="column6"></th>
@@ -68,9 +68,9 @@
                             @foreach (var item in Model.ListaPuntosControl)
                             {
                                 <tr class="row100">
-                                    <td class="column100 column1" data-column="column1">@item.Nombre</td>
-                                    <td class="column100 column2" data-column="column2">@item.IdAgencia</td>
-                                    <td class="column100 column3" data-column="column3">@item.Orden</td>
+                                    <td class="column100 column1" data-column="column1">@item.Orden</td>
+                                    <td class="column100 column2" data-column="column2">@item.Nombre</td>
+                                    <td class="column100 column3" data-column="column3">@item.IdAgencia</td>
                                     <td class="column100 column4" data-column="column4">@item.Tiempo</td>
                                     <td class="column100 column5" data-column="column5">
                                         <button class="editar">
