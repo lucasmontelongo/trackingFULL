@@ -83,7 +83,7 @@ namespace WEBLayer2.Controllers
         {
             try
             {
-                ViewBag.IdPaquete = id;
+                ViewBag.IdPaquete = id;//mauro
                 EnvioDomicilioDTO eb = new EnvioDomicilioDTO()
                 {
                     IdPaquete = id
