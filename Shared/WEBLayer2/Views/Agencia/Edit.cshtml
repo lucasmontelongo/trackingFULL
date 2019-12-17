@@ -8,7 +8,7 @@
 
 @if (ViewBag.ERROR != null)
 {
-    <h5 style="text-align: center; width: 60%; margin: 2% auto;" class="alert alert-danger">@ViewBag.ERROR["Nombre"]</h5>
+    <p class="msg">@ViewBag.ERROR["Nombre"]</p>
 }
 
 <link rel="stylesheet" href="~/Content/style.css">

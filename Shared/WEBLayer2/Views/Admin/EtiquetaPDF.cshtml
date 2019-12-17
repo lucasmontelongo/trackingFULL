@@ -8,11 +8,11 @@
 {
     if (ViewBag.OK != null)
     {
-        <h5 style="text-align: center; width: 60%; margin: 2% auto;" class="alert alert-success">@ViewBag.OK</h5>
+        <p class="msg">@ViewBag.OK</p>
     }
     if (ViewBag.ERROR != null)
     {
-        <h5 style="text-align: center; width: 60%; margin: 2% auto;" class="alert alert-danger">@ViewBag.ERROR</h5>
+        <p class="msg">@ViewBag.ERROR</p>
     }
 }
 

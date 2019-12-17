@@ -51,31 +51,41 @@
                                     <th class="column100 column3" data-column="column3">
                                         Fecha de Ingreso
                                     </th>
+                                    <th class="column100 column4" data-column="column3">
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var paquete in ViewBag.PaquetesRecibidos)
                                 {
-                                    <tr class="row100">
-                                        <td class="column100 column1" data-column="column1">
-                                            @paquete.Id
+                                <tr class="row100">
+                                    <td class="column100 column1" data-column="column1">
+                                        @paquete.Id
+                                    </td>
+                                    @if (paquete.FechaIngreso == paquete.FechaEntrega)
+                                    {
+                                        <td class="column100 column2" data-column="column2">
+                                            En viaje
                                         </td>
-                                        @if (paquete.FechaIngreso == paquete.FechaEntrega)
-                                        {
-                                            <td class="column100 column2" data-column="column2">
-                                                En viaje
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td class="column100 column3" data-column="column3">
-                                                Entregado
-                                            </td>
-                                        }
-                                        <td class="column100 column4" data-column="column4">
-                                            @paquete.FechaIngreso
+                                    }
+                                    else
+                                    {
+                                        <td class="column100 column3" data-column="column3">
+                                            Entregado
                                         </td>
-                                    </tr>
+                                    }
+                                    <td class="column100 column4" data-column="column4">
+                                        @paquete.FechaIngreso
+                                    </td>
+
+                                    <td class="column100 column4" data-column="column5">
+                                        <button class="detalles">
+                                            <i class="fas fa-info-circle"></i> @Html.ActionLink("Detalles", "entrega", new { id = @paquete.Id })
+                                        </button>
+                                    </td>
+
+
+                                </tr>
                                 }
                             </tbody>
                         </table>
