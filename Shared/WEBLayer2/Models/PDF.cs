@@ -18,22 +18,18 @@ namespace WEBLayer2.Models
         PaqueteDTO _paq;
         Cliente Remitente, Destinatario;
         string _estado, _origen, _destino;
+        int _idPaquete;
         iTextSharp.text.Image _imgQR;
         #endregion
 
-        public byte[] PrepararReport(PaqueteDTO paq, iTextSharp.text.Image imgQRCode)
+        public byte[] PrepararReport(PaqueteDTO paq, iTextSharp.text.Image imgQRCode, Agencia origen, Agencia destino, int idPaquete)
         {
             _paq = paq;
+            _idPaquete = idPaquete;
+            _origen = origen.Nombre;
+            _destino = destino.Nombre;
             Remitente = paq.Remitente;
             Destinatario = paq.Destinatario;
-            if(_paq.Trayecto.ListaPuntosControl.Count == _paq.PaquetePuntoControl.Count)
-            {
-                _estado = "Finalizado";
-            }
-            else
-            {
-                _estado = "En viaje";
-            }
             _imgQR = imgQRCode;
 
             #region
@@ -58,24 +54,23 @@ namespace WEBLayer2.Models
 
         private void CrearContenido()
         {
-            _document.Add(new Paragraph("Paquete"));
+            _document.Add(new Paragraph("Paquete código: " + _idPaquete));
+            _document.Add(_imgQR);
             _document.Add(Chunk.NEWLINE);
-            _document.Add(new Paragraph("Datos:"));
-            _document.Add(new Paragraph("    - Estado: " + _estado));
+            _document.Add(new Paragraph("Agencia de origen: " + _origen));
+            _document.Add(new Paragraph("Agencia de destino: " + _destino));
             _document.Add(Chunk.NEWLINE);
             _document.Add(new Paragraph("Remitente:"));
             _document.Add(new Paragraph("    - Email: " + Remitente.Email));
             _document.Add(new Paragraph("    - Nombre: " + Remitente.NombreCompleto));
             _document.Add(new Paragraph("    - Telefono: " + Remitente.Telefono));
             _document.Add(new Paragraph("    - Tipo de Documento: " + Remitente.TipoDocumento));
-            _document.Add(new Paragraph("    - Nro de Documento: " + Remitente.NumeroDocumento));
+            _document.Add(new Paragraph("    - Numero de Documento: " + Remitente.NumeroDocumento));
             _document.Add(Chunk.NEWLINE);
             _document.Add(new Paragraph("Destinatario:"));
             _document.Add(new Paragraph("    - Email: " + Destinatario.Email));
             _document.Add(new Paragraph("    - Nombre: " + Destinatario.NombreCompleto));
             _document.Add(new Paragraph("    - Telefono: " + Destinatario.Telefono));
-            _document.Add(Chunk.NEWLINE);
-            _document.Add(_imgQR);
         }
     }
 }
