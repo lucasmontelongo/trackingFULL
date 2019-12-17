@@ -435,5 +435,22 @@ namespace BussinessLogicLayer.BL
             }
         }
 
+        public bool tieneEnvio(int id)
+        {
+            try
+            {
+                BLAgencia blA = new BLAgencia();
+                if (blA.getAgencia(id).EnvioDomicilio == true)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

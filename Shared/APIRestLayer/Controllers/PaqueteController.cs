@@ -275,5 +275,21 @@ namespace APIRestLayer.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("tieneenvio")]
+        public IHttpActionResult tieneEnvio(int id)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.tieneEnvio(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.ToString());
+            }
+        }
+
     }
 }

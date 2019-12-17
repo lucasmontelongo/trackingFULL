@@ -83,7 +83,21 @@ namespace WEBLayer2.Controllers
         {
             try
             {
-                ViewBag.IdPaquete = id;//mauro
+                var client = new RestClient(Direcciones.ApiRest + "paquete/tieneenvio");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddQueryParameter("id", id.ToString());
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
+                {
+                    ViewBag.DOMICILIO = response.Content;
+                }
+                else
+                {
+                    ViewBag.Error = response.Content;
+                }
+                ViewBag.IdPaquete = id;
                 EnvioDomicilioDTO eb = new EnvioDomicilioDTO()
                 {
                     IdPaquete = id
