@@ -82,6 +82,26 @@ namespace BussinessLogicLayer.BL
                 throw;
             }
         }
-        
+
+        public bool paquetesEnTransito(int id)
+        {
+            try
+            {
+                BLPaquete _blP = new BLPaquete();
+                foreach (var item in _blP.getAll())
+                {
+                    if (item.FechaIngreso == item.FechaEntrega)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
