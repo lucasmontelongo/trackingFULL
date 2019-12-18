@@ -123,7 +123,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -142,7 +142,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -158,7 +158,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -174,7 +174,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -190,7 +190,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -214,14 +214,14 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
         [Authorize]
         [HttpGet]
         [Route("updateenviodomicilio")]
-        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio, DateTime Hora)
+        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio, String Hora)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -254,7 +254,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -271,7 +271,23 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("tieneenvio")]
+        public IHttpActionResult tieneEnvio(int id)
+        {
+            try
+            {
+                BLPaquete bl = new BLPaquete();
+                return Ok(bl.tieneEnvio(id));
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 

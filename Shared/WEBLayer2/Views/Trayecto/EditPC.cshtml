@@ -6,7 +6,7 @@
 
 @if (ViewBag.ERROR != null)
 {
-    <p>@ViewBag.ERROR</p>
+    <p class="msg">@ViewBag.ERROR</p>
 }
 
 <link rel="stylesheet" href="~/Content/style.css">
@@ -39,58 +39,66 @@
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
+                <div class="form-horizontal">
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.Id)
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
 
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "col-md-12" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "col-md-12" } })
-                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "col-md-12" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "col-md-12" } })
-                                @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Tiempo, htmlAttributes: new { @class = "col-md-12" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.Tiempo, new { htmlAttributes = new { @class = "col-md-12" } })
-                                @Html.ValidationMessageFor(model => model.Tiempo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IdAgencia, htmlAttributes: new { @class = "col-md-12" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.IdAgencia, new { htmlAttributes = new { @class = "col-md-12" } })
-                                @Html.ValidationMessageFor(model => model.IdAgencia, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IdTrayecto, htmlAttributes: new { @class = "col-md-12" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.IdTrayecto, new { htmlAttributes = new { @class = "col-md-12" } })
-                                @Html.ValidationMessageFor(model => model.IdTrayecto, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-1 col-md-10">
-                                <input type="submit" value="Modificar" class="btn btn-default" />
-                            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "col-md-12" } })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "col-md-12" } })
+                            @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Tiempo, htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Tiempo, new { htmlAttributes = new { @class = "col-md-12" } })
+                            @Html.ValidationMessageFor(model => model.Tiempo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @{
+                        var lele = new List<SelectListItem>();
+                        foreach (var item in ViewBag.AGENCIAS)
+                        {
+                            lele.Add(new SelectListItem { Text = item.Nombre, Value = item.Id.ToString() });
+                        }
+                    }
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdAgencia, htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.IdAgencia, lele, "Elige una agencia", new { @class = "col-md-12" })
+                            @Html.ValidationMessageFor(model => model.IdAgencia, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdTrayecto, htmlAttributes: new { @class = "col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.IdTrayecto, new { htmlAttributes = new { @class = "col-md-12" } })
+                            @Html.ValidationMessageFor(model => model.IdTrayecto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-10">
+                            <input type="submit" value="Modificar" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
                 }
             </div>
         </div>

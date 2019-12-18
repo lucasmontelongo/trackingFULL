@@ -42,33 +42,32 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li>@Html.ActionLink("Trayectos", "Index", "Trayecto")</li>
-                            <li>@Html.ActionLink("Agencias", "Index", "Agencia")</li>                          
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            Administración <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>@Html.ActionLink("Estadisticas", "Estadisticas", "Admin")</li>
-                                            <li>@Html.ActionLink("Gestion de permisos", "addPermisos", "Admin")</li>
-                                        </ul>
-                                    </li>
-                                    }
+                            <li>@Html.ActionLink("Agencias", "Index", "Agencia")</li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Administración <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Estadisticas", "Estadisticas", "Admin")</li>
+                                    <li>@Html.ActionLink("Gestion de permisos", "addPermisos", "Admin")</li>
                                 </ul>
-                                @Html.Partial("_LoginPartial")
-                            </div>
+                            </li>
                         }
-                        else
-                        {
-                            <div class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                                </ul>
-                                @Html.Partial("_LoginPartial")
-                            </div>
-                        }
-</div>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            }
+            else
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            }
+        </div>
     </div>
     <div class="container body-content">
         @RenderBody()
@@ -82,5 +81,11 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("styles", required: false);
+    <script>
+        $("document").ready(function() {
+            $(".msg").addClass("active");
+            setTimeout(function () { $(".msg").removeClass("active"); }, 3000);
+        });
+    </script>
 </body>
 </html>

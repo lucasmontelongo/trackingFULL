@@ -11,7 +11,7 @@ namespace WEBLayer2.Models
         [Display(Name = "Id Trayecto")]
 
         public int IdTrayecto { get; set; }
-        public bool EnvioDomicilio { get; set; }
+        //public bool EnvioDomicilio { get; set; }
         public string Qr { get; set; }
         public Cliente Remitente { get; set; }
         public Cliente Destinatario { get; set; }

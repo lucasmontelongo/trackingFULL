@@ -12,8 +12,7 @@ namespace WEBLayer2.Models
         public bool Envio { get; set; }
 
         [Required(ErrorMessage = "El campo es necesario")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm:ss}", ApplyFormatInEditMode = true)]
-        public DateTime? Hora { get; set; }
+        public String Hora { get; set; } = DateTime.Now.ToString();
+
     }
 }

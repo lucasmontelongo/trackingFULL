@@ -43,25 +43,29 @@ namespace BussinessLogicLayer.BL
         {
             try
             {
-                a.Id = 0;
-                a.FechaIngreso = DateTime.Now;
-                a.FechaEntrega = DateTime.Now;
-                a.CodigoConfirmacion = Randoms.RandomString(6);
-                a.Codigo = "";
-                a.Borrado = false;
-                //a.ListaPaquetePuntoControl = null;
-                SPaquete p = _dal.addPaquete(a);
-                if (p != null)
+                if (new BLTrayecto().validarTrayecto((int)a.IdTrayecto))
                 {
-                    QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(p.Id.ToString(), QRCodeGenerator.ECCLevel.Q);
-                    Base64QRCode qrCode = new Base64QRCode(qrCodeData);
-                    p.Codigo = qrCode.GetGraphic(20);
-                    SPaquete pr = _dal.updatePaquete(p);
-                    BLEmail.nuevoPaquete(pr);
-                    return pr;
+                    a.Id = 0;
+                    a.FechaIngreso = DateTime.Now;
+                    a.FechaEntrega = DateTime.Now;
+                    a.CodigoConfirmacion = Randoms.RandomString(6);
+                    a.Codigo = "";
+                    a.Borrado = false;
+                    //a.ListaPaquetePuntoControl = null;
+                    SPaquete p = _dal.addPaquete(a);
+                    if (p != null)
+                    {
+                        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                        QRCodeData qrCodeData = qrGenerator.CreateQrCode(p.Id.ToString(), QRCodeGenerator.ECCLevel.Q);
+                        Base64QRCode qrCode = new Base64QRCode(qrCodeData);
+                        p.Codigo = qrCode.GetGraphic(20);
+                        SPaquete pr = _dal.updatePaquete(p);
+                        BLEmail.nuevoPaquete(pr);
+                        return pr;
+                    }
+                    throw new ECompartida("Algun error raro en a;adir el paquete");
                 }
-                throw new ECompartida("Algun error raro en a;adir el paquete"); 
+                throw new ECompartida("El trayecto no cumple con las condiciones necesarias, reviselo y vuelva a intentarlo");
             }
             catch (Exception)
             {
@@ -130,7 +134,7 @@ namespace BussinessLogicLayer.BL
                             {
                                 ppc.Retraso += (tiempoViaje - tiempoEstimado);
                             }
-                            //BLEmail.actualizacionEstado(new BLPaquete().getPaquete(ppc.IdPaquete));
+                            BLEmail.actualizacionEstado(new BLPaquete().getPaquete(ppc.IdPaquete));
                             return _dalPPC.addPaquetePuntoControl(ppc);
                         }
                         else if(t.ListaPuntosControl.Max(x => x.Orden) == ppcList.Max(y => t.ListaPuntosControl.First(z => z.Id == y.IdPuntoControl).Orden) + 1)
@@ -428,6 +432,23 @@ namespace BussinessLogicLayer.BL
                     return "El paquete se encuentra en viaje actualmente, para mas detalles: " + Direcciones.Web + "paquete/details/" + p.Id;
                 }
                 return "El paquete ya fue entregado, para mas detalles: " + Direcciones.Web + "paquete/details/" + p.Id;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool tieneEnvio(int id)
+        {
+            try
+            {
+                BLAgencia blA = new BLAgencia();
+                if (blA.getAgencia(id).EnvioDomicilio == true)
+                {
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {

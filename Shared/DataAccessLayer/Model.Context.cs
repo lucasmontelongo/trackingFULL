@@ -33,6 +33,6 @@ namespace DataAccessLayer
         public virtual DbSet<PuntoControl> PuntoControl { get; set; }
         public virtual DbSet<Trayecto> Trayecto { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<Domicilio> Domicilio { get; set; }
+        public virtual DbSet<Domicilio5> Domicilio5 { get; set; }
     }
 }

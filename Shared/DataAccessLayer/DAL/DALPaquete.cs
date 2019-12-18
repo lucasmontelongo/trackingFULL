@@ -67,8 +67,8 @@ namespace DataAccessLayer.DAL
                     Paquete ag = en.Paquete.Add(_conv.entidadAModelo(a));
                     en.SaveChanges();
                     SPaquete p = _conv.modeloAEntidad(ag);
-                    en.Domicilio.Add(new Domicilio() { idPaquete = (int)p.Id, envio = false });
-                    en.SaveChanges();
+                    //en.Domicilio5.Add(new Domicilio5() { idPaquete = (int)p.Id, envio = false });
+                    //en.SaveChanges();
                     return p;
                 }
                 catch (Exception e)
@@ -90,7 +90,7 @@ namespace DataAccessLayer.DAL
                     en.SaveChanges();
                     return _conv.modeloAEntidad(ag);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
                     throw;
@@ -172,7 +172,7 @@ namespace DataAccessLayer.DAL
             {
                 try
                 {
-                    Domicilio dom = en.Domicilio.Find(d.IdPaquete);
+                    Domicilio5 dom = en.Domicilio5.Find(d.IdPaquete);
                     if (dom != null)
                     {
                         dom.envio = d.Envio;

@@ -90,11 +90,11 @@ namespace BussinessLogicLayer.BL
                     tiempoEstimado = tiempoEstimado.AddSeconds(item.Tiempo);
                     if (item.Id == ppcActual.IdPuntoControl)
                     {
-                        paquetePuntoControl += "<li>" + item.Nombre + " | Tu paquete se encuentra aquí actualmente</li>";
+                        paquetePuntoControl += "||" + item.Nombre + " / Tu paquete se encuentra aquí actualmente || - ";
                     }
                     else
                     {
-                        paquetePuntoControl += "<li>" + item.Nombre + "</li>";
+                        paquetePuntoControl += item.Nombre + " - ";
                     }
                 }
                 request.AddParameter("application/json", "{\"sender\":{\"email\":\"tuxlukz@gmail.com\"},\"to\":[{\"email\":\"" + dp.Destinatario.Email + "\"}],\"replyTo\":{\"email\":\"tuxlukz@gmail.com\"},\"templateId\":2,\"params\":{\"remitenteNombre\":\"" + dp.Remitente.NombreCompleto + "\",\"remitenteEmail\":\"" + dp.Remitente.Email + "\",\"remitenteTelefono\":\"" + dp.Remitente.Telefono + "\",\"codigoEntrega\":\"" + paquete.CodigoConfirmacion + "\",\"puntoControlPaquete\":\"" + paquetePuntoControl + "\",\"fechaEntregaEstimada\":\"" + tiempoEstimado.ToString() + "\"}}", ParameterType.RequestBody);
@@ -134,11 +134,11 @@ namespace BussinessLogicLayer.BL
                     }
                     if (item.Id == ppcActual.IdPuntoControl)
                     {
-                        paquetePuntoControl += "<li>" + item.Nombre + " | Tu paquete se encuentra aquí actualmente</li>";
+                        paquetePuntoControl += "||" + item.Nombre + " / Tu paquete se encuentra aquí actualmente || - ";
                     }
                     else
                     {
-                        paquetePuntoControl += "<li>" + item.Nombre + "</li>";
+                        paquetePuntoControl += item.Nombre + " - ";
                     }
                 }
                 request.AddParameter("application/json", "{\"sender\":{\"email\":\"tuxlukz@gmail.com\"},\"to\":[{\"email\":\"" + dp.Destinatario.Email + "\"}],\"replyTo\":{\"email\":\"tuxlukz@gmail.com\"},\"templateId\":3,\"params\":{\"remitenteNombre\":\"" + dp.Remitente.NombreCompleto + "\",\"remitenteEmail\":\"" + dp.Remitente.Email + "\",\"remitenteTelefono\":\"" + dp.Remitente.Telefono + "\",\"codigoEntrega\":\"" + paquete.CodigoConfirmacion + "\",\"puntoControlPaquete\":\"" + paquetePuntoControl + "\",\"fechaEntregaEstimada\":\"" + tiempoEstimado.ToString() + "\"}}", ParameterType.RequestBody);

@@ -38,7 +38,6 @@ namespace WEBLayer2.Models
 
         [Required(ErrorMessage = "El campo es necesario")]
         [MaxLength(50, ErrorMessage = "No se puede ingresar más de 50 caracteres")]
-        [MinLength(5, ErrorMessage = "Debe ingresar al meno 5 caracteres")]
         [Display(Name = "Tipo de Documento")]
         public string TipoDocumento { get; set; }
 

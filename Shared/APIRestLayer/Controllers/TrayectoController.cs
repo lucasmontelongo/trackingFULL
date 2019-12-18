@@ -1,5 +1,6 @@
 ﻿using BussinessLogicLayer.BL;
 using Shared.Entities;
+using Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -37,7 +38,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -51,7 +52,7 @@ namespace APIRestLayer.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -61,11 +62,15 @@ namespace APIRestLayer.Controllers
             try
             {
                 BLTrayecto bl = new BLTrayecto();
-                return Ok(bl.updateTrayecto(a));
+                if (!bl.paquetesEnTransito((int)a.Id))
+                {
+                    return Ok(bl.updateTrayecto(a));
+                }
+                throw new ECompartida("Hay paquetes en transito en este trayecto actualmente");
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -75,11 +80,15 @@ namespace APIRestLayer.Controllers
             try
             {
                 BLTrayecto bl = new BLTrayecto();
-                return Ok(bl.deleteTrayecto(id));
+                if (!bl.paquetesEnTransito(id))
+                {
+                    return Ok(bl.deleteTrayecto(id));
+                }
+                throw new ECompartida("Hay paquetes en transito en este trayecto actualmente");
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.InternalServerError, e.ToString());
+                return Content(HttpStatusCode.InternalServerError, e.Message);
             }
 
         }
@@ -107,7 +116,12 @@ namespace APIRestLayer.Controllers
             try
             {
                 BLPuntoControl bl = new BLPuntoControl();
-                return Ok(bl.addPuntoControl(pc));
+                BLTrayecto blT = new BLTrayecto();
+                if (!blT.paquetesEnTransito((int)pc.IdTrayecto))
+                {
+                    return Ok(bl.addPuntoControl(pc));
+                }
+                throw new ECompartida("Hay paquetes en transito en este trayecto actualmente");
             }
             catch (Exception e)
             {
@@ -139,7 +153,12 @@ namespace APIRestLayer.Controllers
             try
             {
                 BLPuntoControl bl = new BLPuntoControl();
-                return Ok(bl.updatePuntoControl(pc));
+                BLTrayecto blT = new BLTrayecto();
+                if (!blT.paquetesEnTransito((int)pc.IdTrayecto))
+                {
+                    return Ok(bl.updatePuntoControl(pc));
+                }
+                throw new ECompartida("Hay paquetes en transito en este trayecto actualmente");
             }
             catch (Exception e)
             {
@@ -155,7 +174,13 @@ namespace APIRestLayer.Controllers
             try
             {
                 BLPuntoControl bl = new BLPuntoControl();
-                return Ok(bl.deletePuntoControl(id));
+                BLTrayecto blT = new BLTrayecto();
+                if (!blT.paquetesEnTransito(id))
+                {
+                    return Ok(bl.deletePuntoControl(id));
+                }
+                throw new ECompartida("Hay paquetes en transito en este trayecto actualmente");
+                
             }
             catch (Exception e)
             {

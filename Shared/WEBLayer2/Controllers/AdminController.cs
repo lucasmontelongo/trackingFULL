@@ -1,13 +1,32 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using Rotativa;
 using Shared.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WEBLayer2.Models;
+using Gma.QrCodeNet.Encoding;
+using Gma.QrCodeNet.Encoding.Windows.Render;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Newtonsoft.Json;
+using QRCoder;
+using Shared.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using Shared.Exceptions;
 
 namespace WEBLayer2.Controllers
 {
@@ -83,15 +102,79 @@ namespace WEBLayer2.Controllers
             }
         }
 
+        private System.Drawing.Image GenerateQRCode(string content, int size)
+        {
+            QrEncoder encoder = new QrEncoder(ErrorCorrectionLevel.Q);
+            QrCode qrCode;
+            encoder.TryEncode(content, out qrCode);
+
+            GraphicsRenderer gRenderer = new GraphicsRenderer(new FixedModuleSize(4, QuietZoneModules.Two), System.Drawing.Brushes.Black, System.Drawing.Brushes.White);
+
+            MemoryStream ms = new MemoryStream();
+            gRenderer.WriteToStream(qrCode.Matrix, ImageFormat.Bmp, ms);
+
+            var imageTemp = new Bitmap(ms);
+
+            var image = new Bitmap(imageTemp, new System.Drawing.Size(new System.Drawing.Point(size, size)));
+
+            return (System.Drawing.Image)image;
+        }
+
         [Route("imprimirpdf")]
         public ActionResult imprimirpdf(int id)
         {
             try
             {
-                return new ActionAsPdf("EtiquetaPDF", new { Id = id , r = Request.Cookies["Token"].Value})
+                var client = new RestClient(Direcciones.ApiRest + "paquete/detalle");
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                request.AddQueryParameter("id", id.ToString());
+                IRestResponse response = client.Execute(request);
+                if (response.StatusCode.ToString() == "OK")
                 {
-                    FileName = "Etiqueta.pdf"
-                };
+                    PaqueteDTO paq = JsonConvert.DeserializeObject<Models.PaqueteDTO>(response.Content);
+                    int idOrigen = 0, idDestino = 0;
+                    paq.Trayecto.ListaPuntosControl.ForEach(x =>
+                    {
+                        if (x.Orden == 1)
+                        {
+                            idOrigen = (int)x.IdAgencia;
+                        }
+                        if(x.Orden == (paq.Trayecto.ListaPuntosControl.Count - 1))
+                        {
+                            idDestino = (int)x.IdAgencia;
+                        }
+                    });
+                    client = new RestClient(Direcciones.ApiRest + "agencia");
+                    request = new RestRequest(Method.GET);
+                    request.AddHeader("content-type", "application/json");
+                    request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                    request.AddQueryParameter("id", idOrigen.ToString());
+                    response = client.Execute(request);
+                    if (response.StatusCode.ToString() == "OK")
+                    {
+                        Agencia origen = JsonConvert.DeserializeObject<Agencia>(response.Content);
+                        client = new RestClient(Direcciones.ApiRest + "agencia");
+                        request = new RestRequest(Method.GET);
+                        request.AddHeader("content-type", "application/json");
+                        request.AddHeader("Authorization", "Bearer " + Request.Cookies["Token"].Value);
+                        request.AddQueryParameter("id", idDestino.ToString());
+                        response = client.Execute(request);
+                        if (response.StatusCode.ToString() == "OK")
+                        {
+                            Agencia destino = JsonConvert.DeserializeObject<Agencia>(response.Content);
+                            PDF pdf = new PDF();
+                            System.Drawing.Image imagen = GenerateQRCode(id.ToString(), 160);
+                            iTextSharp.text.Image imagenQR = iTextSharp.text.Image.GetInstance(imagen, System.Drawing.Imaging.ImageFormat.Png);
+                            byte[] res = pdf.PrepararReport(paq, imagenQR, origen, destino, id);
+                            return File(res, "application/pdf");
+                        }
+                        throw new ECompartida(response.Content);
+                    }
+                    throw new ECompartida(response.Content);
+                }
+                throw new ECompartida(response.Content);
             }
             catch (Exception e)
             {

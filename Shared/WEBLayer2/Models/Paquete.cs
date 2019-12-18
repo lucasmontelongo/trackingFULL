@@ -12,13 +12,14 @@ namespace WEBLayer2.Models
 
         public string Codigo { get; set; }
 
-        [MaxLength(5, ErrorMessage = "No se puede ingresar más de 5 caracteres")]
+        [MinLength(6, ErrorMessage = "Tienen que ser 6 caracteres")]
+        [MaxLength(6, ErrorMessage = "Tienen que ser 6 caracteres")]
         public string CodigoConfirmacion { get; set; }
 
 
         [Required(ErrorMessage = "El campo es necesario")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         [Display(Name = "Fecha de ingreso")]
         public DateTime FechaIngreso { get; set; }
 

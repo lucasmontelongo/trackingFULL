@@ -28,13 +28,17 @@
           <Property Name="tipoDocumento" Type="varchar" MaxLength="50" />
           <Property Name="borrado" Type="bit" />
         </EntityType>
-        <EntityType Name="Domicilio">
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'trackingFULL.dbo.Domicilio2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'trackingFULL.dbo.Domicilio5' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Domicilio5">
           <Key>
             <PropertyRef Name="idPaquete" />
           </Key>
           <Property Name="idPaquete" Type="int" Nullable="false" />
-          <Property Name="hora" Type="datetime" />
           <Property Name="envio" Type="bit" />
+          <Property Name="hora" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -214,13 +218,19 @@
         <EntityContainer Name="trackingFULLModelStoreContainer">
           <EntitySet Name="Agencia" EntityType="Self.Agencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Domicilio" EntityType="Self.Domicilio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paquete" EntityType="Self.Paquete" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaquetePuntoControl" EntityType="Self.PaquetePuntoControl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PuntoControl" EntityType="Self.PuntoControl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trayecto" EntityType="Self.Trayecto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Domicilio5" EntityType="Self.Domicilio5" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Domicilio5].[idPaquete] AS [idPaquete], 
+    [Domicilio5].[envio] AS [envio], 
+    [Domicilio5].[hora] AS [hora]
+    FROM [dbo].[Domicilio5] AS [Domicilio5]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Agencia_Empresa" Association="Self.FK_Agencia_Empresa">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Agencia" EntitySet="Agencia" />
@@ -523,15 +533,15 @@
             <End Role="Trayecto" EntitySet="Trayecto" />
             <End Role="PuntoControl" EntitySet="PuntoControl" />
           </AssociationSet>
-          <EntitySet Name="Domicilio" EntityType="trackingFULLModel.Domicilio" />
+          <EntitySet Name="Domicilio5" EntityType="trackingFULLModel.Domicilio5" />
         </EntityContainer>
-        <EntityType Name="Domicilio">
+        <EntityType Name="Domicilio5">
           <Key>
             <PropertyRef Name="idPaquete" />
           </Key>
           <Property Name="idPaquete" Type="Int32" Nullable="false" />
           <Property Name="envio" Type="Boolean" />
-          <Property Name="hora" Type="DateTime" Precision="3" />
+          <Property Name="hora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -637,9 +647,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Domicilio">
-            <EntityTypeMapping TypeName="trackingFULLModel.Domicilio">
-              <MappingFragment StoreEntitySet="Domicilio">
+          <EntitySetMapping Name="Domicilio5">
+            <EntityTypeMapping TypeName="trackingFULLModel.Domicilio5">
+              <MappingFragment StoreEntitySet="Domicilio5">
                 <ScalarProperty Name="hora" ColumnName="hora" />
                 <ScalarProperty Name="envio" ColumnName="envio" />
                 <ScalarProperty Name="idPaquete" ColumnName="idPaquete" />
