@@ -1,1 +1,7 @@
-# trackingFULL
+# Taller de .net - trackingFULL 
+---
+
+Integrantes:
+ - SEBASTIÁN DIAZ (SEBADIAZ95@HOTMAIL.COM) 
+ - MAURO PISTÓN (PECAALTA@GMAIL.COM)  
+ - LUCAS MONTELONGO (LUCASMONTELONGO@OUTLOOK.COM) 
