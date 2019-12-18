@@ -22,7 +22,7 @@
         <AssociationConnector Association="trackingFULLModel.FK_PaquetePuntoControl_PuntoControl2" ManuallyRouted="false" />
         <AssociationConnector Association="trackingFULLModel.FK_PaquetePuntoControl_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="trackingFULLModel.FK_PuntoControl_Trayecto" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="trackingFULLModel.Domicilio" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="trackingFULLModel.Domicilio5" Width="1.5" PointX="7.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

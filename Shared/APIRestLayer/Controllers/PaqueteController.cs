@@ -221,7 +221,7 @@ namespace APIRestLayer.Controllers
         [Authorize]
         [HttpGet]
         [Route("updateenviodomicilio")]
-        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio, DateTime Hora)
+        public IHttpActionResult updateEnvioDomicilio(string IdPaquete, bool Envio, String Hora)
         {
             try
             {

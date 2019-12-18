@@ -12,10 +12,10 @@ namespace DataAccessLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Domicilio
+    public partial class Domicilio5
     {
         public int idPaquete { get; set; }
         public Nullable<bool> envio { get; set; }
-        public Nullable<System.DateTime> hora { get; set; }
+        public string hora { get; set; }
     }
 }

@@ -59,27 +59,39 @@ namespace TrackinFull2
             }
         }
 
-        public static Boolean changeStatePack(string uri , string IdPaquete, string IdEmpleado, string sTocken, string scode)
+        public static response changeStatePack(string uri , string IdPaquete, string IdEmpleado, string sTocken, string scode)
         {
             try
             {
-                var client = new RestClient("http://trackingfullapi2019.azurewebsites.net/api" + uri);
-                var request = new RestRequest(Method.POST);
-                request.AddHeader("content-type", "application/json");
-                request.AddHeader("Authorization", sTocken);
-                string param = "\"IdPaquete\":\"" + IdPaquete + "\",\"IdEmpleado\":\"" + IdEmpleado + "\"";
-                if (scode != null)
+                RestClient client = null;
+                RestRequest request = null;
+                if (scode != "")
                 {
-                    param += ",\"codigo\":\"" + scode + "\"";
+                    request = new RestRequest(Method.GET);
+                    client = new RestClient("http://trackingfullapi2019.azurewebsites.net/" + uri + "?codigo=" + scode + "&IdPaquete=" + IdPaquete + "");
+                } else
+                {
+                    request = new RestRequest(Method.POST);
+                    client = new RestClient("http://trackingfullapi2019.azurewebsites.net/" + uri);
+                    request.AddParameter("application/json", "{\"Id\":\"" + IdPaquete + "\"}", ParameterType.RequestBody);
                 }
-                request.AddParameter("application/json", "{" + param + "}", ParameterType.RequestBody);
 
+                request.AddHeader("content-type", "application/json");
+                request.AddHeader("Authorization", "Bearer " + sTocken);
                 IRestResponse res = client.Execute(request);
-                return (res.StatusCode.ToString() == "OK");
+                return new response()
+                {
+                    body = res.Content,
+                    status = res.StatusCode.ToString() == "OK"
+                };
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
+                return new response()
+                {
+                    body = e.Message,
+                    status = true
+                }; ;
             }
         }
 

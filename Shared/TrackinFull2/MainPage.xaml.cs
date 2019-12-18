@@ -179,28 +179,33 @@ namespace TrackinFull2
                     if (CrossVibrate.IsSupported && CrossVibrate.Current.CanVibrate) CrossVibrate.Current.Vibration(new TimeSpan(0, 0, 0, 15));
                     string uri = "";
                     if (option == "back") uri = "api/paquete/retroceder";
-                    else if (option == "next" || option == "end") uri = "api/paquete/avanzar";
+                    else if (option == "next") uri = "api/paquete/avanzar";
                     else  uri = "api/paquete/entregacliente";
-                    if (!ApiReset.changeStatePack(uri, result.Text, oUser.Id.ToString(), oUser.Token, code))
+
+                    //DisplayAlert("Error", ApiReset.changeStatePack(uri, result.Text, oUser.Id.ToString(), oUser.Token, code), "OK");
+                    response res = ApiReset.changeStatePack(uri, result.Text, oUser.Id.ToString(), oUser.Token, code);
+                    if (!res.status)
                     {
                         Page("home");
+                        DisplayAlert("Error", res.body, "OK");
                         Loader(false);
-                        DisplayAlert("Error", result.Text, "OK");
-                    } else
+                    } 
+                    else
                     {
-                        Page("exito");
+                        Page("home");
+                        DisplayAlert("Listo!", "El paquete abanzo corectamente", "OK");
                         Loader(false);
                     }
                 });
-            };
+                };
 
-            await Navigation.PushAsync(scannerPage);
-        }
+                await Navigation.PushAsync(scannerPage);
+            }
 
-        /**
-         * param name="page" value 'login' | 'home' | 'code' | 'exito'
-         */
-        private void Page(string page)
+            /**
+                * param name="page" value 'login' | 'home' | 'code' | 'exito'
+                */
+                    private void Page(string page)
         {
 
 //            textpassword.FadeTo(1, 1000, Easing.SpringOut);

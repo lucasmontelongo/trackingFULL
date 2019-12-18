@@ -370,25 +370,25 @@ namespace DataAccessLayer.DAL
 
         //ENVIO A DOMICILIO
 
-        public SDomicilio modeloAEntidad(Domicilio e)
+        public SDomicilio modeloAEntidad(Domicilio5 e)
         {
             if (e == null) return null;
             SDomicilio empresa = new SDomicilio()
             {
                 IdPaquete = e.idPaquete,
                 Envio = (bool)e.envio,
-                Hora = (DateTime)e.hora
+                Hora = e.hora
             };
             return empresa;
         }
 
-        public Domicilio entidadAModelo(SDomicilio e)
+        public Domicilio5 entidadAModelo(SDomicilio e)
         {
-            Domicilio empresa = new Domicilio()
+            Domicilio5 empresa = new Domicilio5()
             {
                 idPaquete = e.IdPaquete,
                 envio = e.Envio,
-                hora = (DateTime)e.Hora
+                hora = e.Hora
             };
             return empresa;
         }

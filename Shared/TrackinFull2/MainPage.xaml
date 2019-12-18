@@ -66,14 +66,14 @@
                            BackgroundColor="#2196F3" 
                            TextColor="#ffffff" 
                            BorderColor="#1976D2" 
-                           Text="Devolucion " 
+                           Text="Atras " 
                            Clicked="Back" 
                            IsVisible="False" />
                     <Button x:Name="btnNext"
                            BackgroundColor="#2196F3" 
                            TextColor="#ffffff" 
                            BorderColor="#1976D2" 
-                           Text="Entrega" 
+                           Text="Adelante" 
                            Clicked="Next" 
                            IsVisible="False" />
                     <Button x:Name="btnEnd"

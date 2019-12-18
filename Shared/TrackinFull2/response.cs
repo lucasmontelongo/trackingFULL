@@ -7,7 +7,7 @@ namespace TrackinFull2
     public class response
     {
         public Boolean status { get; set; }
-        public Object body { get; set; }
+        public string body { get; set; }
 
     }
 }

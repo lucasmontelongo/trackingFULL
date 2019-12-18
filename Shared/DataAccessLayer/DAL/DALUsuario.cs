@@ -65,7 +65,7 @@ namespace DataAccessLayer.DAL
                 {
                     Usuario usuario = _conv.entidadAModelo(u);
                     usuario.codigoConfirmacion = Randoms.RandomString(100);
-                    usuario.emailValido = false;
+                    usuario.emailValido = true;
                     en.Usuario.Add(usuario);
                     en.SaveChanges();
                     return _conv.modeloAEntidad(usuario);
